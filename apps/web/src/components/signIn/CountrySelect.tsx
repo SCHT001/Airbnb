@@ -24,6 +24,10 @@ const frameworks = [
 		label: "Next.js",
 	},
 	{
+		value: "next.js",
+		label: "Next.js",
+	},
+	{
 		value: "sveltekit",
 		label: "SvelteKit",
 	},
