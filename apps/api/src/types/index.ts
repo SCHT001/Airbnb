@@ -5,3 +5,17 @@ export type User = {
 	password?: string;
 	phone?: string;
 };
+
+export type T_Listings = {
+	id: string;
+	title: string;
+	description: string;
+	host_id: string;
+	price: number;
+	location: string;
+	type: string;
+	capacity: number;
+	bedrooms: number;
+	bathrooms: number;
+	images: string;
+};

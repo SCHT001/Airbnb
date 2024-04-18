@@ -14,13 +14,12 @@ datasource db {
 }
 
 model user {
-  id       String    @id @default(cuid())
+  id       String  @id @default(cuid())
   name     String
-  email    String?   @unique
+  email    String? @unique
   password String?
   token    token[]
-  listing  listing[]
-  phone    String?   @unique
+  phone    String? @unique
 }
 
 model token {
@@ -30,7 +29,7 @@ model token {
 }
 
 model listing {
-  id          String @id
+  id          String @id @default(cuid())
   title       String
   description String
   host_id     String
@@ -40,6 +39,5 @@ model listing {
   capacity    Int
   bedrooms    Int
   bathrooms   Int
-  images      Int
-  host        user   @relation(fields: [host_id], references: [id])
+  images      String
 }
