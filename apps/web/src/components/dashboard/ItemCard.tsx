@@ -1,11 +1,11 @@
 import { Star } from "lucide-react";
 import { Card } from "../ui/card";
 import CardCarousel from "./CardCarousel";
-import { items } from "./sampleItems";
+import { sampleItems } from "./sampleItems";
 const ItemCard = () => {
 	return (
 		<Card className="px-32 border-none grid grid-cols-6 gap-10">
-			{items.map((item, index) => {
+			{sampleItems.map((item, index) => {
 				return (
 					<div key={index} className="text-sm">
 						{/* Images carousel for each item */}

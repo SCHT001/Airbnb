@@ -1,4 +1,4 @@
-export const items = [
+export const sampleItems = [
 	{
 		images: [
 			{
@@ -9,6 +9,15 @@ export const items = [
 			},
 			{
 				src: "https://picsum.photos/503",
+			},
+			{
+				src: "https://picsum.photos/504",
+			},
+			{
+				src: "https://picsum.photos/505",
+			},
+			{
+				src: "https://picsum.photos/506",
 			},
 		],
 		name: "Location 1",
