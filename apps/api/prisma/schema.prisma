@@ -40,4 +40,5 @@ model listing {
   bedrooms    Int
   bathrooms   Int
   images      String
+  rating      Float
 }
