@@ -14,7 +14,7 @@ import { Form, FormField } from "../ui/form";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
-import CountrySelect from "./CountrySelect";
+import { CountrySelect } from "./CountrySelect";
 
 const SignInDialogContent = () => {
 	const signWithGoogle = async () => {
@@ -54,7 +54,7 @@ const SignInDialogContent = () => {
 						<FormField
 							name="countryCode"
 							render={({ field }) => {
-								return <CountrySelect field={field}></CountrySelect>;
+								return <CountrySelect></CountrySelect>;
 							}}
 						></FormField>
 						<FormField
