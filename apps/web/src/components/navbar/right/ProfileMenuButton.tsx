@@ -1,5 +1,6 @@
 "use client";
 import SignInDialog from "@/components/signIn/SignInDialog";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import {
 	DropdownMenu,
@@ -8,7 +9,6 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { Menu } from "lucide-react";
 import Link from "next/link";
 
@@ -35,7 +35,6 @@ const ProfileMenuButton = () => {
 					className="mt-2 z-50 border-none bg-transparent shadow-none"
 				>
 					<Card className="w-56 shadow-lg flex flex-col">
-						{/* Dialog box */}
 						<SignInDialog></SignInDialog>
 
 						<Separator orientation="horizontal"></Separator>
