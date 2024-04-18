@@ -13,16 +13,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user{
-  id        String      @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String?
-  token     token[] 
+model user {
+  id       String  @id @default(cuid())
+  name     String
+  email    String? @unique
+  password String?
+  token    token[]
+  phone    String? @unique
 }
 
-model token{
-  userId    String      @id 
-  token     String   @unique
-  user      user      @relation(fields: [userId], references: [id], onDelete: Cascade) 
+model token {
+  userId String @id
+  token  String @unique
+  user   user   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

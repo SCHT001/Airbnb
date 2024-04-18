@@ -1,13 +1,15 @@
 import { Router } from "express";
-import { addUser, signIn } from "./controller";
+import { signIn, signInWithPhone } from "./controller";
 
 const router: Router = Router();
-router.post("/signIn", (req, res) => {
+router.post("/signIn/email", (req, res) => {
 	return signIn(req, res);
 });
 
-router.post("/addUser", (req, res) => {
-	return addUser(req, res);
+router.post("/signIn/provider", (req, res) => {});
+
+router.post("/signIn/phone", (req, res) => {
+	return signInWithPhone(req, res);
 });
 
 export default router;
