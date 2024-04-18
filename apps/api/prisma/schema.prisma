@@ -14,16 +14,32 @@ datasource db {
 }
 
 model user {
-  id       String  @id @default(cuid())
+  id       String    @id @default(cuid())
   name     String
-  email    String? @unique
+  email    String?   @unique
   password String?
   token    token[]
-  phone    String? @unique
+  listing  listing[]
+  phone    String?   @unique
 }
 
 model token {
   userId String @id
   token  String @unique
   user   user   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model listing {
+  id          String @id
+  title       String
+  description String
+  host_id     String
+  price       Int
+  location    String
+  type        String
+  capacity    Int
+  bedrooms    Int
+  bathrooms   Int
+  images      Int
+  host        user   @relation(fields: [host_id], references: [id])
 }

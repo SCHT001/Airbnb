@@ -11,7 +11,7 @@ const Room = () => {
 	return (
 		<div className="px-96 pt-5 flex justify-between flex-col">
 			{/* Room title */}
-			<div>
+			<div className="flex justify-between">
 				<h1 className="text-2xl font-semibold"> Room title</h1>
 				{/* share and save buttons */}
 

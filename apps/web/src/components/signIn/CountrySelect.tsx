@@ -45,7 +45,7 @@ const frameworks = [
 	},
 ];
 
-export function CountrySelect() {
+const CountrySelect = () => {
 	const [open, setOpen] = React.useState(false);
 	const [value, setValue] = React.useState("");
 
@@ -72,11 +72,11 @@ export function CountrySelect() {
 						{frameworks.map((framework) => (
 							<CommandItem
 								key={framework.value}
-								value={framework.value}
-								onSelect={(currentValue) => {
-									setValue(currentValue === value ? "" : currentValue);
-									setOpen(false);
-								}}
+								// value={framework.value}
+								// onSelect={(currentValue) => {
+								// 	setValue(currentValue === value ? "" : currentValue);
+								// 	setOpen(false);
+								// }}
 							>
 								<Check
 									className={cn(
@@ -92,4 +92,6 @@ export function CountrySelect() {
 			</PopoverContent>
 		</Popover>
 	);
-}
+};
+
+export default CountrySelect;
