@@ -5,11 +5,13 @@ const SignInDialog = () => {
 	return (
 		<Dialog>
 			<DialogTrigger className="z-100">
-				<div className="pl-5 items-center hover:bg-slate-100 font-semibold w-full h-10  text-start flex justify-start">
-					Sign up
-				</div>
-				<div className="pl-5 items-center hover:bg-slate-100 font-semibold w-full h-10  text-start flex justify-start">
-					<>Log in</>
+				<div>
+					<div className="pl-5 items-center hover:bg-slate-100 font-semibold w-full h-10  text-start flex justify-start">
+						Sign up
+					</div>
+					<div className="pl-5 items-center hover:bg-slate-100 font-semibold w-full h-10  text-start flex justify-start">
+						<>Log in</>
+					</div>
 				</div>
 			</DialogTrigger>
 

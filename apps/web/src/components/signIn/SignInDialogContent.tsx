@@ -4,12 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
-import {
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-} from "../ui/dialog";
+import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Form, FormField } from "../ui/form";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -44,7 +39,7 @@ const SignInDialogContent = () => {
 			</DialogHeader>
 
 			<Separator className="bg-slate-300"></Separator>
-			<DialogDescription className="flex gap-5 flex-col">
+			<div className="flex gap-5 flex-col">
 				<Label className="text-2xl  text-black">Welcome to Airbnb</Label>
 
 				{/* Country select and number input */}
@@ -162,7 +157,7 @@ const SignInDialogContent = () => {
 						<div className="self-center w-full">Continue with Email</div>
 					</Button>
 				</div>
-			</DialogDescription>
+			</div>
 		</DialogContent>
 	);
 };
