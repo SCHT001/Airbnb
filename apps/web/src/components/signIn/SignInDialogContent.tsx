@@ -2,6 +2,7 @@
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
@@ -11,7 +12,10 @@ import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 import CountrySelect from "./CountrySelect";
 
-const SignInDialogContent = () => {
+const SignInDialogContent: FC<{
+	setSubmitted: any;
+	setPhone: any;
+}> = ({ setSubmitted, setPhone }) => {
 	const signWithGoogle = async () => {
 		const result = await signIn("google", {
 			callbackUrl: "http://localhost:3000/",
@@ -26,8 +30,10 @@ const SignInDialogContent = () => {
 		},
 	});
 
-	const onSubmit = () => {
+	const onSubmit = (e: any) => {
 		console.log(loginForm.getValues());
+		setPhone(loginForm.getValues().phone);
+		setSubmitted(true);
 	};
 
 	return (
@@ -52,6 +58,7 @@ const SignInDialogContent = () => {
 								return <CountrySelect field={field}></CountrySelect>;
 							}}
 						></FormField>
+						{/* phone */}
 						<FormField
 							name="phone"
 							render={({ field }) => {
@@ -60,7 +67,7 @@ const SignInDialogContent = () => {
 										<Input
 											{...field}
 											placeholder="Phone number"
-											className=" rounded-t-none  text-black"
+											className=" rounded-t-none z-100 text-black"
 											type="number"
 										></Input>
 									</>
