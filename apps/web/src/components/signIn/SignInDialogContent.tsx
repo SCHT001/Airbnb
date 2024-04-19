@@ -27,7 +27,7 @@ const SignInDialogContent = () => {
 	});
 
 	const onSubmit = () => {
-		console.log(loginForm.getValues);
+		console.log(loginForm.getValues());
 	};
 
 	return (
@@ -49,7 +49,7 @@ const SignInDialogContent = () => {
 						<FormField
 							name="countryCode"
 							render={({ field }) => {
-								return <CountrySelect></CountrySelect>;
+								return <CountrySelect field={field}></CountrySelect>;
 							}}
 						></FormField>
 						<FormField

@@ -18,38 +18,18 @@ import {
 import { cn } from "@/lib/utils";
 import { CommandEmpty, CommandItem } from "cmdk";
 
-const frameworks = [
-	{
-		value: "next.js",
-		label: "Next.js",
-	},
-	{
-		value: "next.js",
-		label: "Next.js",
-	},
-	{
-		value: "sveltekit",
-		label: "SvelteKit",
-	},
-	{
-		value: "nuxt.js",
-		label: "Nuxt.js",
-	},
-	{
-		value: "remix",
-		label: "Remix",
-	},
-	{
-		value: "astro",
-		label: "Astro",
-	},
-];
-
+import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import countryCodes from "./countryCodes";
 
-const CountrySelect = () => {
+const CountrySelect: React.FC<{
+	field: ControllerRenderProps<FieldValues, "countryCode">;
+}> = ({ field }) => {
 	const [open, setOpen] = React.useState(false);
 	const [value, setValue] = React.useState("");
+
+	React.useEffect(() => {
+		field.onChange(value);
+	}, [value, field]);
 
 	return (
 		<Popover open={open} onOpenChange={setOpen}>
@@ -67,7 +47,7 @@ const CountrySelect = () => {
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-full p-0">
-				<Command className="w-full">
+				<Command {...field} className="w-full">
 					<CommandInput placeholder="Search country..." />
 					<CommandEmpty>No country found.</CommandEmpty>
 					<CommandGroup className="w-full">
