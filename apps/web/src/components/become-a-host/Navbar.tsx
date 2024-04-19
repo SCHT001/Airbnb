@@ -2,7 +2,7 @@ import { Button } from "../ui/button";
 
 const Navbar = () => {
 	return (
-		<div className="flex gap-5 justify-end mt-5 px-32">
+		<div className="flex gap-5 justify-end mt-5">
 			<Button variant={"outline"} className="font-medium border-slate-300">
 				Questions?
 			</Button>
