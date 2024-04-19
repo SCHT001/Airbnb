@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { FC } from "react";
+import { Button } from "../ui/button";
 import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { Label } from "../ui/label";
@@ -15,7 +17,11 @@ const OTPConfirm: FC<{
 
 			<Separator></Separator>
 
-			<Label className="text-md">Enter the code we have sent to {phone}</Label>
+			<Label className="text-md font-normal">
+				Enter the code we have sent to{" "}
+				<span className="font-semibold">{phone}</span>
+			</Label>
+
 			<InputOTP maxLength={6} className="w-full">
 				<InputOTPGroup>
 					<InputOTPSlot
@@ -44,6 +50,15 @@ const OTPConfirm: FC<{
 					></InputOTPSlot>
 				</InputOTPGroup>
 			</InputOTP>
+
+			<Separator></Separator>
+
+			<div className="flex justify-between items-center">
+				<Link href={"/"} className="text-sm underline">
+					More options
+				</Link>
+				<Button>Verify</Button>
+			</div>
 		</DialogContent>
 	);
 };
