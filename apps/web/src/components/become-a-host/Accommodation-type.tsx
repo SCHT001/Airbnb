@@ -26,14 +26,11 @@ const accommodations = [
 const AccommodationType: FC<{
 	setAccommodation: any;
 }> = ({ setAccommodation }) => {
-	const { register, handleSubmit, watch } = useForm({
+	const { register, handleSubmit, watch, getValues } = useForm({
 		defaultValues: {
 			accommodation: "",
 		},
 	});
-
-	// Watch for changes to the "accommodation" field
-	const selectedAccommodation = watch("accommodation");
 
 	return (
 		<div className="flex justify-center">
@@ -44,7 +41,7 @@ const AccommodationType: FC<{
 				<CardContent>
 					<form
 						onSubmit={handleSubmit(() => {
-							setAccommodation(selectedAccommodation);
+							setAccommodation(getValues("accommodation"));
 						})}
 					>
 						<div className="grid grid-cols-2 gap-4">
