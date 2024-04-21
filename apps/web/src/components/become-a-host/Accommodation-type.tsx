@@ -4,23 +4,22 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const accommodations = [
-	"house",
-	"apartment",
-	"barn",
-	"bed and breakfast",
-	"boat",
-	"cabin",
-	"camper",
-	"castle",
-	"cave",
-	"container",
-	"cycladic home",
-	"dammuso",
-	"dome",
-	"earthhome",
-	"farm",
-	"hotel",
-	"guesthouse",
+	"House",
+	"Apartment",
+	"Barn",
+	"Boat",
+	"Cabin",
+	"Camper",
+	"Castle",
+	"Cave",
+	"Container",
+	"Cycladic Home",
+	"Dammuso",
+	"Dome",
+	"Earthhome",
+	"Farm",
+	"Hotel",
+	"Guesthouse",
 ];
 
 const AccommodationType: FC<{
@@ -46,16 +45,24 @@ const AccommodationType: FC<{
 					>
 						<div className="grid grid-cols-2 gap-4">
 							{accommodations.map((accommodation) => (
-								<div key={accommodation} className="flex items-center">
+								<div
+									key={accommodation}
+									className="flex items-center relative "
+								>
 									<input
 										{...register("accommodation")}
 										type="radio"
 										name="accommodation"
 										id={accommodation}
-										className="mr-2"
+										className="mr-2 cursor-pointer"
 										value={accommodation}
 									/>
-									<label htmlFor={accommodation}>{accommodation}</label>
+									<label
+										className="radio-labels cursor-pointer absolute top-[50%] left-[40%] transform translate-x-[-50%] translate-y-[-50%]"
+										htmlFor={accommodation}
+									>
+										{accommodation}
+									</label>
 								</div>
 							))}
 						</div>

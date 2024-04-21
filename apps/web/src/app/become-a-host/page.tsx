@@ -2,6 +2,7 @@
 import AccommodationType from "@/components/become-a-host/Accommodation-type";
 import Footer from "@/components/become-a-host/Footer";
 import Navbar from "@/components/become-a-host/Navbar";
+import PlaceType from "@/components/become-a-host/Type-of-place";
 import { useEffect, useState } from "react";
 
 const page = () => {
@@ -20,6 +21,7 @@ const page = () => {
 					setAccommodation={setAccommodation}
 				></AccommodationType>
 			)}
+			{step === 2 && <PlaceType></PlaceType>}
 
 			<Footer step={step} setStep={setStep}></Footer>
 		</div>

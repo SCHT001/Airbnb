@@ -57,3 +57,14 @@
 		@apply bg-background text-foreground;
 	}
 }
+
+input[type="radio"] {
+	appearance: none;
+	border: 2px solid rgb(204, 204, 204);
+	padding: 50px 100px;
+	border-radius: 20px;
+}
+
+input[type="radio"]:checked {
+	border: black 2px solid;
+}
