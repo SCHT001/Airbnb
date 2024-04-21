@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const accommodations = [
@@ -54,19 +53,15 @@ const AccommodationType: FC<{
 										type="radio"
 										name="accommodation"
 										id={accommodation}
-										className="mr-2 cursor-pointer"
+										className="mr-2 "
 										value={accommodation}
 									/>
-									<label
-										className="radio-labels cursor-pointer absolute top-[50%] left-[40%] transform translate-x-[-50%] translate-y-[-50%]"
-										htmlFor={accommodation}
-									>
+									<label className="radio-labels " htmlFor={accommodation}>
 										{accommodation}
 									</label>
 								</div>
 							))}
 						</div>
-						<Button type="submit">Click</Button>
 					</form>
 				</CardContent>
 			</Card>

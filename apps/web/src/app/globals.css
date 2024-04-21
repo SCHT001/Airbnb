@@ -63,8 +63,17 @@ input[type="radio"] {
 	border: 2px solid rgb(204, 204, 204);
 	padding: 50px 100px;
 	border-radius: 20px;
+	cursor: pointer;
 }
 
 input[type="radio"]:checked {
 	border: black 2px solid;
+}
+
+.radio-labels {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	transform: translate(-50%, -50%);
 }

@@ -16,13 +16,14 @@ const page = () => {
 	return (
 		<div className="flex flex-col justify-between h-[85vh] px-32">
 			<Navbar></Navbar>
-			{step === 1 && (
-				<AccommodationType
-					setAccommodation={setAccommodation}
-				></AccommodationType>
-			)}
-			{step === 2 && <PlaceType></PlaceType>}
-
+			<div className="pb-28">
+				{step === 1 && (
+					<AccommodationType
+						setAccommodation={setAccommodation}
+					></AccommodationType>
+				)}
+				{step === 2 && <PlaceType></PlaceType>}
+			</div>
 			<Footer step={step} setStep={setStep}></Footer>
 		</div>
 	);
