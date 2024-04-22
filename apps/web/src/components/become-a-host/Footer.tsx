@@ -18,12 +18,7 @@ const Footer: FC<{
 				>
 					Back
 				</Button>
-				<Button
-					className="px-10 py-7"
-					onClick={() => {
-						if (step > 0) setStep(step + 1);
-					}}
-				>
+				<Button type="submit" className="px-10 py-7">
 					Next
 				</Button>
 			</div>
