@@ -38,12 +38,9 @@ const page = () => {
 
 	useEffect(() => {
 		console.log(availabilities);
-	}, [availabilities]);
-
-	useEffect(() => {
-		console.log("accommodation", accommodation);
-	}),
-		[accommodation];
+		console.log(accommodation);
+		console.log(placeType);
+	}, [availabilities, accommodation, placeType]);
 
 	const onSubmit = () => {
 		if (step === 1) {
