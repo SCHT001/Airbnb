@@ -10,6 +10,7 @@ const Footer: FC<{
 			<br />
 			<div className="flex items-center justify-between">
 				<Button
+					type="button"
 					variant={"outline"}
 					className="font-xl px-10 py-7 border-slate-300"
 					onClick={() => {

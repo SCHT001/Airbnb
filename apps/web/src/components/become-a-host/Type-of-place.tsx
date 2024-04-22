@@ -1,6 +1,10 @@
+import { FC } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
-const PlaceType = () => {
+const PlaceType: FC<{
+	setPlaceType: any;
+	field: any;
+}> = ({ field, setPlaceType }) => {
 	return (
 		<div className="flex items-center justify-center">
 			<Card className="border-none shadow-none">
@@ -11,6 +15,7 @@ const PlaceType = () => {
 					<div className="flex flex-col gap-3">
 						<div className="flex items-center pl-20   relative">
 							<input
+								{...field}
 								type="radio"
 								id="entire-place"
 								name="place-type"
@@ -25,6 +30,7 @@ const PlaceType = () => {
 						</div>
 						<div className="flex items-center pl-20  relative">
 							<input
+								{...field}
 								type="radio"
 								id="private-room"
 								name="place-type"
@@ -39,6 +45,7 @@ const PlaceType = () => {
 						</div>
 						<div className="flex items-center pl-20 relative">
 							<input
+								{...field}
 								type="radio"
 								id="shared-room"
 								name="place-type"
