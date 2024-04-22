@@ -1,5 +1,6 @@
 "use client";
 import AccommodationType from "@/components/become-a-host/Accommodation-type";
+import BasicAvailability from "@/components/become-a-host/BasicAvailability";
 import Footer from "@/components/become-a-host/Footer";
 import Navbar from "@/components/become-a-host/Navbar";
 import PlaceType from "@/components/become-a-host/Type-of-place";
@@ -29,11 +30,12 @@ const page = () => {
 
 		if (step === 2) {
 			setPlaceType(becomeHostForm.getValues("placeType"));
+			return setStep(step + 1);
 		}
 	};
 
 	return (
-		<div className="flex flex-col justify-between h-[85vh] px-32">
+		<div className="flex flex-col gap-10 h-[85vh] px-32">
 			<Navbar></Navbar>
 			<Form {...becomeHostForm}>
 				<form onSubmit={becomeHostForm.handleSubmit(onSubmit)}>
@@ -64,6 +66,17 @@ const page = () => {
 											field={field}
 										></PlaceType>
 									);
+								}}
+							></FormField>
+						)}
+
+						{/*  step 3 for basic availability*/}
+
+						{step == 3 && (
+							<FormField
+								name="availabilities"
+								render={({ field }) => {
+									return <BasicAvailability field={field}></BasicAvailability>;
 								}}
 							></FormField>
 						)}
