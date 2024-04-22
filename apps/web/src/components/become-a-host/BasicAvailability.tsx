@@ -1,17 +1,22 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Separator } from "../ui/separator";
 import LabelWithCounter from "./LebelWithCount";
 
 const BasicAvailability: FC<{
-	field: any;
-	register: any;
-	unregister: any;
-}> = ({ field, register, unregister }) => {
+	form: any;
+}> = ({ form }) => {
 	const [guests, setGuests] = useState(0);
 	const [bedrooms, setBedrooms] = useState(0);
 	const [beds, setBeds] = useState(0);
 	const [bathrooms, setBathrooms] = useState(0);
+
+	useEffect(() => {
+		form.setValue("availabilities.guests", guests);
+		form.setValue("availabilities.bedrooms", bedrooms);
+		form.setValue("availabilities.beds", beds);
+		form.setValue("availabilities.bathrooms", bathrooms);
+	}, [guests, bedrooms, beds, bathrooms]);
 
 	return (
 		<div className="flex  justify-center ">

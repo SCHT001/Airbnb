@@ -13,6 +13,7 @@ const LabelWithCounter: FC<{
 			<Label className="text-2xl">{label}</Label>
 			<div className="flex items-center text-xl gap-5">
 				<Button
+					type="button"
 					onClick={() => {
 						setCount(count - 1);
 						setvalue(count - 1);
@@ -27,6 +28,7 @@ const LabelWithCounter: FC<{
 				<div>{count}</div>
 
 				<Button
+					type="button"
 					variant={"outline"}
 					onClick={() => {
 						setCount(count + 1);

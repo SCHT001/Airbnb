@@ -3,6 +3,7 @@ import AccommodationType from "@/components/become-a-host/Accommodation-type";
 import BasicAvailability from "@/components/become-a-host/BasicAvailability";
 import Footer from "@/components/become-a-host/Footer";
 import Navbar from "@/components/become-a-host/Navbar";
+import PhotoUpload from "@/components/become-a-host/PhotoUpload";
 import PlaceType from "@/components/become-a-host/Type-of-place";
 import { Form, FormField } from "@/components/ui/form";
 import { useEffect, useState } from "react";
@@ -36,6 +37,10 @@ const page = () => {
 	});
 
 	useEffect(() => {
+		console.log(availabilities);
+	}, [availabilities]);
+
+	useEffect(() => {
 		console.log("accommodation", accommodation);
 	}),
 		[accommodation];
@@ -52,6 +57,8 @@ const page = () => {
 		}
 
 		if (step === 3) {
+			setAvailabilities(becomeHostForm.getValues("availabilities"));
+			return setStep(step + 1);
 		}
 	};
 
@@ -99,11 +106,19 @@ const page = () => {
 								render={({ field }) => {
 									return (
 										<BasicAvailability
-											field={field}
-											register={becomeHostForm.register}
-											unregister={becomeHostForm.unregister}
+											form={becomeHostForm}
 										></BasicAvailability>
 									);
+								}}
+							></FormField>
+						)}
+
+						{/* step 4 for photo upload */}
+						{step == 4 && (
+							<FormField
+								name="photos"
+								render={({ field }) => {
+									return <PhotoUpload field={field}></PhotoUpload>;
 								}}
 							></FormField>
 						)}
