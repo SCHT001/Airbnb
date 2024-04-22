@@ -5,7 +5,9 @@ import LabelWithCounter from "./LebelWithCount";
 
 const BasicAvailability: FC<{
 	field: any;
-}> = ({ field }) => {
+	register: any;
+	unregister: any;
+}> = ({ field, register, unregister }) => {
 	const [guests, setGuests] = useState(0);
 	const [bedrooms, setBedrooms] = useState(0);
 	const [beds, setBeds] = useState(0);

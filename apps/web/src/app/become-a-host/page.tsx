@@ -5,7 +5,7 @@ import Footer from "@/components/become-a-host/Footer";
 import Navbar from "@/components/become-a-host/Navbar";
 import PlaceType from "@/components/become-a-host/Type-of-place";
 import { Form, FormField } from "@/components/ui/form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
@@ -15,12 +15,30 @@ const page = () => {
 
 	const [placeType, setPlaceType] = useState("");
 
+	const [availabilities, setAvailabilities] = useState({
+		guests: 0,
+		bedrooms: 0,
+		beds: 0,
+		bathrooms: 0,
+	});
+
 	const becomeHostForm = useForm({
 		defaultValues: {
 			accommodation: "",
 			placeType: "",
+			availabilities: {
+				guests: 0,
+				bedrooms: 0,
+				beds: 0,
+				bathrooms: 0,
+			},
 		},
 	});
+
+	useEffect(() => {
+		console.log("accommodation", accommodation);
+	}),
+		[accommodation];
 
 	const onSubmit = () => {
 		if (step === 1) {
@@ -31,6 +49,9 @@ const page = () => {
 		if (step === 2) {
 			setPlaceType(becomeHostForm.getValues("placeType"));
 			return setStep(step + 1);
+		}
+
+		if (step === 3) {
 		}
 	};
 
@@ -76,7 +97,13 @@ const page = () => {
 							<FormField
 								name="availabilities"
 								render={({ field }) => {
-									return <BasicAvailability field={field}></BasicAvailability>;
+									return (
+										<BasicAvailability
+											field={field}
+											register={becomeHostForm.register}
+											unregister={becomeHostForm.unregister}
+										></BasicAvailability>
+									);
 								}}
 							></FormField>
 						)}
