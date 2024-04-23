@@ -41,6 +41,7 @@ const page = () => {
 			photos: [""],
 			title: "",
 			description: "",
+			price: 0,
 		},
 	});
 
@@ -79,12 +80,20 @@ const page = () => {
 		}
 		if (step === 5) {
 			const data = {
+				host_id: "5",
 				accommodation: becomeHostForm.getValues("accommodation"),
-				placeType: becomeHostForm.getValues("placeType"),
-				availabilities: becomeHostForm.getValues("availabilities"),
+				place_type: becomeHostForm.getValues("placeType"),
 				photos: becomeHostForm.getValues("photos"),
+				capacity: becomeHostForm.getValues("availabilities.guests"),
+				bedrooms: becomeHostForm.getValues("availabilities.bedrooms"),
+				bathrooms: becomeHostForm.getValues("availabilities.bathrooms"),
+				beds: becomeHostForm.getValues("availabilities.beds"),
+				title: becomeHostForm.getValues("title"),
+				description: becomeHostForm.getValues("description"),
+				price: becomeHostForm.getValues("price"),
+				location: "kathmandu",
 			};
-			// becomeHostMutation.mutate(data);
+			becomeHostMutation.mutate(data);
 			console.log(becomeHostForm.getValues());
 		}
 	};
@@ -151,6 +160,7 @@ const page = () => {
 										</CardTitle>
 									</CardHeader>
 									<CardContent className="flex flex-col gap-5">
+										{/* field for title */}
 										<FormField
 											name="title"
 											render={({ field }) => {
@@ -169,6 +179,8 @@ const page = () => {
 												);
 											}}
 										></FormField>
+
+										{/* field for description */}
 										<FormField
 											name="description"
 											render={({ field }) => {
@@ -180,6 +192,23 @@ const page = () => {
 															className="w-full h-48 border border-gray-300 rounded-md p-4"
 															placeholder="Tell guests about your place. You can include details about the space, amenities, and neighborhood."
 														></textarea>
+													</div>
+												);
+											}}
+										></FormField>
+
+										{/* field for price */}
+
+										<FormField
+											name="price"
+											render={({ field }) => {
+												return (
+													<div>
+														<Label>Price</Label>
+														<Input
+															type="number"
+															placeholder="Price per night"
+														></Input>
 													</div>
 												);
 											}}
