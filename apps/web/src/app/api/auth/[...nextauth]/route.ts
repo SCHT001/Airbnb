@@ -12,8 +12,15 @@ const handler = NextAuth({
 					type: "number",
 					placeholder: "Enter your phone number",
 				},
+				countryCode: {
+					label: "country code",
+					type: "number",
+					placeholder: "Enter country code",
+				},
 			},
+
 			async authorize(credentials, req) {
+				console.log("here");
 				const res = await user.post("/auth/phone", credentials);
 				return res.data;
 			},

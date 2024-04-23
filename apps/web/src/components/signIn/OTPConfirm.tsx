@@ -1,14 +1,33 @@
+import { user } from "@/lib/axios";
 import Link from "next/link";
 import { FC } from "react";
+import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Form, FormField } from "../ui/form";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "../ui/input-otp";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 
 const OTPConfirm: FC<{
 	phone: number;
-}> = ({ phone }) => {
+	countryCode: number;
+}> = ({ phone, countryCode }) => {
+	// OTP form INIT
+	const otpForm = useForm({
+		defaultValues: {
+			otp: "",
+		},
+	});
+
+	const otpSubmit = async (data: any) => {
+		// Submit OTP
+		user.post("/auth/phone/", {
+			phone: phone,
+			countryCode: countryCode,
+		});
+		console.log(otpForm.getValues());
+	};
 	return (
 		<DialogContent>
 			<DialogHeader>
@@ -21,44 +40,54 @@ const OTPConfirm: FC<{
 				Enter the code we have sent to{" "}
 				<span className="font-semibold">{phone}</span>
 			</Label>
+			<Form {...otpForm}>
+				<form onSubmit={otpForm.handleSubmit(otpSubmit)}>
+					<FormField
+						name="otp"
+						render={({ field }) => {
+							return (
+								<InputOTP maxLength={6} className="w-full" {...field}>
+									<InputOTPGroup>
+										<InputOTPSlot
+											index={0}
+											className="border-slate-300 border"
+										></InputOTPSlot>
+										<InputOTPSlot
+											index={1}
+											className="border-slate-300 border"
+										></InputOTPSlot>
+										<InputOTPSlot
+											index={2}
+											className="border-slate-300 border"
+										></InputOTPSlot>
+										<InputOTPSlot
+											index={3}
+											className="border-slate-300 border"
+										></InputOTPSlot>
+										<InputOTPSlot
+											index={4}
+											className="border-slate-300 border"
+										></InputOTPSlot>
+										<InputOTPSlot
+											index={5}
+											className="border-slate-300 border"
+										></InputOTPSlot>
+									</InputOTPGroup>
+								</InputOTP>
+							);
+						}}
+					></FormField>
 
-			<InputOTP maxLength={6} className="w-full">
-				<InputOTPGroup>
-					<InputOTPSlot
-						index={0}
-						className="border-slate-300 border"
-					></InputOTPSlot>
-					<InputOTPSlot
-						index={1}
-						className="border-slate-300 border"
-					></InputOTPSlot>
-					<InputOTPSlot
-						index={2}
-						className="border-slate-300 border"
-					></InputOTPSlot>
-					<InputOTPSlot
-						index={3}
-						className="border-slate-300 border"
-					></InputOTPSlot>
-					<InputOTPSlot
-						index={4}
-						className="border-slate-300 border"
-					></InputOTPSlot>
-					<InputOTPSlot
-						index={5}
-						className="border-slate-300 border"
-					></InputOTPSlot>
-				</InputOTPGroup>
-			</InputOTP>
+					<Separator></Separator>
 
-			<Separator></Separator>
-
-			<div className="flex justify-between items-center">
-				<Link href={"/"} className="text-sm underline">
-					More options
-				</Link>
-				<Button>Verify</Button>
-			</div>
+					<div className="flex justify-between items-center">
+						<Link href={"/"} className="text-sm underline">
+							More options
+						</Link>
+						<Button type="submit">Verify</Button>
+					</div>
+				</form>
+			</Form>
 		</DialogContent>
 	);
 };

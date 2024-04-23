@@ -43,13 +43,12 @@ const page = () => {
 
 	const queryClient = useQueryClient();
 
+	const submitMutation = async (data: any) => {
+		const response = await host.post("/listings", data);
+	};
+
 	const becomeHostMutation = useMutation({
-		mutationFn: async (data) => {
-			return host.post("/become-a-host", data);
-		},
-		onError: (error) => {
-			console.error(error);
-		},
+		mutationFn: submitMutation,
 		onSuccess: () => {
 			console.log("success");
 		},
