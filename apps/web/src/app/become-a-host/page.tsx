@@ -6,7 +6,7 @@ import Navbar from "@/components/become-a-host/Navbar";
 import PhotoUpload from "@/components/become-a-host/PhotoUpload";
 import PlaceType from "@/components/become-a-host/Type-of-place";
 import { Form, FormField } from "@/components/ui/form";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const page = () => {
@@ -36,12 +36,6 @@ const page = () => {
 		},
 	});
 
-	useEffect(() => {
-		console.log(availabilities);
-		console.log(accommodation);
-		console.log(placeType);
-	}, [availabilities, accommodation, placeType]);
-
 	const onSubmit = () => {
 		if (step === 1) {
 			setAccommodation(becomeHostForm.getValues("accommodation"));
@@ -56,6 +50,8 @@ const page = () => {
 		if (step === 3) {
 			setAvailabilities(becomeHostForm.getValues("availabilities"));
 			return setStep(step + 1);
+		}
+		if (step === 4) {
 		}
 	};
 

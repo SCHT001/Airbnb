@@ -21,6 +21,7 @@ const PhotoUpload: FC<{
 				</CardHeader>
 				<CardContent className="relative">
 					<Input
+						{...field}
 						type="file"
 						multiple
 						id="photosInput"
