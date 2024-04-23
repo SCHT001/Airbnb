@@ -41,6 +41,5 @@ model listing {
   bedrooms      Int
   bathrooms     Int
   beds          Int
-  guests        Int
   rating        Float?
 }

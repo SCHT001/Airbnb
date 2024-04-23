@@ -83,7 +83,6 @@ const page = () => {
 				host_id: "5",
 				accommodation: becomeHostForm.getValues("accommodation"),
 				place_type: becomeHostForm.getValues("placeType"),
-				photos: becomeHostForm.getValues("photos"),
 				capacity: becomeHostForm.getValues("availabilities.guests"),
 				bedrooms: becomeHostForm.getValues("availabilities.bedrooms"),
 				bathrooms: becomeHostForm.getValues("availabilities.bathrooms"),
