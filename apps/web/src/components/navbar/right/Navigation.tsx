@@ -5,7 +5,7 @@ import ProfileMenuButton from "./ProfileMenuButton";
 const Navigation = () => {
 	return (
 		<div className="flex items-center gap-5">
-			<Link href={"/"} className="font-medium">
+			<Link href={"/become-a-host"} className="font-medium">
 				Airbnb your home
 			</Link>
 

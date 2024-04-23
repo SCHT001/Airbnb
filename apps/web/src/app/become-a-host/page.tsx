@@ -4,10 +4,12 @@ import BasicAvailability from "@/components/become-a-host/BasicAvailability";
 import Footer from "@/components/become-a-host/Footer";
 import Navbar from "@/components/become-a-host/Navbar";
 import PhotoUpload from "@/components/become-a-host/PhotoUpload";
-import TitleAndDes from "@/components/become-a-host/Title-and-des";
 import PlaceType from "@/components/become-a-host/Type-of-place";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormField } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { host } from "@/lib/axios";
+import { Label } from "@radix-ui/react-label";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -37,6 +39,8 @@ const page = () => {
 				bathrooms: 0,
 			},
 			photos: [""],
+			title: "",
+			description: "",
 		},
 	});
 
@@ -75,12 +79,13 @@ const page = () => {
 		}
 		if (step === 5) {
 			const data = {
-				accommodation: accommodation,
-				placeType: placeType,
-				availabilities: availabilities,
+				accommodation: becomeHostForm.getValues("accommodation"),
+				placeType: becomeHostForm.getValues("placeType"),
+				availabilities: becomeHostForm.getValues("availabilities"),
 				photos: becomeHostForm.getValues("photos"),
 			};
-			becomeHostMutation.mutate(data);
+			// becomeHostMutation.mutate(data);
+			console.log(becomeHostForm.getValues());
 		}
 	};
 
@@ -138,12 +143,50 @@ const page = () => {
 						{/* step 4 for place description */}
 
 						{step == 4 && (
-							<FormField
-								name="description"
-								render={({ field }) => {
-									return <TitleAndDes field={field}></TitleAndDes>;
-								}}
-							></FormField>
+							<div className="flex justify-center">
+								<Card className="border-none shadow-none">
+									<CardHeader>
+										<CardTitle className="text-3xl">
+											Describe your place to potential guests
+										</CardTitle>
+									</CardHeader>
+									<CardContent className="flex flex-col gap-5">
+										<FormField
+											name="title"
+											render={({ field }) => {
+												return (
+													<div className="flex justify-center">
+														<div className="w-full">
+															<Label>Title</Label>
+															<Input
+																{...field}
+																placeholder="Title of your place"
+																type="text"
+																className="w-full"
+															></Input>
+														</div>
+													</div>
+												);
+											}}
+										></FormField>
+										<FormField
+											name="description"
+											render={({ field }) => {
+												return (
+													<div>
+														<Label>Description</Label>
+														<textarea
+															{...field}
+															className="w-full h-48 border border-gray-300 rounded-md p-4"
+															placeholder="Tell guests about your place. You can include details about the space, amenities, and neighborhood."
+														></textarea>
+													</div>
+												);
+											}}
+										></FormField>
+									</CardContent>
+								</Card>
+							</div>
 						)}
 
 						{/* step 5 for photo upload */}

@@ -15,7 +15,11 @@ const TitleAndDes: FC<{
 				<CardContent className="flex flex-col gap-5">
 					<div>
 						<Label>Title</Label>
-						<Input placeholder="Title of your place" type="text"></Input>
+						<Input
+							{...field}
+							placeholder="Title of your place"
+							type="text"
+						></Input>
 					</div>
 
 					<div>
