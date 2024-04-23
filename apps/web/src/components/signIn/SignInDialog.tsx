@@ -1,15 +1,35 @@
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Dialog, DialogTrigger } from "../ui/dialog";
+import { Form } from "../ui/form";
 import OTPConfirm from "./OTPConfirm";
 import SignInDialogContent from "./SignInDialogContent";
+import UserName from "./UserName";
 
 const SignInDialog = () => {
 	const [submitted, setSubmitted] = useState(false);
-	const [phone, setPhone] = useState<number>(0);
+	const [steps, setSteps] = useState(1);
+
+	const [phone, setPhone] = useState(0);
+	const [countryCode, setCountryCode] = useState(0);
+	const [name, setName] = useState("");
 
 	useEffect(() => {
 		setSubmitted(false);
 	}, []);
+
+	const loginForm = useForm({
+		defaultValues: {
+			country: "",
+			phone: "",
+			name: "",
+		},
+	});
+
+	const onSubmit = () => {
+		console.log(phone);
+		console.log(countryCode);
+	};
 
 	return (
 		<Dialog
@@ -27,15 +47,26 @@ const SignInDialog = () => {
 					</div>
 				</div>
 			</DialogTrigger>
-
-			{!submitted ? (
-				<SignInDialogContent
-					setSubmitted={setSubmitted}
-					setPhone={setPhone}
-				></SignInDialogContent>
-			) : (
-				<OTPConfirm phone={phone}></OTPConfirm>
-			)}
+			<Form {...loginForm}>
+				<form onSubmit={loginForm.handleSubmit(onSubmit)}>
+					{steps === 1 && (
+						<SignInDialogContent
+							setPhone={setPhone}
+							setCountryCode={setCountryCode}
+							steps={steps}
+							setSteps={setSteps}
+						></SignInDialogContent>
+					)}
+					{steps === 2 && (
+						<OTPConfirm
+							setSteps={setSteps}
+							phone={phone}
+							countryCode={countryCode}
+						></OTPConfirm>
+					)}
+					{steps === 3 && <UserName></UserName>}
+				</form>
+			</Form>
 		</Dialog>
 	);
 };

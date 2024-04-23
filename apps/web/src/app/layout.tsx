@@ -21,7 +21,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<QueryProvider>
-				<body className={`${inter.className} `}>
+				<body className={`${inter.className}`}>
 					<Header></Header>
 					{children}
 				</body>

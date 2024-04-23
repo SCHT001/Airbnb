@@ -1,4 +1,3 @@
-import { user } from "@/lib/axios";
 import Link from "next/link";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -12,8 +11,10 @@ import { Separator } from "../ui/separator";
 const OTPConfirm: FC<{
 	phone: number;
 	countryCode: number;
-}> = ({ phone, countryCode }) => {
+	setSteps: any;
+}> = ({ phone, countryCode, setSteps }) => {
 	// OTP form INIT
+
 	const otpForm = useForm({
 		defaultValues: {
 			otp: "",
@@ -22,12 +23,9 @@ const OTPConfirm: FC<{
 
 	const otpSubmit = async (data: any) => {
 		// Submit OTP
-		user.post("/auth/phone/", {
-			phone: phone,
-			countryCode: countryCode,
-		});
-		console.log(otpForm.getValues());
+		setSteps(3);
 	};
+
 	return (
 		<DialogContent>
 			<DialogHeader>
@@ -38,7 +36,9 @@ const OTPConfirm: FC<{
 
 			<Label className="text-md font-normal">
 				Enter the code we have sent to{" "}
-				<span className="font-semibold">{phone}</span>
+				<span className="font-semibold">
+					{countryCode} {phone}
+				</span>
 			</Label>
 			<Form {...otpForm}>
 				<form onSubmit={otpForm.handleSubmit(otpSubmit)}>

@@ -30,6 +30,7 @@ export const addUser = async (req: Request, res: Response) => {
 			error: {},
 		};
 	} catch (e) {
+		console.log(e);
 		return {
 			data: {},
 			error: {
