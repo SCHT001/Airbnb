@@ -1,3 +1,4 @@
+import { user } from "@/lib/axios";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
@@ -12,15 +13,21 @@ const UserName: FC<{
 	phone: number;
 	countryCode: number;
 	name: string;
-}> = ({ setName, countryCode, phone }) => {
+}> = ({ setName, countryCode, phone, name }) => {
 	const nameForm = useForm({
 		defaultValues: {
 			name: "",
 		},
 	});
 
-	const onSubmit = () => {
+	const onSubmit = async () => {
 		setName(nameForm.getValues("name"));
+		const response = await user.post("/auth/signIn/phone", {
+			name: name,
+			phone: phone,
+			countryCode: countryCode,
+		});
+		console.log(response);
 	};
 
 	return (
@@ -49,7 +56,7 @@ const UserName: FC<{
 								}}
 							></FormField>
 						</div>
-						<Button type="submit">Continue</Button>
+						<Button onClick={onSubmit}>Continue</Button>
 					</DialogContent>
 				</form>
 			</Form>
