@@ -6,6 +6,8 @@ import Navbar from "@/components/become-a-host/Navbar";
 import PhotoUpload from "@/components/become-a-host/PhotoUpload";
 import PlaceType from "@/components/become-a-host/Type-of-place";
 import { Form, FormField } from "@/components/ui/form";
+import { host } from "@/lib/axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -33,6 +35,23 @@ const page = () => {
 				beds: 0,
 				bathrooms: 0,
 			},
+			photos: [""],
+		},
+	});
+
+	// Queries
+
+	const queryClient = useQueryClient();
+
+	const becomeHostMutation = useMutation({
+		mutationFn: async (data) => {
+			return host.post("/become-a-host", data);
+		},
+		onError: (error) => {
+			console.error(error);
+		},
+		onSuccess: () => {
+			console.log("success");
 		},
 	});
 
@@ -52,6 +71,13 @@ const page = () => {
 			return setStep(step + 1);
 		}
 		if (step === 4) {
+			const data = {
+				accommodation: accommodation,
+				placeType: placeType,
+				availabilities: availabilities,
+				photos: becomeHostForm.getValues("photos"),
+			};
+			becomeHostMutation.mutate(data);
 		}
 	};
 

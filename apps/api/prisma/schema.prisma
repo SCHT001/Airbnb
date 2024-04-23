@@ -39,6 +39,7 @@ model listing {
   capacity    Int
   bedrooms    Int
   bathrooms   Int
-  images      String
-  rating      Float
+  beds        Int
+  guests      Int
+  rating      Float?
 }

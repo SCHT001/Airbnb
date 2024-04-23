@@ -1,9 +1,9 @@
 import Header from "@/components/navbar/Header";
+import QueryProvider from "@/providers/QueryClientProvider";
 import { QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import QueryProvider from "./providers/QueryClientProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const queryClient = new QueryClient();
