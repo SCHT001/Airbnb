@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Dialog, DialogTrigger } from "../ui/dialog";
-import { Form } from "../ui/form";
 import OTPConfirm from "./OTPConfirm";
 import SignInDialogContent from "./SignInDialogContent";
 import UserName from "./UserName";
@@ -47,26 +46,29 @@ const SignInDialog = () => {
 					</div>
 				</div>
 			</DialogTrigger>
-			<Form {...loginForm}>
-				<form onSubmit={loginForm.handleSubmit(onSubmit)}>
-					{steps === 1 && (
-						<SignInDialogContent
-							setPhone={setPhone}
-							setCountryCode={setCountryCode}
-							steps={steps}
-							setSteps={setSteps}
-						></SignInDialogContent>
-					)}
-					{steps === 2 && (
-						<OTPConfirm
-							setSteps={setSteps}
-							phone={phone}
-							countryCode={countryCode}
-						></OTPConfirm>
-					)}
-					{steps === 3 && <UserName></UserName>}
-				</form>
-			</Form>
+			{steps === 1 && (
+				<SignInDialogContent
+					setPhone={setPhone}
+					setCountryCode={setCountryCode}
+					steps={steps}
+					setSteps={setSteps}
+				></SignInDialogContent>
+			)}
+			{steps === 2 && (
+				<OTPConfirm
+					setSteps={setSteps}
+					phone={phone}
+					countryCode={countryCode}
+				></OTPConfirm>
+			)}
+			{steps === 3 && (
+				<UserName
+					setName={setName}
+					countryCode={countryCode}
+					phone={phone}
+					name={name}
+				></UserName>
+			)}
 		</Dialog>
 	);
 };
