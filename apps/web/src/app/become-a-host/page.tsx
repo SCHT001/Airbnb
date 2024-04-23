@@ -4,6 +4,7 @@ import BasicAvailability from "@/components/become-a-host/BasicAvailability";
 import Footer from "@/components/become-a-host/Footer";
 import Navbar from "@/components/become-a-host/Navbar";
 import PhotoUpload from "@/components/become-a-host/PhotoUpload";
+import TitleAndDes from "@/components/become-a-host/Title-and-des";
 import PlaceType from "@/components/become-a-host/Type-of-place";
 import { Form, FormField } from "@/components/ui/form";
 import { host } from "@/lib/axios";
@@ -70,6 +71,9 @@ const page = () => {
 			return setStep(step + 1);
 		}
 		if (step === 4) {
+			return setStep(step + 1);
+		}
+		if (step === 5) {
 			const data = {
 				accommodation: accommodation,
 				placeType: placeType,
@@ -131,8 +135,19 @@ const page = () => {
 							></FormField>
 						)}
 
-						{/* step 4 for photo upload */}
+						{/* step 4 for place description */}
+
 						{step == 4 && (
+							<FormField
+								name="description"
+								render={({ field }) => {
+									return <TitleAndDes field={field}></TitleAndDes>;
+								}}
+							></FormField>
+						)}
+
+						{/* step 5 for photo upload */}
+						{step == 5 && (
 							<FormField
 								name="photos"
 								render={({ field }) => {
