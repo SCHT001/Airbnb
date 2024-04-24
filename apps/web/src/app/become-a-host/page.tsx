@@ -11,10 +11,14 @@ import { Input } from "@/components/ui/input";
 import { host, hostImage } from "@/lib/axios";
 import { Label } from "@radix-ui/react-label";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 const page = () => {
+	const router = useRouter();
+
 	const [step, setStep] = useState(1);
 
 	const [accommodation, setAccommodation] = useState("");
@@ -68,7 +72,10 @@ const page = () => {
 	const photosMutation = useMutation({
 		mutationFn: submitPhotosMutation,
 		onSuccess: () => {
-			console.log("success");
+			toast.success("Listing created successfully");
+			setTimeout(() => {
+				router.push("/");
+			}, 2000);
 		},
 	});
 
@@ -192,6 +199,7 @@ const page = () => {
 														<div className="w-full">
 															<Label>Title</Label>
 															<Input
+																required
 																{...field}
 																placeholder="Title of your place"
 																type="text"
@@ -211,6 +219,7 @@ const page = () => {
 													<div>
 														<Label>Description</Label>
 														<textarea
+															required
 															{...field}
 															className="w-full h-48 border border-gray-300 rounded-md p-4"
 															placeholder="Tell guests about your place. You can include details about the space, amenities, and neighborhood."
@@ -229,6 +238,8 @@ const page = () => {
 													<div>
 														<Label>Price</Label>
 														<Input
+															required
+															{...field}
 															type="number"
 															placeholder="Price per night"
 														></Input>
