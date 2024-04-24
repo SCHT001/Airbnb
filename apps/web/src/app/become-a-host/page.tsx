@@ -60,6 +60,12 @@ const page = () => {
 		},
 	});
 
+	// formdata for photo upload
+	const formData = new FormData();
+	for (let i = 0; i < 5; i++) {
+		formData.append("image", becomeHostForm.getValues("photos")[i]);
+	}
+
 	const onSubmit = () => {
 		if (step === 1) {
 			setAccommodation(becomeHostForm.getValues("accommodation"));
@@ -76,10 +82,12 @@ const page = () => {
 			return setStep(step + 1);
 		}
 		if (step === 4) {
-			console.log(becomeHostForm.getValues("photos"));
+			// console.log(becomeHostForm.getValues("photos"));
 			return setStep(step + 1);
 		}
 		if (step === 5) {
+			// console.log(becomeHostForm.getValues("photos"));
+
 			const data = {
 				host_id: "5",
 				accommodation: becomeHostForm.getValues("accommodation"),
@@ -94,7 +102,7 @@ const page = () => {
 				location: "kathmandu",
 			};
 			becomeHostMutation.mutate(data);
-			console.log(becomeHostForm.getValues());
+			// console.log(becomeHostForm.getValues());
 		}
 	};
 

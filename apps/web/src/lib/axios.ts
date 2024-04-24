@@ -12,3 +12,10 @@ export const user = axios.create({
 		"Content-Type": "application/json",
 	},
 });
+
+export const hostImage = axios.create({
+	baseURL: "http://localhost:5505/api",
+	headers: {
+		"Content-Type": "multipart/form-data",
+	},
+});
