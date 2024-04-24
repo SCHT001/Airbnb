@@ -38,7 +38,7 @@ const page = () => {
 				beds: 0,
 				bathrooms: 0,
 			},
-			photos: [""],
+			photos: [],
 			title: "",
 			description: "",
 			price: 0,
@@ -76,6 +76,7 @@ const page = () => {
 			return setStep(step + 1);
 		}
 		if (step === 4) {
+			console.log(becomeHostForm.getValues("photos"));
 			return setStep(step + 1);
 		}
 		if (step === 5) {
@@ -222,7 +223,7 @@ const page = () => {
 							<FormField
 								name="photos"
 								render={({ field }) => {
-									return <PhotoUpload field={field}></PhotoUpload>;
+									return <PhotoUpload form={becomeHostForm}></PhotoUpload>;
 								}}
 							></FormField>
 						)}
