@@ -1,6 +1,7 @@
 "use client";
 import { sampleItems } from "@/components/dashboard/sampleItems";
 import PhotoGrid from "@/components/room/PhotoGrid";
+import RoomDetails from "@/components/room/RoomDetails";
 import { Button } from "@/components/ui/button";
 import { Heart, Share } from "lucide-react";
 import { useParams } from "next/navigation";
@@ -29,6 +30,8 @@ const Room = () => {
 
 			{/* Room images */}
 			<PhotoGrid photos={sampleItems[0].images}></PhotoGrid>
+
+			<RoomDetails></RoomDetails>
 		</div>
 	);
 };

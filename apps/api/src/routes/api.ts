@@ -10,4 +10,5 @@ const router: Router = Router();
 router.use("/auth", auth);
 
 router.use("/listings", upload.single("avatar"), listings);
+
 export default router;

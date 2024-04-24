@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import Link from "next/link";
 import { Card } from "../ui/card";
 import CardCarousel from "./CardCarousel";
 import { sampleItems } from "./sampleItems";
@@ -7,7 +8,11 @@ const ItemCard = () => {
 		<Card className="px-32 border-none grid grid-cols-6 gap-10">
 			{sampleItems.map((item, index) => {
 				return (
-					<div key={index} className="text-sm">
+					<Link
+						href={`/rooms/${item.id}`}
+						key={index}
+						className="text-sm z-10 cursor-pointer "
+					>
 						{/* Images carousel for each item */}
 						<CardCarousel images={item.images} />
 
@@ -29,7 +34,7 @@ const ItemCard = () => {
 							<span className="text-black font-semibold">{item.cost}</span>
 							night
 						</div>
-					</div>
+					</Link>
 				);
 			})}
 		</Card>
