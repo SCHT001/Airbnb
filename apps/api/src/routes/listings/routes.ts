@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getListings } from "./controller";
+import { addListingPhotos, getListings } from "./controller";
 
 const router: Router = Router();
 
@@ -11,6 +11,10 @@ router.post("/", (req, res) => {
 	// console.log(req.body);
 	console.log(req.files);
 	// return addListing(req, res);
+});
+
+router.post("/photos", (req, res) => {
+	return addListingPhotos(req, res);
 });
 
 export default router;

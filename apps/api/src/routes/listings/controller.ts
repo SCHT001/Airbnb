@@ -33,3 +33,7 @@ export const addListing = async (req: Request, res: Response) => {
 		return HandleError(res, 500, err);
 	}
 };
+
+export const addListingPhotos = async (req: Request, res: Response) => {
+	console.log(req.files);
+};
