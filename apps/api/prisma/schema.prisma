@@ -19,8 +19,8 @@ model user {
   email       String? @unique
   password    String?
   token       token[]
-  phone       Int?    @unique
-  countryCode Int?
+  phone       String? @unique
+  countryCode String?
 }
 
 model token {

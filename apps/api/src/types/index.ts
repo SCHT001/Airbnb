@@ -3,8 +3,8 @@ export type User = {
 	name: string;
 	email: string;
 	password?: string;
-	phone?: number;
-	countryCode?: number;
+	phone?: string;
+	countryCode?: string;
 };
 
 export type T_Listings = {

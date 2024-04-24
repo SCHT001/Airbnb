@@ -9,10 +9,17 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
-import { Menu } from "lucide-react";
+import { getCookie, setCookie } from "cookies-next";
+import { LogOut, Menu, Settings, User } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const ProfileMenuButton = () => {
+	const router = useRouter();
+	const logOut = () => {
+		setCookie("token", "");
+		location.reload();
+	};
 	return (
 		<div className="border border-slate-300 rounded-full flex p-1 items-center justify-between pl-2 gap-3 ">
 			<DropdownMenu>
@@ -48,6 +55,39 @@ const ProfileMenuButton = () => {
 						<DropdownMenuItem className="h-10 pl-5">
 							<Link href={"/"}>Help Center</Link>
 						</DropdownMenuItem>
+
+						{/* {settings if logged in} */}
+
+						{getCookie("token") && (
+							<>
+								<Separator orientation="horizontal"></Separator>
+
+								<DropdownMenuItem className="h-10 pl-5 ">
+									<Link href={"/"} className="flex gap-2 items-center w-full">
+										<User size={15}></User>
+
+										<span>Profile</span>
+									</Link>
+								</DropdownMenuItem>
+
+								<DropdownMenuItem className="h-10 pl-5">
+									<Link href={"/"} className="flex gap-2 items-center w-full">
+										<Settings size={15}></Settings>
+										<span>Settings</span>
+									</Link>
+								</DropdownMenuItem>
+
+								<DropdownMenuItem className="h-10 pl-5 ">
+									<Link
+										href={"/"}
+										onClick={logOut}
+										className="flex gap-2 items-center w-full"
+									>
+										<LogOut size={15}></LogOut> <span>Log out</span>
+									</Link>
+								</DropdownMenuItem>
+							</>
+						)}
 					</Card>
 				</DropdownMenuContent>
 			</DropdownMenu>

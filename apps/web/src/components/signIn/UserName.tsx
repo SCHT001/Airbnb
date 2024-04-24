@@ -1,5 +1,9 @@
+"use client";
 import { user } from "@/lib/axios";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { AxiosResponse } from "axios";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
@@ -14,6 +18,7 @@ const UserName: FC<{
 	countryCode: number;
 	name: string;
 }> = ({ setName, countryCode, phone, name }) => {
+	const router = useRouter();
 	const nameForm = useForm({
 		defaultValues: {
 			name: "",
@@ -22,12 +27,15 @@ const UserName: FC<{
 
 	const onSubmit = async () => {
 		setName(nameForm.getValues("name"));
-		const response = await user.post("/auth/signIn/phone", {
+		const response: AxiosResponse = await user.post("/auth/signIn/phone", {
 			name: name,
 			phone: phone,
 			countryCode: countryCode,
 		});
-		console.log(response);
+		if (response.data) {
+			setCookie("token", response.data.data.token);
+			location.reload();
+		}
 	};
 
 	return (
