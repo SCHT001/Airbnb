@@ -6,12 +6,12 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { DialogContent, DialogHeader } from "../ui/dialog";
 import { Form, FormField } from "../ui/form";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-
 const UserName: FC<{
 	setName: any;
 	phone: number;
@@ -34,7 +34,10 @@ const UserName: FC<{
 		});
 		if (response.data) {
 			setCookie("token", response.data.data.token);
-			location.reload();
+			toast.success("Logged in");
+			setTimeout(() => {
+				location.reload();
+			}, 500);
 		}
 	};
 

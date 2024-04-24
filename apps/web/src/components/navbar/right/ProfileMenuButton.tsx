@@ -13,12 +13,16 @@ import { getCookie, setCookie } from "cookies-next";
 import { LogOut, Menu, Settings, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const ProfileMenuButton = () => {
 	const router = useRouter();
 	const logOut = () => {
 		setCookie("token", "");
-		location.reload();
+		toast.success("Logged out");
+		setTimeout(() => {
+			location.reload();
+		}, 500);
 	};
 	return (
 		<div className="border border-slate-300 rounded-full flex p-1 items-center justify-between pl-2 gap-3 ">
