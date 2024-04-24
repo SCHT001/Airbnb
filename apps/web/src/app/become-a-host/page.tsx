@@ -49,11 +49,12 @@ const page = () => {
 
 	const submitMutation = async (data: any) => {
 		const response = await host.post("/listings", data);
+		return response.data;
 	};
 
-	const submitPhotosMutation = async () => {
+	const submitPhotosMutation = async (id: string) => {
 		const formData = new FormData();
-
+		formData.append("listing_id", id);
 		setTimeout(async () => {
 			for (let i = 0; i < 5; i++) {
 				formData.append("photo", becomeHostForm.getValues("photos")[i]);
@@ -73,8 +74,8 @@ const page = () => {
 
 	const becomeHostMutation = useMutation({
 		mutationFn: submitMutation,
-		onSuccess: () => {
-			console.log("success");
+		onSuccess(data, variables, context) {
+			photosMutation.mutate(data.data.id);
 		},
 	});
 
@@ -116,7 +117,6 @@ const page = () => {
 				location: "kathmandu",
 			};
 			becomeHostMutation.mutate(data);
-			photosMutation.mutate();
 			// console.log(becomeHostForm.getValues());
 		}
 	};
