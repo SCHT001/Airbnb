@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import fs from "fs";
 import { join } from "path";
 import { HandleError } from "../../errors/errorHandler";
 import { prisma } from "../../services/prisma.service";
@@ -41,6 +42,21 @@ export const addListingPhotos = async (req: Request, res: Response) => {
 
 	photos.forEach((photo: any) => {
 		const fileName = `${listingId}_${photo.name}`;
+
+		const folderPath = join(
+			__dirname,
+			"..",
+			"..",
+			"..",
+			"uploads",
+			"listings",
+			listingId
+		);
+
+		if (!fs.existsSync(folderPath)) {
+			fs.mkdirSync(folderPath);
+		}
+
 		const filePath = join(
 			__dirname,
 			"..",
@@ -48,7 +64,7 @@ export const addListingPhotos = async (req: Request, res: Response) => {
 			"..",
 			"uploads",
 			"listings",
-
+			listingId,
 			fileName
 		);
 
