@@ -8,9 +8,9 @@ import PlaceType from "@/components/become-a-host/Type-of-place";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { host } from "@/lib/axios";
+import { host, hostImage } from "@/lib/axios";
 import { Label } from "@radix-ui/react-label";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -47,11 +47,29 @@ const page = () => {
 
 	// Queries
 
-	const queryClient = useQueryClient();
-
 	const submitMutation = async (data: any) => {
 		const response = await host.post("/listings", data);
 	};
+
+	const submitPhotosMutation = async () => {
+		const formData = new FormData();
+
+		setTimeout(async () => {
+			for (let i = 0; i < 5; i++) {
+				formData.append("photo", becomeHostForm.getValues("photos")[i]);
+			}
+			console.log(becomeHostForm.getValues("photos")[0]);
+			const response = await hostImage.post("/listings/photos", formData);
+			console.log(response);
+		}, 2000);
+	};
+
+	const photosMutation = useMutation({
+		mutationFn: submitPhotosMutation,
+		onSuccess: () => {
+			console.log("success");
+		},
+	});
 
 	const becomeHostMutation = useMutation({
 		mutationFn: submitMutation,
@@ -61,10 +79,6 @@ const page = () => {
 	});
 
 	// formdata for photo upload
-	const formData = new FormData();
-	for (let i = 0; i < 5; i++) {
-		formData.append("image", becomeHostForm.getValues("photos")[i]);
-	}
 
 	const onSubmit = () => {
 		if (step === 1) {
@@ -102,6 +116,7 @@ const page = () => {
 				location: "kathmandu",
 			};
 			becomeHostMutation.mutate(data);
+			photosMutation.mutate();
 			// console.log(becomeHostForm.getValues());
 		}
 	};

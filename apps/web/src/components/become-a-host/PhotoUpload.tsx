@@ -40,7 +40,7 @@ const PhotoUpload: FC<{
 						id="photosInput"
 						className=" h-72 z-100"
 						onChange={(e) => {
-							console.log(e.target.files);
+							// console.log(e.target.files);
 							form.setValue("photos", e.target.files!);
 						}}
 					></Input>
