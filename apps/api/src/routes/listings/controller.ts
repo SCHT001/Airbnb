@@ -1,4 +1,11 @@
 import { Request, Response } from "express";
+import { initializeApp } from "firebase/app";
+import {
+	getDownloadURL,
+	getStorage,
+	ref,
+	uploadBytesResumable,
+} from "firebase/storage";
 import fs from "fs";
 import { join } from "path";
 import firebaseConfig from "../../config/firebase.config";
@@ -7,7 +14,11 @@ import { prisma } from "../../services/prisma.service";
 
 export const getListings = async (req: Request, res: Response) => {
 	try {
-		const listings = await prisma.listing.findMany({});
+		const listings = await prisma.listing.findMany({
+			include: {
+				images: true,
+			},
+		});
 
 		res.status(200).send({
 			status: "success",
@@ -131,13 +142,6 @@ export const getPhotos = async (req: Request, res: Response) => {
 };
 
 // Firebase upload
-import { initializeApp } from "firebase/app";
-import {
-	getDownloadURL,
-	getStorage,
-	ref,
-	uploadBytesResumable,
-} from "firebase/storage";
 
 export const uploadToFirebase = async (req: Request, res: Response) => {
 	const listing_id = req.params.listing_id;

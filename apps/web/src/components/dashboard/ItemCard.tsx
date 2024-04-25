@@ -12,11 +12,9 @@ const ItemCard = () => {
 			rating: number;
 			price: number;
 			distance: number;
-			images: string[];
+			images: any[];
 		}[]
 	>([]);
-
-	const [photos, setPhotos] = useState<string[]>([]);
 
 	const [loading, setLoading] = useState(true);
 
@@ -26,9 +24,6 @@ const ItemCard = () => {
 				const { data } = await host.get("/listings");
 				setListings(data.data);
 
-				const photos = await host.get(`/listings/photos/${data.data[0].id}`);
-				console.log(photos.data);
-				setPhotos(photos.data.data);
 				setLoading(false);
 			} catch (error) {
 				console.error("Error fetching listings:", error);
@@ -49,7 +44,7 @@ const ItemCard = () => {
 							className="text-sm z-10 cursor-pointer "
 						>
 							{/* Images carousel for each item */}
-							<CardCarousel images={photos} />
+							<CardCarousel images={item.images} />
 
 							{/* Name and rating */}
 							<div className="font-semibold  pt-5 flex justify-between">
