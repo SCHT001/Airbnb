@@ -140,6 +140,7 @@ import {
 } from "firebase/storage";
 
 export const uploadToFirebase = async (req: Request, res: Response) => {
+	const listing_id = req.params.listing_id;
 	try {
 		initializeApp(firebaseConfig.firebaseConfig);
 		const storage = getStorage();
@@ -155,7 +156,12 @@ export const uploadToFirebase = async (req: Request, res: Response) => {
 
 			const downloadLink = await getDownloadURL(snapshot.ref);
 
-			console.log(downloadLink);
+			await prisma.listing_image.create({
+				data: {
+					listingId: listingId,
+					url: downloadLink,
+				},
+			});
 		});
 	} catch (err) {
 		return HandleError(res, 500, err);

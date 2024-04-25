@@ -49,6 +49,6 @@ model listing {
 model listing_image {
   id        String  @id @default(cuid())
   listingId String
-  url       String
+  url       String  @db.VarChar(255)
   listing   listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }
