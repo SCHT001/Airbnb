@@ -86,3 +86,36 @@ export const addListingPhotos = async (req: Request, res: Response) => {
 		return HandleError(res, 500, err);
 	}
 };
+
+export const getPhotos = async (req: Request, res: Response) => {
+	try {
+		const listing_id = req.params.listing_id;
+		const folderPath = join(
+			__dirname,
+			"..",
+			"..",
+			"..",
+			"uploads",
+			"listings",
+			listing_id!
+		);
+
+		if (!fs.existsSync(folderPath)) {
+			return HandleError(res, 404, "No photos found for this listing");
+		}
+		const fileNames = fs.readdirSync(folderPath);
+
+		const photos = fileNames.map((fileName) => {
+			return join(folderPath, fileName);
+		});
+
+		return res.status(200).send({
+			status: "success",
+			data: photos,
+			message: "Photos retrieved successfully",
+		});
+		console.log(photos);
+	} catch (err) {
+		return HandleError(res, 500, err);
+	}
+};

@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { addListing, addListingPhotos, getListings } from "./controller";
+import {
+	addListing,
+	addListingPhotos,
+	getListings,
+	getPhotos,
+} from "./controller";
 
 const router: Router = Router();
 
@@ -15,6 +20,10 @@ router.post("/", (req, res) => {
 
 router.post("/photos", (req, res) => {
 	return addListingPhotos(req, res);
+});
+
+router.get("/photos/:listing_id", (req, res) => {
+	return getPhotos(req, res);
 });
 
 export default router;
