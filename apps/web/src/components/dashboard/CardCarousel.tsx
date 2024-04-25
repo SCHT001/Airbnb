@@ -6,7 +6,6 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image from "next/image";
 import { FC } from "react";
 
 const sampleImages = [
@@ -22,21 +21,21 @@ const sampleImages = [
 ];
 
 const CardCarousel: FC<{
-	images: { src: string }[];
+	images?: string[];
 }> = ({ images }) => {
 	return (
 		<Carousel className="w-full max-w-xs rounded-md">
 			<CarouselContent>
-				{images.map((image, index) => {
+				{images?.map((image, index) => {
 					return (
 						<CarouselItem className="rounded-xl" key={index}>
-							<Image
+							<img
 								className="rounded-2xl"
-								src={`${image.src}`}
+								src={`${image}`}
 								width={300}
 								height={300}
 								alt="image"
-							></Image>
+							></img>
 						</CarouselItem>
 					);
 				})}

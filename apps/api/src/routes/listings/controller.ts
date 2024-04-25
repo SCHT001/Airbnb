@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import fs from "fs";
 import { join } from "path";
+import firebaseConfig from "../../config/firebase.config";
 import { HandleError } from "../../errors/errorHandler";
 import { prisma } from "../../services/prisma.service";
 
@@ -53,6 +54,7 @@ export const addListingPhotos = async (req: Request, res: Response) => {
 				"listings",
 				listingId
 			);
+			console.log(__dirname, folderPath, fileName);
 
 			if (!fs.existsSync(folderPath)) {
 				fs.mkdirSync(folderPath);
@@ -86,35 +88,75 @@ export const addListingPhotos = async (req: Request, res: Response) => {
 		return HandleError(res, 500, err);
 	}
 };
-
 export const getPhotos = async (req: Request, res: Response) => {
 	try {
-		const listing_id = req.params.listing_id;
-		const folderPath = join(
+		const listingId = req.params.listing_id;
+
+		const listingPhotosDir = join(
 			__dirname,
 			"..",
 			"..",
 			"..",
 			"uploads",
 			"listings",
-			listing_id!
+			listingId!
 		);
 
-		if (!fs.existsSync(folderPath)) {
-			return HandleError(res, 404, "No photos found for this listing");
+		if (!fs.existsSync(listingPhotosDir)) {
+			return res.status(404).send({ error: "Listing has no photos" });
 		}
-		const fileNames = fs.readdirSync(folderPath);
 
-		const photos = fileNames.map((fileName) => {
-			return join(folderPath, fileName);
+		const fileNames = fs.readdirSync(listingPhotosDir);
+
+		const filePaths = fileNames.map((fileName) =>
+			join(listingPhotosDir, fileName)
+		);
+
+		if (filePaths.length === 0) {
+			return res.status(404).send({ error: "Listing has no photos" });
+		}
+
+		filePaths.forEach((filePath) => {
+			const fileStream = fs.createReadStream(filePath);
+			fileStream.pipe(res);
 		});
 
-		return res.status(200).send({
-			status: "success",
-			data: photos,
-			message: "Photos retrieved successfully",
+		res.on("finish", () => {
+			console.log("All photos sent");
 		});
-		console.log(photos);
+	} catch (err) {
+		console.error(err);
+		return res.status(500).send({ error: "Internal server error" });
+	}
+};
+
+// Firebase upload
+import { initializeApp } from "firebase/app";
+import {
+	getDownloadURL,
+	getStorage,
+	ref,
+	uploadBytesResumable,
+} from "firebase/storage";
+
+export const uploadToFirebase = async (req: Request, res: Response) => {
+	try {
+		initializeApp(firebaseConfig.firebaseConfig);
+		const storage = getStorage();
+		const photos: any = req.files?.photo;
+		const listingId = req.body.listing_id;
+
+		photos.forEach(async (photo: any) => {
+			const storageRef = ref(
+				storage,
+				"listings/" + listingId + "/" + photo.name
+			);
+			const snapshot = await uploadBytesResumable(storageRef, photo.buffer);
+
+			const downloadLink = await getDownloadURL(snapshot.ref);
+
+			console.log(downloadLink);
+		});
 	} catch (err) {
 		return HandleError(res, 500, err);
 	}

@@ -3,6 +3,7 @@ import { Star } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card } from "../ui/card";
+import CardCarousel from "./CardCarousel";
 const ItemCard = () => {
 	const [listings, setListings] = useState<
 		{
@@ -15,6 +16,8 @@ const ItemCard = () => {
 		}[]
 	>([]);
 
+	const [photos, setPhotos] = useState<string[]>([]);
+
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -22,10 +25,14 @@ const ItemCard = () => {
 			try {
 				const { data } = await host.get("/listings");
 				setListings(data.data);
+
+				const photos = await host.get(`/listings/photos/${data.data[0].id}`);
+				console.log(photos.data);
+				setPhotos(photos.data.data);
 				setLoading(false);
 			} catch (error) {
 				console.error("Error fetching listings:", error);
-				setLoading(false);
+				return setLoading(false);
 			}
 		})();
 	}, []);
@@ -42,7 +49,7 @@ const ItemCard = () => {
 							className="text-sm z-10 cursor-pointer "
 						>
 							{/* Images carousel for each item */}
-							{/* <CardCarousel images={item.images} /> */}
+							<CardCarousel images={photos} />
 
 							{/* Name and rating */}
 							<div className="font-semibold  pt-5 flex justify-between">
