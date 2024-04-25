@@ -1,9 +1,12 @@
 "use client";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
+import { LoginFormSchema } from "../../../schema";
 import { Button } from "../ui/button";
 import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Form, FormField } from "../ui/form";
@@ -28,9 +31,10 @@ const SignInDialogContent: FC<{
 
 	const userForm = useForm({
 		defaultValues: {
-			phone: "",
-			countryCode: "",
+			phone: 0,
+			countryCode: 0,
 		},
+		resolver: zodResolver(LoginFormSchema),
 	});
 
 	const onSubmit = (e: any) => {
@@ -69,11 +73,22 @@ const SignInDialogContent: FC<{
 								return (
 									<>
 										<Input
+											required
 											{...field}
 											placeholder="Phone number"
-											className=" rounded-t-none z-100 text-black"
+											className={
+												(cn(
+													userForm.formState.errors.phone?.message
+														? "border-destructive"
+														: ""
+												),
+												"rounded-t-none z-100 text-black")
+											}
 											type="number"
 										></Input>
+										<div className="text-destructive">
+											{userForm.formState.errors.phone?.message}
+										</div>
 									</>
 								);
 							}}

@@ -34,12 +34,12 @@ const ItemCard = () => {
 
 	if (!loading) {
 		return (
-			<Card className="px-32 border-none grid grid-cols-6 gap-10">
+			<Card className="px-32 pt-10 border-none shadow-none grid grid-cols-6 gap-10">
 				{listings.map((item, index) => {
 					return (
 						<div
 							key={index}
-							className="text-sm border border-slate-400 rounded-2xl z-10 cursor-pointer "
+							className="text-sm  rounded-2xl  shadow-sm z-10 cursor-pointer "
 						>
 							{/* Images carousel for each item */}
 							<CardCarousel images={item.images} />
