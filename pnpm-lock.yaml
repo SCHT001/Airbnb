@@ -72,6 +72,9 @@ importers:
       multer:
         specifier: 1.4.5-lts.1
         version: 1.4.5-lts.1
+      pnpm:
+        specifier: ^9.0.5
+        version: 9.0.5
       prisma:
         specifier: ^5.12.1
         version: 5.12.1
@@ -181,6 +184,9 @@ importers:
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      pnpm:
+        specifier: ^9.0.5
+        version: 9.0.5
       react:
         specifier: ^18
         version: 18.2.0
