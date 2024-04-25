@@ -32,6 +32,7 @@ const CardCarousel: FC<{
 		<Carousel className="w-full max-w-xs rounded-md">
 			<CarouselContent>
 				{images?.map((image, index) => {
+					console.log(image.url);
 					return (
 						<CarouselItem className="rounded-xl" key={index}>
 							<Image

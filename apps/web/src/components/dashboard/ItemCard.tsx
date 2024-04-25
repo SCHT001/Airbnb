@@ -36,7 +36,6 @@ const ItemCard = () => {
 		return (
 			<Card className="px-32 border-none grid grid-cols-6 gap-10">
 				{listings.map((item, index) => {
-					console.log(item);
 					return (
 						<Link
 							href={`/rooms/${item.id}`}

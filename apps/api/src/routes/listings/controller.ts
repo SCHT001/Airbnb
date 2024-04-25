@@ -68,7 +68,7 @@ export const uploadToFirebase = async (req: Request, res: Response) => {
 
 			const snapshot = await uploadBytesResumable(
 				storageRef,
-				photo.buffer,
+				photo.data,
 				metadata
 			);
 
