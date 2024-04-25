@@ -6,7 +6,6 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image from "next/image";
 import { FC } from "react";
 
 const sampleImages = [
@@ -35,13 +34,13 @@ const CardCarousel: FC<{
 					console.log(image.url);
 					return (
 						<CarouselItem className="rounded-xl" key={index}>
-							<Image
-								className="rounded-2xl"
+							<img
+								className="rounded-2xl h-52 object-cover"
 								src={image.url}
-								width={300}
-								height={300}
+								// width={300}
+								// height={300}
 								alt="image"
-							></Image>
+							></img>
 						</CarouselItem>
 					);
 				})}

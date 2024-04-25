@@ -37,33 +37,34 @@ const ItemCard = () => {
 			<Card className="px-32 border-none grid grid-cols-6 gap-10">
 				{listings.map((item, index) => {
 					return (
-						<Link
-							href={`/rooms/${item.id}`}
+						<div
 							key={index}
-							className="text-sm z-10 cursor-pointer "
+							className="text-sm border border-slate-400 rounded-2xl z-10 cursor-pointer "
 						>
 							{/* Images carousel for each item */}
 							<CardCarousel images={item.images} />
 
 							{/* Name and rating */}
-							<div className="font-semibold  pt-5 flex justify-between">
-								<div>{item.title}</div>
-								<div className="rating flex items-center">
-									<Star size={15}></Star> {item.rating}
+							<Link href={`/rooms/${item.id}`}>
+								<div className="font-semibold  pt-5 flex justify-between">
+									<div>{item.title}</div>
+									<div className="rating flex items-center">
+										<Star size={15}></Star> {item.rating}
+									</div>
 								</div>
-							</div>
 
-							{/* Distance */}
-							<div className="text-slate-500">
-								{/* {item.distance} kilometers away */}
-							</div>
+								{/* Distance */}
+								<div className="text-slate-500">
+									{/* {item.distance} kilometers away */}
+								</div>
 
-							{/* Cost */}
-							<div className="text-slate-500 flex gap-2">
-								<span className="text-black font-semibold">{item.price}</span>
-								night
-							</div>
-						</Link>
+								{/* Cost */}
+								<div className="text-slate-500 flex gap-2">
+									<span className="text-black font-semibold">{item.price}</span>
+									night
+								</div>
+							</Link>
+						</div>
 					);
 				})}
 			</Card>
