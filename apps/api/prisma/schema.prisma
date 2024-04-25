@@ -30,7 +30,7 @@ model token {
 }
 
 model listing {
-  id            String  @id @default(cuid())
+  id            String          @id @default(cuid())
   accommodation String
   title         String
   description   String
@@ -43,10 +43,10 @@ model listing {
   bathrooms     Int
   beds          Int
   rating        Float?
-  images        image[]
+  images        listing_image[]
 }
 
-model image {
+model listing_image {
   id        String  @id @default(cuid())
   listingId String
   url       String
