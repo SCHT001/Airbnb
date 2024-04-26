@@ -1,12 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { LoginFormSchema } from "../../../schema";
 import { Button } from "../ui/button";
 import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Form, FormField } from "../ui/form";
@@ -34,7 +32,7 @@ const SignInDialogContent: FC<{
 			phone: 0,
 			countryCode: 0,
 		},
-		resolver: zodResolver(LoginFormSchema),
+		// resolver: zodResolver(LoginFormSchema),
 	});
 
 	const onSubmit = (e: any) => {

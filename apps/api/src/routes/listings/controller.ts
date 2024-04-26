@@ -6,6 +6,8 @@ import {
 	ref,
 	uploadBytesResumable,
 } from "firebase/storage";
+import fs from "fs";
+import { join } from "path";
 import firebaseConfig from "../../config/firebase.config";
 import { HandleError } from "../../errors/errorHandler";
 import { prisma } from "../../services/prisma.service";
@@ -42,6 +44,58 @@ export const addListing = async (req: Request, res: Response) => {
 		});
 	} catch (err) {
 		console.log(err);
+		return HandleError(res, 500, err);
+	}
+};
+
+export const addListingPhotos = async (req: Request, res: Response) => {
+	try {
+		const photos: any = req.files?.photo;
+		const listingId = req.body.listing_id;
+
+		photos.forEach((photo: any) => {
+			const fileName = `${listingId}_${photo.name}`;
+
+			const folderPath = join(
+				__dirname,
+				"..",
+				"..",
+				"..",
+				"uploads",
+				"listings",
+				listingId
+			);
+			console.log(__dirname, folderPath, fileName);
+
+			if (!fs.existsSync(folderPath)) {
+				fs.mkdirSync(folderPath);
+			}
+
+			const filePath = join(
+				__dirname,
+				"..",
+				"..",
+				"..",
+				"uploads",
+				"listings",
+				listingId,
+				fileName
+			);
+
+			photo.mv(filePath, (err: any) => {
+				if (err) {
+					console.log(err);
+				}
+			});
+		});
+
+		return res.status(201).send({
+			status: "success",
+			data: [],
+			error: [],
+			message: "Photos uploaded successfully",
+		});
+	} catch (err) {
 		return HandleError(res, 500, err);
 	}
 };
