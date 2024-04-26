@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { host, hostImage } from "@/lib/axios";
 import { Label } from "@radix-ui/react-label";
 import { useMutation } from "@tanstack/react-query";
+import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -111,7 +112,7 @@ const page = () => {
 			// console.log(becomeHostForm.getValues("photos"));
 
 			const data = {
-				host_id: "5",
+				host_id: getCookie("airbnb_userId"),
 				accommodation: becomeHostForm.getValues("accommodation"),
 				place_type: becomeHostForm.getValues("placeType"),
 				capacity: becomeHostForm.getValues("availabilities.guests"),

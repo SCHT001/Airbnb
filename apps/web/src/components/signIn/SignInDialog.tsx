@@ -31,7 +31,7 @@ const SignInDialog = () => {
 				setTimeout(() => {
 					location.reload();
 				}, 500);
-				setCookie("airbnbn_userid", response.data.data.userId);
+				setCookie("airbnb_userId", response.data.data.userId);
 			}
 		})();
 	}
