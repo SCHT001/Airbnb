@@ -1,10 +1,12 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
+import { LoginFormSchema } from "../../../schema";
 import { Button } from "../ui/button";
 import { DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Form, FormField } from "../ui/form";
@@ -30,9 +32,9 @@ const SignInDialogContent: FC<{
 	const userForm = useForm({
 		defaultValues: {
 			phone: 0,
-			countryCode: 0,
+			countryCode: "",
 		},
-		// resolver: zodResolver(LoginFormSchema),
+		resolver: zodResolver(LoginFormSchema),
 	});
 
 	const onSubmit = (e: any) => {
@@ -61,7 +63,14 @@ const SignInDialogContent: FC<{
 						<FormField
 							name="countryCode"
 							render={({ field }) => {
-								return <CountrySelect field={field}></CountrySelect>;
+								return (
+									<>
+										<CountrySelect field={field}></CountrySelect>
+										<div className="text-destructive">
+											{userForm.formState.errors.countryCode?.message}
+										</div>
+									</>
+								);
 							}}
 						></FormField>
 						{/* phone */}

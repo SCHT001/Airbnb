@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const LoginFormSchema = z.object({
-	countryCode: z.coerce.number(),
+	countryCode: z.string().nonempty("Please select a country "),
 	phone: z.coerce
 		.number()
 		.min(1000000000, "Invalid number. Please enter a valid number")
