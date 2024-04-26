@@ -99,6 +99,47 @@ export const addListingPhotos = async (req: Request, res: Response) => {
 		return HandleError(res, 500, err);
 	}
 };
+export const getPhotos = async (req: Request, res: Response) => {
+	try {
+		const listingId = req.params.listing_id;
+
+		const listingPhotosDir = join(
+			__dirname,
+			"..",
+			"..",
+			"..",
+			"uploads",
+			"listings",
+			listingId!
+		);
+
+		if (!fs.existsSync(listingPhotosDir)) {
+			return res.status(404).send({ error: "Listing has no photos" });
+		}
+
+		const fileNames = fs.readdirSync(listingPhotosDir);
+
+		const filePaths = fileNames.map((fileName) =>
+			join(listingPhotosDir, fileName)
+		);
+
+		if (filePaths.length === 0) {
+			return res.status(404).send({ error: "Listing has no photos" });
+		}
+
+		filePaths.forEach((filePath) => {
+			const fileStream = fs.createReadStream(filePath);
+			fileStream.pipe(res);
+		});
+
+		res.on("finish", () => {
+			console.log("All photos sent");
+		});
+	} catch (err) {
+		console.error(err);
+		return res.status(500).send({ error: "Internal server error" });
+	}
+};
 
 // Firebase upload
 
