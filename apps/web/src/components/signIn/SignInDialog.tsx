@@ -21,8 +21,8 @@ const SignInDialog = () => {
 		(async () => {
 			const response: AxiosResponse = await user.post("/auth/signIn/phone", {
 				name: name,
-				phone: phone,
-				countryCode: countryCode,
+				phone: phone.toString(),
+				countryCode: countryCode.toString(),
 				// photo: photo,
 			});
 			if (response.data) {
@@ -31,6 +31,7 @@ const SignInDialog = () => {
 				setTimeout(() => {
 					location.reload();
 				}, 500);
+				setCookie("airbnbn_userid", response.data.data.userId);
 			}
 		})();
 	}
