@@ -3,10 +3,24 @@ import { sampleItems } from "@/components/dashboard/sampleItems";
 import PhotoGrid from "@/components/room/PhotoGrid";
 import RoomDetails from "@/components/room/RoomDetails";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
 import { Heart, Share } from "lucide-react";
 import { useParams } from "next/navigation";
+import { useEffect } from "react";
 
 const Room = () => {
+	useEffect(() => {
+		// Fetch room data
+
+		const queriedData = useQuery({
+			queryKey: ["a"],
+			queryFn: () => {
+				return;
+			},
+		});
+		// Fetch room data
+	}, []);
+
 	const params = useParams();
 	const roomId = params["room-id"]; // Fix this line
 	return (

@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { addListing, getListings, uploadToFirebase } from "./controller";
+import {
+	addListing,
+	getListings,
+	getSingleListing,
+	uploadToFirebase,
+} from "./controller";
 
 const router: Router = Router();
 
@@ -13,6 +18,9 @@ router.post("/", (req, res) => {
 
 router.post("/photos", (req, res) => {
 	return uploadToFirebase(req, res);
+});
+router.get("/listing/:listingId", (req, res) => {
+	return getSingleListing(req, res);
 });
 
 export default router;
