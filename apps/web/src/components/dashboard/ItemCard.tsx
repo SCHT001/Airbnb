@@ -60,8 +60,10 @@ const ItemCard = () => {
 
 								{/* Cost */}
 								<div className="text-slate-500 flex gap-2">
-									<span className="text-black font-semibold">{item.price}</span>
-									night
+									<span className="text-slate-600 font-semibold">
+										{item.price}$
+									</span>
+									per night
 								</div>
 							</Link>
 						</div>
