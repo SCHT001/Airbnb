@@ -1,4 +1,5 @@
 "use client";
+import Booking from "@/components/room/Booking";
 import PhotoGrid from "@/components/room/PhotoGrid";
 import RoomDetails from "@/components/room/RoomDetails";
 import { Button } from "@/components/ui/button";
@@ -48,7 +49,10 @@ const Room = () => {
 				{/* Room images */}
 				<PhotoGrid photos={roomData.images}></PhotoGrid>
 
-				<RoomDetails roomData={roomData}></RoomDetails>
+				<div className="flex gap-4 justify-between pt-10">
+					<RoomDetails roomData={roomData}></RoomDetails>
+					<Booking></Booking>
+				</div>
 			</div>
 		);
 	} else {
