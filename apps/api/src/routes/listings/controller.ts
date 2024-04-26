@@ -88,6 +88,7 @@ export const uploadToFirebase = async (req: Request, res: Response) => {
 
 export const getSingleListing = async (req: Request, res: Response) => {
 	const listingId = req.params.listingId;
+	console.log(listingId);
 
 	try {
 		const listing = await prisma.listing.findFirst({
