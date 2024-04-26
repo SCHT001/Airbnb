@@ -3,26 +3,27 @@ import { sampleItems } from "@/components/dashboard/sampleItems";
 import PhotoGrid from "@/components/room/PhotoGrid";
 import RoomDetails from "@/components/room/RoomDetails";
 import { Button } from "@/components/ui/button";
+import { listings } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import { Heart, Share } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
 
 const Room = () => {
-	useEffect(() => {
-		// Fetch room data
-
-		const queriedData = useQuery({
-			queryKey: ["a"],
-			queryFn: () => {
-				return;
-			},
-		});
-		// Fetch room data
-	}, []);
-
 	const params = useParams();
-	const roomId = params["room-id"]; // Fix this line
+	const roomId = params["room-id"];
+
+	// Fetch room data
+
+	const queriedData = useQuery({
+		queryKey: ["a"],
+		queryFn: async () => {
+			const response = await listings.get(`/listing/:${roomId}`);
+			return response.data;
+		},
+	});
+	queriedData.isSuccess && console.log(queriedData.data);
+	// Fetch room data
+
 	return (
 		<div className="px-96 pt-5 flex justify-between flex-col">
 			{/* Room title */}

@@ -19,3 +19,10 @@ export const hostImage = axios.create({
 		"Content-Type": "multipart/form-data",
 	},
 });
+
+export const listings = axios.create({
+	baseURL: "http://localhost:5505/api/listings",
+	headers: {
+		"Content-Type": "application/json",
+	},
+});
