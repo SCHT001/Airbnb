@@ -8,4 +8,9 @@ export const LoginFormSchema = z.object({
 		.max(999999999999, "Invalid number. Please enter a valid number"),
 });
 
+export const nameSchema = z.object({
+	name: z.string().nonempty("Name is required"),
+});
+
 export type T_LoginForm = z.infer<typeof LoginFormSchema>;
+export type T_NameForm = z.infer<typeof nameSchema>;

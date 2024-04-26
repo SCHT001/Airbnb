@@ -1,28 +1,30 @@
 "use client";
 import { user } from "@/lib/axios";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { AxiosResponse } from "axios";
 import { setCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { nameSchema } from "../../../schema";
 import { Button } from "../ui/button";
 import { DialogContent, DialogHeader } from "../ui/dialog";
-import { Form, FormField } from "../ui/form";
+import { Form, FormField, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+
 const UserName: FC<{
 	setName: any;
 	phone: number;
 	countryCode: number;
 	name: string;
 }> = ({ setName, countryCode, phone, name }) => {
-	const router = useRouter();
 	const nameForm = useForm({
 		defaultValues: {
 			name: "",
 		},
+		resolver: zodResolver(nameSchema),
 	});
 
 	const onSubmit = async () => {
@@ -66,6 +68,9 @@ const UserName: FC<{
 									);
 								}}
 							></FormField>
+							<FormMessage>
+								{nameForm.formState.errors.name?.message}
+							</FormMessage>
 						</div>
 						<Button onClick={onSubmit}>Continue</Button>
 					</DialogContent>
