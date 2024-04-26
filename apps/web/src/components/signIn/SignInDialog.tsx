@@ -9,7 +9,7 @@ import PhotoUpload from "./PhotoUpload";
 import SignInDialogContent from "./SignInDialogContent";
 import UserName from "./UserName";
 
-const SignInDialog = async () => {
+const SignInDialog = () => {
 	const [steps, setSteps] = useState(1);
 
 	const [phone, setPhone] = useState(0);
@@ -18,19 +18,21 @@ const SignInDialog = async () => {
 	const [photo, setPhoto] = useState("");
 
 	if (steps === 5) {
-		const response: AxiosResponse = await user.post("/auth/signIn/phone", {
-			name: name,
-			phone: phone,
-			countryCode: countryCode,
-			photo: photo,
-		});
-		if (response.data) {
-			setCookie("token", response.data.data.token);
-			toast.success("Logged in");
-			setTimeout(() => {
-				location.reload();
-			}, 500);
-		}
+		(async () => {
+			const response: AxiosResponse = await user.post("/auth/signIn/phone", {
+				name: name,
+				phone: phone,
+				countryCode: countryCode,
+				// photo: photo,
+			});
+			if (response.data) {
+				setCookie("token", response.data.data.token);
+				toast.success("Logged in");
+				setTimeout(() => {
+					location.reload();
+				}, 500);
+			}
+		})();
 	}
 
 	if (!getCookie("token")) {

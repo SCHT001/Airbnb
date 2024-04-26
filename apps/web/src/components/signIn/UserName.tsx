@@ -24,18 +24,6 @@ const UserName: FC<{
 	const onSubmit = async () => {
 		setName(nameForm.getValues("name"));
 		setSteps(4);
-		// const response: AxiosResponse = await user.post("/auth/signIn/phone", {
-		// 	name: name,
-		// 	phone: phone,
-		// 	countryCode: countryCode,
-		// });
-		// if (response.data) {
-		// 	setCookie("token", response.data.data.token);
-		// 	toast.success("Logged in");
-		// 	setTimeout(() => {
-		// 		location.reload();
-		// 	}, 500);
-		// }
 	};
 
 	return (

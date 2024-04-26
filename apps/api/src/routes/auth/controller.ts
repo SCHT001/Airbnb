@@ -114,6 +114,7 @@ export const signInWithPhone = async (req: Request, res: Response) => {
 			status: "success",
 			data: {
 				token: token,
+				userId: user.id,
 			},
 			error: [],
 		});
