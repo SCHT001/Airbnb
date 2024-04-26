@@ -52,3 +52,13 @@ model listing_image {
   url       String  @db.VarChar(255)
   listing   listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }
+
+model bookings {
+  id             String   @id @default(cuid())
+  user_id        String
+  listing_id     String
+  check_in_date  DateTime
+  check_out_date DateTime
+  total_price    Int
+  status         String
+}
