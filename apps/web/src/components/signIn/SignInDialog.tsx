@@ -1,16 +1,37 @@
-import { getCookie } from "cookies-next";
+import { user } from "@/lib/axios";
+import { AxiosResponse } from "axios";
+import { getCookie, setCookie } from "cookies-next";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import OTPConfirm from "./OTPConfirm";
+import PhotoUpload from "./PhotoUpload";
 import SignInDialogContent from "./SignInDialogContent";
 import UserName from "./UserName";
 
-const SignInDialog = () => {
+const SignInDialog = async () => {
 	const [steps, setSteps] = useState(1);
 
 	const [phone, setPhone] = useState(0);
 	const [countryCode, setCountryCode] = useState(0);
 	const [name, setName] = useState("");
+	const [photo, setPhoto] = useState("");
+
+	if (steps === 5) {
+		const response: AxiosResponse = await user.post("/auth/signIn/phone", {
+			name: name,
+			phone: phone,
+			countryCode: countryCode,
+			photo: photo,
+		});
+		if (response.data) {
+			setCookie("token", response.data.data.token);
+			toast.success("Logged in");
+			setTimeout(() => {
+				location.reload();
+			}, 500);
+		}
+	}
 
 	if (!getCookie("token")) {
 		return (
@@ -41,12 +62,10 @@ const SignInDialog = () => {
 					></OTPConfirm>
 				)}
 				{steps === 3 && (
-					<UserName
-						setName={setName}
-						countryCode={countryCode}
-						phone={phone}
-						name={name}
-					></UserName>
+					<UserName setSteps={setSteps} setName={setName}></UserName>
+				)}
+				{steps === 4 && (
+					<PhotoUpload setPhoto={setPhoto} setSteps={setSteps}></PhotoUpload>
 				)}
 			</Dialog>
 		);

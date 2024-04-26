@@ -1,12 +1,8 @@
 "use client";
-import { user } from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { AxiosResponse } from "axios";
-import { setCookie } from "cookies-next";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { nameSchema } from "../../../schema";
 import { Button } from "../ui/button";
 import { DialogContent, DialogHeader } from "../ui/dialog";
@@ -16,10 +12,8 @@ import { Label } from "../ui/label";
 
 const UserName: FC<{
 	setName: any;
-	phone: number;
-	countryCode: number;
-	name: string;
-}> = ({ setName, countryCode, phone, name }) => {
+	setSteps: any;
+}> = ({ setName, setSteps }) => {
 	const nameForm = useForm({
 		defaultValues: {
 			name: "",
@@ -29,18 +23,19 @@ const UserName: FC<{
 
 	const onSubmit = async () => {
 		setName(nameForm.getValues("name"));
-		const response: AxiosResponse = await user.post("/auth/signIn/phone", {
-			name: name,
-			phone: phone,
-			countryCode: countryCode,
-		});
-		if (response.data) {
-			setCookie("token", response.data.data.token);
-			toast.success("Logged in");
-			setTimeout(() => {
-				location.reload();
-			}, 500);
-		}
+		setSteps(4);
+		// const response: AxiosResponse = await user.post("/auth/signIn/phone", {
+		// 	name: name,
+		// 	phone: phone,
+		// 	countryCode: countryCode,
+		// });
+		// if (response.data) {
+		// 	setCookie("token", response.data.data.token);
+		// 	toast.success("Logged in");
+		// 	setTimeout(() => {
+		// 		location.reload();
+		// 	}, 500);
+		// }
 	};
 
 	return (
