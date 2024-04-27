@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
 import { Calendar } from "../ui/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 
 const Booking = () => {
 	const [range, setRange] = useState<DateRange | undefined>();
+
+	useEffect(() => {
+		console.log(range);
+	}, [range]);
 	return (
 		<Card>
 			<CardHeader>

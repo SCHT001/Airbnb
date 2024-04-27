@@ -13,11 +13,11 @@
 		"prettier": "^3.2.5",
 		"turbo": "latest"
 	},
-	"packageManager": "pnpm@9.0.5",
+	"packageManager": "pnpm@9.0.6",
 	"engines": {
 		"node": ">=18"
 	},
 	"dependencies": {
-		"pnpm": "^9.0.5"
+		"pnpm": "^9.0.6"
 	}
 }
