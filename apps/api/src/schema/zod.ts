@@ -4,5 +4,4 @@ export const signInWithPhoneSchema = z.object({
   name: z.string().min(1),
   phone: z.string().min(9),
   countryCode: z.string().min(1),
-  photo: z.string().min(1),
 });

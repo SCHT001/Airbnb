@@ -88,7 +88,6 @@ export const signInWithPhone = async (req: Request, res: Response) => {
     return HandleError(res, 400, "Invalid request data");
 
   const data: User = req.body;
-
   let user = await prisma.user.findFirst({
     where: {
       phone: data.phone,
