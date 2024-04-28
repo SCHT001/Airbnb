@@ -35,7 +35,7 @@ model listing {
   title         String
   description   String
   host_id       String
-  price         String
+  price         Int
   location      String
   place_type    String
   capacity      Int
