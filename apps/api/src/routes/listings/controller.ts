@@ -9,8 +9,15 @@ import {
 import firebaseConfig from "../../config/firebase.config";
 import { HandleError } from "../../errors/errorHandler";
 import { prisma } from "../../services/prisma.service";
+import { validListing } from "./middleware";
 
 export const getListings = async (req: Request, res: Response) => {
+  // validate listing data
+  if (!validListing(req.body)) {
+    console.log("error");
+    return HandleError(res, 400, "Invalid listing data");
+  }
+
   try {
     const listings = await prisma.listing.findMany({
       include: {
