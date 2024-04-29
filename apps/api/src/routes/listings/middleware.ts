@@ -6,6 +6,7 @@ export const validListing = (listing: T_listingSchema) => {
     listingSchema.parse(listing);
     return 1;
   } catch (error) {
+    console.log(error);
     return 0;
   }
 };

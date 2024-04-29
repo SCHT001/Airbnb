@@ -6,7 +6,7 @@ import Navbar from "@/components/become-a-host/Navbar";
 import PhotoUpload from "@/components/become-a-host/PhotoUpload";
 import PlaceType from "@/components/become-a-host/Type-of-place";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormField } from "@/components/ui/form";
+import { Form, FormField, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { host, hostImage } from "@/lib/axios";
 import { Label } from "@radix-ui/react-label";
@@ -17,6 +17,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { T_Listing } from "../../../types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { listingInputSchema } from "../../../schema";
 
 const page = () => {
   const router = useRouter();
@@ -38,6 +41,7 @@ const page = () => {
       description: "",
       price: 0,
     },
+    resolver: zodResolver(listingInputSchema),
   });
 
   // Queries
@@ -101,8 +105,8 @@ const page = () => {
     if (step === 5) {
       // console.log(becomeHostForm.getValues("photos"));
       const hostId: string = getCookie("airbnb_userId")!;
-
-      const data = {
+      const price: number = becomeHostForm.getValues("price");
+      const data: T_Listing = {
         host_id: hostId,
         accommodation: becomeHostForm.getValues("accommodation"),
         place_type: becomeHostForm.getValues("placeType"),
@@ -112,9 +116,11 @@ const page = () => {
         beds: becomeHostForm.getValues("availabilities.beds"),
         title: becomeHostForm.getValues("title"),
         description: becomeHostForm.getValues("description"),
-        price: becomeHostForm.getValues("price"),
+        price: price,
         location: "kathmandu",
       };
+
+      console.log(typeof data.price);
       becomeHostMutation.mutate(data);
       // console.log(becomeHostForm.getValues());
     }
@@ -128,37 +134,54 @@ const page = () => {
           <div className="pb-28">
             {/* step 1 for accommodation type */}
             {step == 1 && (
-              <FormField
-                name="accommodation"
-                render={({ field }) => {
-                  return <AccommodationType field={field}></AccommodationType>;
-                }}
-              ></FormField>
+              <>
+                <FormField
+                  name="accommodation"
+                  render={({ field }) => {
+                    return (
+                      <AccommodationType field={field}></AccommodationType>
+                    );
+                  }}
+                ></FormField>
+                <FormMessage>
+                  {becomeHostForm.formState.errors.accommodation?.message}
+                </FormMessage>
+              </>
             )}
 
             {/* step 2 for place type */}
             {step == 2 && (
-              <FormField
-                name="placeType"
-                render={({ field }) => {
-                  return <PlaceType field={field}></PlaceType>;
-                }}
-              ></FormField>
+              <>
+                <FormField
+                  name="placeType"
+                  render={({ field }) => {
+                    return <PlaceType field={field}></PlaceType>;
+                  }}
+                ></FormField>
+                <FormMessage>
+                  {becomeHostForm.formState.errors.placeType?.message}
+                </FormMessage>
+              </>
             )}
 
             {/*  step 3 for basic availability*/}
 
             {step == 3 && (
-              <FormField
-                name="availabilities"
-                render={({ field }) => {
-                  return (
-                    <BasicAvailability
-                      form={becomeHostForm}
-                    ></BasicAvailability>
-                  );
-                }}
-              ></FormField>
+              <>
+                <FormField
+                  name="availabilities"
+                  render={({ field }) => {
+                    return (
+                      <BasicAvailability
+                        form={becomeHostForm}
+                      ></BasicAvailability>
+                    );
+                  }}
+                ></FormField>
+                <FormMessage>
+                  {becomeHostForm.formState.errors.availabilities?.message}
+                </FormMessage>
+              </>
             )}
 
             {/* step 4 for place description */}
@@ -192,6 +215,9 @@ const page = () => {
                         );
                       }}
                     ></FormField>
+                    <FormMessage>
+                      {becomeHostForm.formState.errors.title?.message}
+                    </FormMessage>
 
                     {/* field for description */}
                     <FormField
@@ -210,6 +236,9 @@ const page = () => {
                         );
                       }}
                     ></FormField>
+                    <FormMessage>
+                      {becomeHostForm.formState.errors.description?.message}
+                    </FormMessage>
 
                     {/* field for price */}
 
@@ -219,16 +248,14 @@ const page = () => {
                         return (
                           <div>
                             <Label>Price</Label>
-                            <Input
-                              required
-                              {...field}
-                              type="number"
-                              placeholder="Price per night"
-                            ></Input>
+                            <Input type="number" {...field}></Input>
                           </div>
                         );
                       }}
                     ></FormField>
+                    <FormMessage>
+                      {becomeHostForm.formState.errors.price?.message}
+                    </FormMessage>
                   </CardContent>
                 </Card>
               </div>
@@ -236,12 +263,17 @@ const page = () => {
 
             {/* step 5 for photo upload */}
             {step == 5 && (
-              <FormField
-                name="photos"
-                render={({ field }) => {
-                  return <PhotoUpload form={becomeHostForm}></PhotoUpload>;
-                }}
-              ></FormField>
+              <>
+                <FormField
+                  name="photos"
+                  render={({ field }) => {
+                    return <PhotoUpload form={becomeHostForm}></PhotoUpload>;
+                  }}
+                ></FormField>
+                <FormMessage>
+                  {becomeHostForm.formState.errors.photos?.message}
+                </FormMessage>
+              </>
             )}
           </div>
           <Footer step={step} setStep={setStep}></Footer>

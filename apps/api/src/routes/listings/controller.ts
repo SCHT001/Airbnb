@@ -31,7 +31,6 @@ export const getListings = async (req: Request, res: Response) => {
 
 export const addListing = async (req: Request, res: Response) => {
   if (!validListing(req.body)) {
-    console.log("error");
     return HandleError(res, 400, "Invalid listing data");
   }
 

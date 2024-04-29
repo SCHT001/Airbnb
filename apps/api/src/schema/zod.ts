@@ -7,7 +7,6 @@ export const signInWithPhoneSchema = z.object({
 });
 
 export const listingSchema = z.object({
-  id: z.string().uuid(),
   accommodation: z.string(),
   place_type: z.string(),
   capacity: z.number(),
@@ -16,7 +15,7 @@ export const listingSchema = z.object({
   beds: z.number(),
   title: z.string(),
   description: z.string(),
-  host_id: z.string().uuid(),
+  host_id: z.string(),
   price: z.number(),
   location: z.string(),
 });
