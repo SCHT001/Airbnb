@@ -30,6 +30,7 @@ const Booking: FC<{
     console.log(range);
     daysCount();
   }, [range]);
+
   return (
     <Card className="mb-5 shadow-xl">
       <CardHeader>

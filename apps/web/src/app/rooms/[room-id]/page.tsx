@@ -49,6 +49,8 @@ const Room = () => {
         {/* Room images */}
         <PhotoGrid photos={roomData.images}></PhotoGrid>
 
+        {/* details and booking */}
+
         <div className="flex gap-4 justify-between pt-10">
           <RoomDetails roomData={roomData}></RoomDetails>
           <Booking roomData={roomData}></Booking>
