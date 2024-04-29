@@ -16,18 +16,18 @@ export type T_LoginForm = z.infer<typeof LoginFormSchema>;
 export type T_NameForm = z.infer<typeof nameSchema>;
 
 export const listingInputSchema = z.object({
-  accommodation: z.string(),
-  placeType: z.string(),
+  accommodation: z.string().min(1, "Please select one option"),
+  placeType: z.string().min(1, "Please select one place type"),
   availabilities: z.object({
-    guests: z.number(),
-    bedrooms: z.number(),
-    beds: z.number(),
-    bathrooms: z.number(),
+    guests: z.number().min(1, "Please specify available guest capacity"),
+    bedrooms: z.number().min(1, "Please specify available bedrooms"),
+    beds: z.number().min(1, "Please specify available beds"),
+    bathrooms: z.number().min(1, "Please specify available bathrooms"),
   }),
   photos: z.any(),
-  title: z.string(),
-  description: z.string(),
-  price: z.coerce.number(),
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Description is required"),
+  price: z.coerce.number().min(1, "Price is required"),
 });
 
 export type T_ListingInput = z.infer<typeof listingInputSchema>;

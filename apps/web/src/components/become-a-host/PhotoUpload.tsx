@@ -6,53 +6,42 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
 const PhotoUpload: FC<{
-	form: UseFormReturn<{
-		accommodation: string;
-		placeType: string;
-		availabilities: {
-			guests: number;
-			bedrooms: number;
-			beds: number;
-			bathrooms: number;
-		};
-		photos: any;
-		title: string;
-		description: string;
-		price: number;
-	}>;
-}> = ({ form }) => {
-	return (
-		<div className="flex justify-center">
-			<Card className="border-none shadow-none">
-				<CardHeader>
-					<CardTitle className="text-3xl font-medium">
-						Add some photos of your house
-					</CardTitle>
-					<div className="text-slate-500">
-						You will need 5 photos to get started, you make changes and add
-						more. later
-					</div>
-				</CardHeader>
-				<CardContent className="relative">
-					<Input
-						type="file"
-						multiple
-						id="photosInput"
-						className=" h-72 z-100"
-						onChange={(e) => {
-							// console.log(e.target.files);
-							form.setValue("photos", e.target.files!);
-						}}
-					></Input>
-					<Label className="absolute gap-5 z-50 top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] flex flex-col items-center">
-						<Images size={50}></Images>
-						<Label className="text-2xl">Drag your photos here</Label>
-						<Label className="text-slate-500">Choose atleast 5 photos</Label>
-					</Label>
-				</CardContent>
-			</Card>
-		</div>
-	);
+  form: UseFormReturn<any>;
+  mainForm: UseFormReturn<any>;
+}> = ({ form, mainForm }) => {
+  return (
+    <div className="flex justify-center">
+      <Card className="border-none shadow-none">
+        <CardHeader>
+          <CardTitle className="text-3xl font-medium">
+            Add some photos of your house
+          </CardTitle>
+          <div className="text-slate-500">
+            You will need 5 photos to get started, you make changes and add
+            more. later
+          </div>
+        </CardHeader>
+        <CardContent className="relative">
+          <Input
+            type="file"
+            multiple
+            id="photosInput"
+            className=" h-72 z-100"
+            onChange={(e) => {
+              // console.log(e.target.files);
+              form.setValue("photos", e.target.files!);
+              mainForm.setValue("photos", e.target.files!);
+            }}
+          ></Input>
+          <Label className="absolute gap-5 z-50 top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] flex flex-col items-center">
+            <Images size={50}></Images>
+            <Label className="text-2xl">Drag your photos here</Label>
+            <Label className="text-slate-500">Choose atleast 5 photos</Label>
+          </Label>
+        </CardContent>
+      </Card>
+    </div>
+  );
 };
 
 export default PhotoUpload;
