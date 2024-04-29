@@ -10,7 +10,7 @@ const PhotoGrid: FC<{
 }> = ({ photos }) => {
   // slice the photos array to only show the first 5 photos
   // const slicedPhotos = photos.slice(0, 5);
-  console.log(photos);
+  // console.log(photos);
   return (
     <div className="grid grid-cols-4 gap-2 pt-10">
       {photos.map((photo, i) => (
