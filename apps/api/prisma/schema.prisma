@@ -44,6 +44,7 @@ model listing {
   beds          Int
   rating        Float?
   images        listing_image[]
+  availability availability[]
 }
 
 model listing_image {
@@ -62,3 +63,12 @@ model bookings {
   total_price    Int
   status         String
 }
+
+model availability {
+  id          String   @id @default(cuid())
+  listing_id  String
+  date        DateTime
+  is_booked   Boolean
+  listing     listing @relation(fields: [listing_id], references: [id], onDelete: Cascade)
+}
+
