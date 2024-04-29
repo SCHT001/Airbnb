@@ -16,16 +16,17 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { T_Listing } from "../../../types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { number, z } from "zod";
 import { listingInputSchema } from "../../../schema";
+import { T_Listing } from "@/types";
 
 const page = () => {
   const router = useRouter();
 
   const [step, setStep] = useState(1);
 
+  // initialize form
   const becomeHostForm = useForm({
     defaultValues: {
       accommodation: "",
@@ -81,8 +82,6 @@ const page = () => {
     },
   });
 
-  // formdata for photo upload
-
   const onSubmit = () => {
     if (step === 1) {
       //   setAccommodation(becomeHostForm.getValues("accommodation"));
@@ -105,8 +104,11 @@ const page = () => {
     if (step === 5) {
       // console.log(becomeHostForm.getValues("photos"));
       const hostId: string = getCookie("airbnb_userId")!;
-      const price: number = becomeHostForm.getValues("price");
+
       const data: T_Listing = {
+        title: becomeHostForm.getValues("title"),
+        description: becomeHostForm.getValues("description"),
+        price: Number(becomeHostForm.getValues("price")),
         host_id: hostId,
         accommodation: becomeHostForm.getValues("accommodation"),
         place_type: becomeHostForm.getValues("placeType"),
@@ -114,13 +116,9 @@ const page = () => {
         bedrooms: becomeHostForm.getValues("availabilities.bedrooms"),
         bathrooms: becomeHostForm.getValues("availabilities.bathrooms"),
         beds: becomeHostForm.getValues("availabilities.beds"),
-        title: becomeHostForm.getValues("title"),
-        description: becomeHostForm.getValues("description"),
-        price: price,
         location: "kathmandu",
       };
-
-      console.log(typeof data.price);
+      // console.log(typeof data.price);
       becomeHostMutation.mutate(data);
       // console.log(becomeHostForm.getValues());
     }

@@ -24,8 +24,10 @@ export const listingInputSchema = z.object({
     beds: z.number(),
     bathrooms: z.number(),
   }),
-  photos: z.array(z.any()),
+  photos: z.any(),
   title: z.string(),
   description: z.string(),
-  price: z.number(),
+  price: z.coerce.number(),
 });
+
+export type T_ListingInput = z.infer<typeof listingInputSchema>;
