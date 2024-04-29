@@ -12,12 +12,6 @@ import { prisma } from "../../services/prisma.service";
 import { validListing } from "./middleware";
 
 export const getListings = async (req: Request, res: Response) => {
-  // validate listing data
-  if (!validListing(req.body)) {
-    console.log("error");
-    return HandleError(res, 400, "Invalid listing data");
-  }
-
   try {
     const listings = await prisma.listing.findMany({
       include: {
@@ -36,6 +30,11 @@ export const getListings = async (req: Request, res: Response) => {
 };
 
 export const addListing = async (req: Request, res: Response) => {
+  if (!validListing(req.body)) {
+    console.log("error");
+    return HandleError(res, 400, "Invalid listing data");
+  }
+
   try {
     const data = req.body;
     const newListing = await prisma.listing.create({
