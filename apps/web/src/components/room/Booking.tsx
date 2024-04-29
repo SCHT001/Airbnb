@@ -49,13 +49,13 @@ const Booking: FC<{
 
         <div className="priceDetails mt-5 flex flex-col gap-5">
           <p className=" ">
-            {roomData.price} x {daysCount()} nights{" "}
-            <span className="float-right">{roomData.price * daysCount()}</span>
+            ${roomData.price} x {daysCount()} nights{" "}
+            <span className="float-right">${roomData.price * daysCount()}</span>
           </p>
           <Separator />
           <p className="font-bold">
             Total{" "}
-            <span className="float-right">{roomData.price * daysCount()}</span>
+            <span className="float-right">${roomData.price * daysCount()}</span>
           </p>
         </div>
       </CardContent>
