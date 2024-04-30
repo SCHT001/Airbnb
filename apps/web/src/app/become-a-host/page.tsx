@@ -55,8 +55,10 @@ const page = () => {
   const submitPhotosMutation = async (id: string) => {
     const formData = new FormData();
     formData.append("listing_id", id);
+
     setTimeout(async () => {
       for (let i = 0; i < 5; i++) {
+        console.log(becomeHostForm.getValues("photos")[i]);
         formData.append("photo", becomeHostForm.getValues("photos")[i]);
       }
       //   console.log(becomeHostForm.getValues("photos")[0]);
@@ -99,9 +101,7 @@ const page = () => {
       beds: becomeHostForm.getValues("availabilities.beds"),
       location: "kathmandu",
     };
-    // console.log(typeof data.price);
     becomeHostMutation.mutate(data);
-    // console.log(becomeHostForm.getValues());
   };
 
   // submit form if step 6

@@ -2,7 +2,7 @@ import { hostImage, user } from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { getCookie, setCookie } from "cookies-next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -35,11 +35,6 @@ const SignInDialog = () => {
     },
   });
 
-  useEffect(() => {
-    console.log(loginForm.getValues());
-    console.log(photoForm.getValues());
-  }, [steps]);
-
   const signIn = async (data: {
     name: string;
     phone: string;
@@ -58,19 +53,20 @@ const SignInDialog = () => {
     const formData = new FormData();
     // console.log(data.photo);
     console.log(photoForm.getValues("photo"));
-    formData.append("photo", photoForm.getValues("photo"));
     formData.append("userId", data.userId);
 
     setTimeout(async () => {
+      formData.append("photo", photoForm.getValues("photo"));
       const response: AxiosResponse = await hostImage.post(
         "/user/photo",
         formData
       );
 
       if (response.data) {
+        console.log(response.data);
         setTimeout(() => {
           location.reload();
-        }, 500);
+        }, 2000);
       }
       return response.data;
     }, 2000);

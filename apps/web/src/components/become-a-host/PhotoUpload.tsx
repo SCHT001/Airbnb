@@ -30,7 +30,6 @@ const PhotoUpload: FC<{
             onChange={(e) => {
               // console.log(e.target.files);
               form.setValue("photos", e.target.files!);
-              mainForm.setValue("photos", e.target.files!);
             }}
           ></Input>
           <Label className="absolute gap-5 z-50 top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] flex flex-col items-center">

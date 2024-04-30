@@ -14,14 +14,14 @@ const PhotoUpload: FC<{
     },
   });
 
-  const submitPhoto = () => {
-    // setPhoto(photoForm.getValues("photo"));
-    mainPhotoForm.setValue("photo", photoForm.getValues("photo"));
-  };
+  // const submitPhoto = () => {
+  //   // setPhoto(photoForm.getValues("photo"));
+  //   mainPhotoForm.setValue("photo", photoForm.getValues("photo"));
+  // };
 
   return (
     <Form {...photoForm}>
-      <form onChange={photoForm.handleSubmit(submitPhoto)}>
+      <form>
         <FormField
           name="photo"
           render={({ field }) => {
@@ -33,9 +33,12 @@ const PhotoUpload: FC<{
                   className="p-2 border-2 h-56 border-slate-400 rounded-full"
                 />
                 <Input
-                  {...field}
+                  // {...field}
                   type="file"
                   className="border border-primary"
+                  onChange={(e) => {
+                    mainPhotoForm.setValue("photo", e.target.files![0]);
+                  }}
                 ></Input>
               </div>
             );

@@ -71,7 +71,8 @@ export const addUser = async (req: Request, res: Response) => {
 };
 
 export const uploadPhoto = async (req: Request, res: Response) => {
-  console.log(req.files);
+  // console.log(req.files);
+  // console.log(req.body);
   try {
     // initialize firebase app
     initializeApp(firebaseConfig.firebaseConfig);
@@ -92,7 +93,9 @@ export const uploadPhoto = async (req: Request, res: Response) => {
       photo.data,
       metadata
     );
+
     // get download url
+
     const downloadLink = await getDownloadURL(snapshot.ref);
 
     await prisma.user.update({
