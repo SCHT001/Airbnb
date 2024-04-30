@@ -21,6 +21,7 @@ model user {
   token       token[]
   phone       String? @unique
   countryCode String?
+  photo       String
 }
 
 model token {
@@ -44,7 +45,7 @@ model listing {
   beds          Int
   rating        Float?
   images        listing_image[]
-  availability availability[]
+  availability  availability[]
 }
 
 model listing_image {
@@ -65,10 +66,9 @@ model bookings {
 }
 
 model availability {
-  id          String   @id @default(cuid())
-  listing_id  String
-  date        DateTime
-  is_booked   Boolean
-  listing     listing @relation(fields: [listing_id], references: [id], onDelete: Cascade)
+  id         String   @id @default(cuid())
+  listing_id String
+  date       DateTime
+  is_booked  Boolean
+  listing    listing  @relation(fields: [listing_id], references: [id], onDelete: Cascade)
 }
-

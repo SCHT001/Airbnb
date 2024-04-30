@@ -1,4 +1,13 @@
 import { Request, Response } from "express";
+import { initializeApp } from "firebase/app";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import firebaseConfig from "../../config/firebase.config";
+import { HandleError } from "../../errors/errorHandler";
 import { prisma } from "../../services/prisma.service";
 
 export const storeToken = async (userId: string, token: string) => {
@@ -37,6 +46,7 @@ export const storeToken = async (userId: string, token: string) => {
 export const addUser = async (req: Request, res: Response) => {
   try {
     const data = req.body;
+    console.log(req.files);
 
     // Create the user
     const newUser = await prisma.user.create({
@@ -57,5 +67,36 @@ export const addUser = async (req: Request, res: Response) => {
         message: e,
       },
     };
+  }
+};
+
+export const uploadPhoto = async (req: Request, res: Response) => {
+  try {
+    initializeApp(firebaseConfig.firebaseConfig);
+    const storage = getStorage();
+    const photo: any = req.files?.photo;
+
+    const storageRef = ref(storage, "users/" + photo.name);
+
+    const metadata = {
+      contentType: photo.mimetype,
+    };
+    const snapshot = await uploadBytesResumable(
+      storageRef,
+      photo.data,
+      metadata
+    );
+    const downloadLink = await getDownloadURL(snapshot.ref);
+
+    res.status(200).send({
+      status: "success",
+      data: {
+        url: downloadLink,
+      },
+      error: [],
+      message: "Photo uploaded successfully",
+    });
+  } catch (e) {
+    HandleError(res, 500, e);
   }
 };
