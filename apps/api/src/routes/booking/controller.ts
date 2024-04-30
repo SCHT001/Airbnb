@@ -72,3 +72,20 @@ function calculateIntermediateDates(startDate: Date, endDate: Date) {
   }
   return intermediateDates;
 }
+
+export const getBookings = async (req: Request, res: Response) => {
+  try {
+    const listingId = req.params.listingId;
+    console.log(listingId);
+    const bookings = await prisma.availability.findMany({
+      where: {
+        listing_id: listingId,
+      },
+    });
+    return res.status(200).json({
+      bookings,
+    });
+  } catch (e) {
+    return HandleError(res, 500, "Error while fetching bookings");
+  }
+};
