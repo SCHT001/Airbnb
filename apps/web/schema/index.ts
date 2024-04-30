@@ -9,7 +9,7 @@ export const LoginFormSchema = z.object({
 });
 
 export const nameSchema = z.object({
-  name: z.string().nonempty("Name is required"),
+  name: z.string().min(1, "Name is required"),
 });
 
 export type T_LoginForm = z.infer<typeof LoginFormSchema>;

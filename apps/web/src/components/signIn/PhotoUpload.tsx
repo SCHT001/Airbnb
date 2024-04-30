@@ -26,7 +26,7 @@ const PhotoUpload: FC<{
           name="photo"
           render={({ field }) => {
             return (
-              <div className=" flex  flex-col items-center gap-5">
+              <div className=" flex  flex-col items-center gap-5 w-full">
                 <img
                   src="/user_default.png"
                   alt="user_default"
@@ -35,7 +35,7 @@ const PhotoUpload: FC<{
                 <Input
                   // {...field}
                   type="file"
-                  className="border border-primary"
+                  className="border border-primary "
                   onChange={(e) => {
                     mainPhotoForm.setValue("photo", e.target.files![0]);
                   }}

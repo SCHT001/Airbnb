@@ -57,7 +57,7 @@ const SignInDialogContent: FC<{
 
       <Form {...userForm}>
         <form onSubmit={userForm.handleSubmit(onSubmit)}>
-          <div className="flex gap-5 flex-col">
+          <div className="flex  flex-col">
             <Label className="text-2xl  text-black">Welcome to Airbnb</Label>
             {/* Country select and number input */}
             {/* Form field for country select */}

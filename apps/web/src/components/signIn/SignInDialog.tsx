@@ -130,7 +130,7 @@ const SignInDialog = () => {
                 setSteps={setSteps}
               ></PhotoUpload>
               <Button
-                className="w-full "
+                className="w-80 "
                 onClick={() => {
                   signInMutation.mutate({
                     phone: loginForm.getValues("phone"),

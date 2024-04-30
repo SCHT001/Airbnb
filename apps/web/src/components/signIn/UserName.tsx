@@ -23,6 +23,7 @@ const UserName: FC<{
 
   const onSubmit = async () => {
     // setName(nameForm.getValues("name"));
+    console.log("submitted");
     loginForm.setValue("name", nameForm.getValues("name"));
     setSteps(4);
   };
@@ -30,7 +31,7 @@ const UserName: FC<{
   return (
     <div>
       <Form {...nameForm}>
-        <form onSubmit={nameForm.handleSubmit(onSubmit)}>
+        <form>
           <DialogContent>
             <DialogHeader>
               <DialogTitle className="text-2xl font-medium">
@@ -45,18 +46,21 @@ const UserName: FC<{
                     <div>
                       <Label className="text-md font-normal">Name</Label>
                       <Input
+                        type="text"
+                        required
                         className="border border-slate-500"
+                        placeholder="Enter your name"
                         {...field}
                       ></Input>
                     </div>
                   );
                 }}
               ></FormField>
-              <FormMessage>
+              <FormMessage className="mt-2">
                 {nameForm.formState.errors.name?.message}
               </FormMessage>
             </div>
-            <Button onClick={onSubmit}>Continue</Button>
+            <Button onClick={nameForm.handleSubmit(onSubmit)}>Continue</Button>
           </DialogContent>
         </form>
       </Form>
