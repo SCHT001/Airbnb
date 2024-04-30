@@ -35,14 +35,18 @@ const Booking: FC<{
   }, [range]);
 
   const bookPlace = async () => {
-    console.log("clicked");
-    const response: AxiosResponse = await A_booking.post("/add", {
-      listing_id: roomData.id,
-      range: range,
-    });
-    console.log(response.data);
-    if (response.data) {
-      toast("Room booked successfully");
+    // console.log("clicked");
+    try {
+      const response: AxiosResponse = await A_booking.post("/add", {
+        listing_id: roomData.id,
+        range: range,
+      });
+
+      if (response.data) {
+        return toast.success("Room booked successfully");
+      }
+    } catch (e) {
+      return toast.error("Failed to book room");
     }
   };
 
