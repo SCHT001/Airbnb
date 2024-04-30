@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { HandleError } from "../../errors/errorHandler";
 import { prisma } from "../../services/prisma.service";
+import { calculateIntermediateDates } from "./helpers";
 
 export const addBooking = async (req: Request, res: Response) => {
   try {
@@ -49,29 +50,6 @@ export const addBooking = async (req: Request, res: Response) => {
     return HandleError(res, 500, "Error while booking room");
   }
 };
-
-function calculateIntermediateDates(startDate: Date, endDate: Date) {
-  // Convert the provided strings to Date objects
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-
-  // Calculate the difference in milliseconds between the two dates
-  console.log(start.getTime(), end.getTime());
-  const difference = end.getTime() - start.getTime();
-
-  // Calculate the number of milliseconds in a day
-  const oneDay = 24 * 60 * 60 * 1000;
-
-  // Store the intermediate dates
-  const intermediateDates = [];
-
-  // Loop through and calculate the intermediate dates
-  for (let i = 1; i < difference / oneDay; i++) {
-    const intermediateDate = new Date(start.getTime() + i * oneDay);
-    intermediateDates.push(intermediateDate.toISOString());
-  }
-  return intermediateDates;
-}
 
 export const getBookings = async (req: Request, res: Response) => {
   try {
