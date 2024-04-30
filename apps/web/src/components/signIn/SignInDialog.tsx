@@ -40,41 +40,40 @@ const SignInDialog = () => {
     phone: string;
     countryCode: string;
   }) => {
+    toast.loading("Siging you in. Please wait");
     const response: AxiosResponse = await user.post("/auth/signIn/phone", data);
     if (response.data) {
       setCookie("token", response.data.data.token);
       setCookie("airbnb_userId", response.data.data.userId);
-      toast.success("Logged in");
-      return response.data;
     }
+    return response.data;
   };
 
   const uploadUserPhoto = async (data: { userId: any; photo: any }) => {
     const formData = new FormData();
-    // console.log(data.photo);
-    console.log(photoForm.getValues("photo"));
     formData.append("userId", data.userId);
 
-    setTimeout(async () => {
-      formData.append("photo", photoForm.getValues("photo"));
-      const response: AxiosResponse = await hostImage.post(
-        "/user/photo",
-        formData
-      );
-
-      if (response.data) {
-        console.log(response.data);
-        setTimeout(() => {
-          location.reload();
-        }, 2000);
-      }
+    formData.append("photo", photoForm.getValues("photo"));
+    const response: AxiosResponse = await hostImage.post(
+      "/user/photo",
+      formData
+    );
+    if (response.data) {
+      console.log(response);
       return response.data;
-    }, 2000);
+    }
   };
 
   // mutation for login
   const photoMutation = useMutation({
     mutationFn: uploadUserPhoto,
+    onSuccess: () => {
+      console.log("Done");
+      toast.success("Signed successfully");
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    },
   });
 
   const signInMutation = useMutation({
