@@ -9,6 +9,7 @@ export const addBooking = async (req: Request, res: Response) => {
     const data = req.body;
 
     const listingId = data.listing_id;
+    const userId = data.user_id;
 
     // Calculate the intermediate dates between the fromDate and toDate
     const intermediateDates = calculateIntermediateDates(
@@ -41,6 +42,29 @@ export const addBooking = async (req: Request, res: Response) => {
           is_booked: true,
         },
       });
+    });
+
+    // get the listing details
+
+    const listing = await prisma.listing.findFirst({
+      where: {
+        id: listingId,
+      },
+    });
+
+    // calculate total price
+    const totalPrice = intermediateDates.length * listing?.price!;
+
+    // store the booking in the bookings table
+    await prisma.bookings.create({
+      data: {
+        listing_id: listingId,
+        user_id: userId,
+        check_in_date: new Date(data.range.from),
+        check_out_date: new Date(data.range.to),
+        status: "booked",
+        total_price: totalPrice,
+      },
     });
 
     return res.status(200).json({

@@ -3,6 +3,7 @@ import { A_booking } from "@/lib/axios";
 import { T_Room } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
+import { getCookie } from "cookies-next";
 import { FC, useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
 import { toast } from "sonner";
@@ -50,6 +51,7 @@ const Booking: FC<{
       const response: AxiosResponse = await A_booking.post("/add", {
         listing_id: roomData.id,
         range: range,
+        user_id: getCookie("airbnb_userId"),
       });
 
       if (response.data) {
