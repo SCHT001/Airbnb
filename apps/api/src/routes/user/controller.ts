@@ -71,7 +71,7 @@ export const addUser = async (req: Request, res: Response) => {
 };
 
 export const uploadPhoto = async (req: Request, res: Response) => {
-  console.log(req.body);
+  console.log(req.files);
   try {
     // initialize firebase app
     initializeApp(firebaseConfig.firebaseConfig);

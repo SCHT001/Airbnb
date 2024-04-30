@@ -6,9 +6,11 @@ import Navbar from "@/components/become-a-host/Navbar";
 import PhotoUpload from "@/components/become-a-host/PhotoUpload";
 import PlaceType from "@/components/become-a-host/Type-of-place";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormField, FormMessage } from "@/components/ui/form";
+import { Form, FormField } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { host, hostImage } from "@/lib/axios";
+import { T_Listing } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import { useMutation } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
@@ -16,11 +18,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { number, set, z } from "zod";
+import { z } from "zod";
 import { listingInputSchema } from "../../../schema";
-import { T_Listing } from "@/types";
-import { on } from "events";
 
 const page = () => {
   const router = useRouter();
@@ -168,7 +167,7 @@ const page = () => {
         description: z
           .string()
           .min(1, "Description must be at least 1 character"),
-        price: z.number().min(1, "Price must be at least 1"),
+        price: z.string().min(1, "Price must be at least 1"),
       })
     ),
   });

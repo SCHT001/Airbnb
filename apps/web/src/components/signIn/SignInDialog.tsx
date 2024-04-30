@@ -1,4 +1,4 @@
-import { user } from "@/lib/axios";
+import { hostImage, user } from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { getCookie, setCookie } from "cookies-next";
@@ -54,18 +54,26 @@ const SignInDialog = () => {
     }
   };
 
-  const uploadUserPhoto = async (data: any) => {
+  const uploadUserPhoto = async (data: { userId: any; photo: any }) => {
     const formData = new FormData();
+    // console.log(data.photo);
+    console.log(photoForm.getValues("photo"));
+    formData.append("photo", photoForm.getValues("photo"));
     formData.append("userId", data.userId);
-    formData.append("photo", data.photo);
 
-    const response: AxiosResponse = await user.post("/user/photo", formData);
-    if (response.data) {
-      setTimeout(() => {
-        location.reload();
-      }, 500);
-    }
-    return response.data;
+    setTimeout(async () => {
+      const response: AxiosResponse = await hostImage.post(
+        "/user/photo",
+        formData
+      );
+
+      if (response.data) {
+        setTimeout(() => {
+          location.reload();
+        }, 500);
+      }
+      return response.data;
+    }, 2000);
   };
 
   // mutation for login
@@ -82,15 +90,6 @@ const SignInDialog = () => {
       });
     },
   });
-  //   Photo upload
-
-  // if (steps === 5) {
-  //   signInMutation.mutate({
-  //     phone: loginForm.getValues("phone"),
-  //     countryCode: loginForm.getValues("countryCode"),
-  //     name: loginForm.getValues("name"),
-  //   });
-  // }
 
   if (!getCookie("token")) {
     return (

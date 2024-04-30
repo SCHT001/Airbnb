@@ -26,3 +26,9 @@ export const listings = axios.create({
     "Content-Type": "application/json",
   },
 });
+export const A_booking = axios.create({
+  baseURL: "http://localhost:5506/api/bookings",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});

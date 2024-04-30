@@ -1,10 +1,13 @@
+import { A_booking } from "@/lib/axios";
+import { T_Room } from "@/types";
+import { AxiosResponse } from "axios";
 import { FC, useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
+import { toast } from "sonner";
+import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
-import { T_Room } from "@/types";
 
 const Booking: FC<{
   roomData: T_Room;
@@ -31,6 +34,18 @@ const Booking: FC<{
     daysCount();
   }, [range]);
 
+  const bookPlace = async () => {
+    console.log("clicked");
+    const response: AxiosResponse = await A_booking.post("/add", {
+      listing_id: roomData.id,
+      range: range,
+    });
+    console.log(response.data);
+    if (response.data) {
+      toast("Room booked successfully");
+    }
+  };
+
   return (
     <Card className="mb-5 shadow-xl">
       <CardHeader>
@@ -46,7 +61,9 @@ const Booking: FC<{
           onSelect={setRange}
           className="rounded-md border"
         />
-        <Button className="w-full mt-5">Reserve</Button>
+        <Button onClick={bookPlace} className="w-full mt-5">
+          Reserve
+        </Button>
 
         <div className="priceDetails mt-5 flex flex-col gap-5">
           <p className=" ">
