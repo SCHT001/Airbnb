@@ -21,7 +21,7 @@ model user {
   token       token[]
   phone       String? @unique
   countryCode String?
-  photo       String
+  photo       String?
 }
 
 model token {

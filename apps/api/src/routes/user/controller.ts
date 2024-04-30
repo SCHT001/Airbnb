@@ -71,22 +71,38 @@ export const addUser = async (req: Request, res: Response) => {
 };
 
 export const uploadPhoto = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
+    // initialize firebase app
     initializeApp(firebaseConfig.firebaseConfig);
     const storage = getStorage();
     const photo: any = req.files?.photo;
 
+    //path for storage in firebase
     const storageRef = ref(storage, "users/" + photo.name);
 
+    // photo metadata
     const metadata = {
       contentType: photo.mimetype,
     };
+
+    // Asynchronously upload file to firebase storage
     const snapshot = await uploadBytesResumable(
       storageRef,
       photo.data,
       metadata
     );
+    // get download url
     const downloadLink = await getDownloadURL(snapshot.ref);
+
+    await prisma.user.update({
+      where: {
+        id: req.body.userId,
+      },
+      data: {
+        photo: downloadLink,
+      },
+    });
 
     res.status(200).send({
       status: "success",
@@ -97,6 +113,7 @@ export const uploadPhoto = async (req: Request, res: Response) => {
       message: "Photo uploaded successfully",
     });
   } catch (e) {
+    console.log(e);
     HandleError(res, 500, e);
   }
 };

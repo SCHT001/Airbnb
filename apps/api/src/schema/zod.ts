@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const signInWithPhoneSchema = z.object({
-  name: z.string().min(1),
-  phone: z.string().min(9),
-  countryCode: z.string().min(1),
+  name: z.string().min(1, "Name must be at least 1 character"),
+  phone: z.string().min(9, "Phone number must be at least 9 characters"),
+  countryCode: z.string().min(1, "Country code must be at least 1 character"),
 });
 
 export const listingSchema = z.object({

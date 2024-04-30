@@ -83,46 +83,52 @@ const signInWithProvider = async (req: Request, res: Response) => {
 // Sign in user with phone number
 
 export const signInWithPhone = async (req: Request, res: Response) => {
-  // verify if request data is valid
-  if (!validatePhoneLogin(req))
-    return HandleError(res, 400, "Invalid request data");
+  try {
+    // verify if request data is valid
+    if (!validatePhoneLogin(req))
+      return HandleError(res, 400, "Invalid request data");
 
-  const data: User = req.body;
-  let user = await prisma.user.findFirst({
-    where: {
-      phone: data.phone,
-    },
-  });
-
-  if (!user) {
-    const createdUser = await addUser(req, res);
-    user = createdUser.data.user!;
-  }
-
-  // If user is created, sign in
-
-  if (user) {
-    // Generate token
-    const secret: string = process.env.JWT_SECRET!;
-    const token = jwt.sign({ phone: user.phone }, secret);
-
-    // set cookie with token
-    res.cookie("token", token, {
-      httpOnly: true,
-    });
-
-    // Store token in database
-    await storeToken(user.id, token);
-
-    return res.status(200).send({
-      status: "success",
-      data: {
-        token: token,
-        userId: user.id,
+    const data: User = req.body;
+    let user = await prisma.user.findFirst({
+      where: {
+        phone: data.phone,
       },
-      error: [],
     });
-  } else {
-    return HandleError(res, 500, "Something went wrong. Please try again.");
+
+    if (!user) {
+      const createdUser = await addUser(req, res);
+      user = createdUser.data.user!;
+    }
+
+    // If user is created, sign in
+
+    if (user) {
+      // Generate token
+      const secret: string = process.env.JWT_SECRET!;
+      const token = jwt.sign({ phone: user.phone }, secret);
+
+      // set cookie with token
+      res.cookie("token", token, {
+        httpOnly: true,
+      });
+
+      // Store token in database
+      await storeToken(user.id, token);
+
+      return res.status(200).send({
+        status: "success",
+        data: {
+          token: token,
+          userId: user.id,
+        },
+        error: [],
+      });
+    } else {
+      console.log("error");
+      return HandleError(res, 500, "Something went wrong. Please try again.");
+    }
+  } catch (e) {
+    console.log(e);
+    return HandleError(res, 500, e);
   }
 };

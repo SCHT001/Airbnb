@@ -6,6 +6,7 @@ export const validatePhoneLogin = (req: Request) => {
     signInWithPhoneSchema.parse(req.body);
     return 1;
   } catch (error) {
+    console.log(error);
     return 0;
   }
 };
