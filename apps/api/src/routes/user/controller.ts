@@ -122,3 +122,28 @@ export const uploadPhoto = async (req: Request, res: Response) => {
     HandleError(res, 500, e);
   }
 };
+
+export const getUser = async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (user) {
+      return res.status(200).send({
+        name: user.name,
+        id: user.id,
+        email: user.email,
+        phone: user.phone,
+        countryCode: user.countryCode,
+        photo: user.photo,
+      });
+    }
+  } catch (e) {
+    return HandleError(res, 500, "Unable to get user");
+  }
+};
