@@ -73,6 +73,8 @@ export const addUser = async (req: Request, res: Response) => {
 export const uploadPhoto = async (req: Request, res: Response) => {
   // console.log(req.files);
   // console.log(req.body);
+
+  const userId = req.body.userId;
   try {
     // initialize firebase app
     initializeApp(firebaseConfig.firebaseConfig);
@@ -80,7 +82,7 @@ export const uploadPhoto = async (req: Request, res: Response) => {
     const photo: any = req.files?.photo;
 
     //path for storage in firebase
-    const storageRef = ref(storage, "users/" + photo.name);
+    const storageRef = ref(storage, `users/${userId}/` + photo.name);
 
     // photo metadata
     const metadata = {
