@@ -11,6 +11,7 @@ export const user = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export const hostImage = axios.create({
