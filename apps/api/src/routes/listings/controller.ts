@@ -102,10 +102,13 @@ export const getSingleListing = async (req: Request, res: Response) => {
       },
       include: {
         images: true,
+        host: true,
       },
     });
 
-    res.status(200).send({
+    if (!listing) return HandleError(res, 404, "Listing not found");
+
+    return res.status(200).send({
       status: "success",
       data: listing,
       error: [],
