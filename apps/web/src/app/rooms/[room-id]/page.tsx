@@ -51,7 +51,7 @@ const Room = () => {
 
         {/* details and booking */}
 
-        <div className="flex gap-4 justify-between pt-10">
+        <div className="flex gap-4 jbetweenustify- pt-10">
           <RoomDetails roomData={roomData}></RoomDetails>
           <Booking roomData={roomData}></Booking>
         </div>

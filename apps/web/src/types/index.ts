@@ -12,6 +12,7 @@ export type T_Room = {
   rating: number;
   price: number;
   images: any;
+  location: string;
 };
 
 export type T_Listing = {

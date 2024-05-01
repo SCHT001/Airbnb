@@ -86,6 +86,7 @@ export const uploadToFirebase = async (req: Request, res: Response) => {
       });
     });
   } catch (err) {
+    console.log(err);
     return HandleError(res, 500, err);
   }
 };
