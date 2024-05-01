@@ -12,7 +12,15 @@ import { Separator } from "@/components/ui/separator";
 import { user } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie, setCookie } from "cookies-next";
-import { LogOut, Menu, Settings, User } from "lucide-react";
+import {
+  Gift,
+  HelpCircle,
+  Home,
+  LogOut,
+  Menu,
+  Settings,
+  User,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -41,81 +49,97 @@ const ProfileMenuButton = () => {
     }, 500);
   };
 
-  if (userDataQuery.isSuccess) {
-    return (
-      <div className="border border-slate-300 rounded-full flex p-1 items-center justify-between pl-2 gap-3 ">
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <div className="flex items-center gap-3">
-              <Menu height={20} width={20}></Menu>
-              <Avatar>
+  // if (getCookie("token")) {
+  return (
+    <div className="border border-slate-300 rounded-full flex p-1 items-center justify-between pl-2 gap-3 ">
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <div className="flex items-center gap-3">
+            <Menu height={20} width={20}></Menu>
+            <Avatar>
+              {userDataQuery.isSuccess && getCookie("airbnb_uerId") ? (
                 <AvatarImage
-                  src={userDataQuery.data.photo || "/user_default.png"}
+                  src={userDataQuery.data.photo}
                   height={30}
                   width={30}
                   className="rounded-full border border-slate-300"
                 ></AvatarImage>
-              </Avatar>
-            </div>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent
-            align="end"
-            className="mt-2 z-50 border-none bg-transparent shadow-none"
-          >
-            <Card className="w-56 shadow-lg flex flex-col">
-              <SignInDialog></SignInDialog>
-
-              <Separator orientation="horizontal"></Separator>
-
-              <DropdownMenuItem className="h-10 pl-5">
-                <Link href={"/"}>Gift cards</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="h-10 pl-5">
-                <Link href={"/"}>Airbnb you home</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="h-10 pl-5">
-                <Link href={"/"}>Help Center</Link>
-              </DropdownMenuItem>
-
-              {/* {settings if logged in} */}
-
-              {getCookie("token") && (
-                <>
-                  <Separator orientation="horizontal"></Separator>
-
-                  <DropdownMenuItem className="h-10 pl-5 ">
-                    <Link href={"/"} className="flex gap-2 items-center w-full">
-                      <User size={15}></User>
-
-                      <span>Profile</span>
-                    </Link>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem className="h-10 pl-5">
-                    <Link href={"/"} className="flex gap-2 items-center w-full">
-                      <Settings size={15}></Settings>
-                      <span>Settings</span>
-                    </Link>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem className="h-10 pl-5 ">
-                    <Link
-                      href={"/"}
-                      onClick={logOut}
-                      className="flex gap-2 items-center w-full"
-                    >
-                      <LogOut size={15}></LogOut> <span>Log out</span>
-                    </Link>
-                  </DropdownMenuItem>
-                </>
+              ) : (
+                <AvatarImage
+                  src={"/user_default.png"}
+                  height={30}
+                  width={30}
+                  className="rounded-full border border-slate-300"
+                ></AvatarImage>
               )}
-            </Card>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-    );
-  }
+            </Avatar>
+          </div>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent
+          align="end"
+          className="mt-2 z-50 border-none bg-transparent shadow-none"
+        >
+          <Card className="w-56 shadow-lg flex flex-col">
+            <SignInDialog></SignInDialog>
+
+            <Separator orientation="horizontal"></Separator>
+
+            <DropdownMenuItem className="h-10 pl-5">
+              <Link href={"/"} className="flex gap-2 items-center">
+                <Gift size={15}></Gift> Gift cards
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="h-10 pl-5">
+              <Link href={"/"} className="flex gap-2 items-center">
+                <Home size={15}></Home> Airbnb you home
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="h-10 pl-5">
+              <Link href={"/"} className="flex gap-2 items-center">
+                <HelpCircle size={15}></HelpCircle>
+                Help Center
+              </Link>
+            </DropdownMenuItem>
+
+            {/* {settings if logged in} */}
+
+            {getCookie("token") && (
+              <>
+                <Separator orientation="horizontal"></Separator>
+
+                <DropdownMenuItem className="h-10 pl-5 ">
+                  <Link href={"/"} className="flex gap-2 items-center w-full">
+                    <User size={15}></User>
+
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem className="h-10 pl-5">
+                  <Link href={"/"} className="flex gap-2 items-center w-full">
+                    <Settings size={15}></Settings>
+                    <span>Settings</span>
+                  </Link>
+                </DropdownMenuItem>
+
+                <DropdownMenuItem className="h-10 pl-5 ">
+                  <Link
+                    href={"/"}
+                    onClick={logOut}
+                    className="flex gap-2 items-center w-full"
+                  >
+                    <LogOut size={15}></LogOut> <span>Log out</span>
+                  </Link>
+                </DropdownMenuItem>
+              </>
+            )}
+          </Card>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+  // }
 };
 
 export default ProfileMenuButton;

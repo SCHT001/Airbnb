@@ -2,6 +2,7 @@ import { hostImage, user } from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { getCookie, setCookie } from "cookies-next";
+import { LogIn, UserPlus } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -91,11 +92,11 @@ const SignInDialog = () => {
       <Dialog open={getCookie("token") ? false : undefined}>
         <DialogTrigger className="z-100">
           <div>
-            <div className="pl-5 items-center hover:bg-slate-100 font-semibold w-full h-10  text-start flex justify-start">
-              Sign up
+            <div className="pl-5 gap-2 items-center hover:bg-slate-100 font-semibold w-full h-10  text-start flex justify-start">
+              <UserPlus size={15}></UserPlus> Sign up
             </div>
-            <div className="pl-5 items-center hover:bg-slate-100 font-semibold w-full h-10  text-start flex justify-start">
-              <>Log in</>
+            <div className="pl-5 gap-2 items-center hover:bg-slate-100 font-semibold w-full h-10  text-start flex justify-start">
+              <LogIn size={15}></LogIn>Log in
             </div>
           </div>
         </DialogTrigger>
