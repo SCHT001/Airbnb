@@ -23,7 +23,6 @@ import { listingInputSchema } from "../../../schema";
 
 const page = () => {
   const router = useRouter();
-
   const [step, setStep] = useState(1);
 
   // initialize form
@@ -200,7 +199,13 @@ const page = () => {
             ></FormField>
             {accommodationForm.formState.errors.accommodation &&
               toast.error(
-                accommodationForm.formState.errors.accommodation.message
+                accommodationForm.formState.errors.accommodation.message,
+                {
+                  action: {
+                    label: "X",
+                    onClick: () => {},
+                  },
+                }
               )}
             <Footer step={step} setStep={setStep}></Footer>
           </form>
