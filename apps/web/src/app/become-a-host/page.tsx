@@ -56,12 +56,12 @@ const page = () => {
     const formData = new FormData();
     formData.append("listing_id", id);
 
+    console.log(becomeHostForm.getValues("photos")[0]);
     setTimeout(async () => {
       for (let i = 0; i < 5; i++) {
         console.log(becomeHostForm.getValues("photos")[i]);
         formData.append("photo", becomeHostForm.getValues("photos")[i]);
       }
-      //   console.log(becomeHostForm.getValues("photos")[0]);
       const response = await hostImage.post("/listings/photos", formData);
       console.log(response);
     }, 2000);
