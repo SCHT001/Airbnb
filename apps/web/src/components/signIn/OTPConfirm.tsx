@@ -78,9 +78,9 @@ const OTPConfirm: FC<{
             }}
           ></FormField>
 
-          <Separator></Separator>
+          <Separator className="my-5"></Separator>
 
-          <div className="flex justify-between items-center">
+          <div className="flex justify-between items-center ">
             <Link href={"/"} className="text-sm underline">
               More options
             </Link>

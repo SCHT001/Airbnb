@@ -58,7 +58,9 @@ const SignInDialogContent: FC<{
       <Form {...userForm}>
         <form onSubmit={userForm.handleSubmit(onSubmit)}>
           <div className="flex  flex-col">
-            <Label className="text-2xl  text-black">Welcome to Airbnb</Label>
+            <Label className="text-2xl py-5 text-black">
+              Welcome to Airbnb
+            </Label>
             {/* Country select and number input */}
             {/* Form field for country select */}
             <FormField
@@ -102,7 +104,7 @@ const SignInDialogContent: FC<{
               }}
             ></FormField>
             {/* Label */} <br />
-            <Label className="text-sm pb-10 text-black">
+            <Label className="text-sm py-5 text-black">
               We will call or text you to confirm your number. Standard message
               and data rates apply. &nbsp;
               <Link href={"/"} className="underline">
