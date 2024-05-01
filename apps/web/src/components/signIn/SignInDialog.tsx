@@ -44,7 +44,7 @@ const SignInDialog = () => {
     toast.loading("Siging you in. Please wait");
     const response: AxiosResponse = await user.post("/auth/signIn/phone", data);
     if (response.data) {
-      setCookie("token", response.data.data.token);
+      // setCookie("token", response.data.data.token);
       setCookie("airbnb_userId", response.data.data.userId);
     }
     return response.data;
@@ -87,9 +87,9 @@ const SignInDialog = () => {
     },
   });
 
-  if (!getCookie("token")) {
+  if (!getCookie("airbnb_userId")) {
     return (
-      <Dialog open={getCookie("token") ? false : undefined}>
+      <Dialog open={getCookie("airbnb_userId") ? false : undefined}>
         <DialogTrigger className="z-100">
           <div>
             <div className="pl-5 gap-2 items-center hover:bg-slate-100 font-semibold w-full h-10  text-start flex justify-start">

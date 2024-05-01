@@ -41,7 +41,7 @@ const ProfileMenuButton = () => {
 
   const router = useRouter();
   const logOut = () => {
-    setCookie("token", "");
+    // setCookie("token", "");
     setCookie("airbnb_userId", "");
     toast.success("Logged out");
     setTimeout(() => {
@@ -49,7 +49,6 @@ const ProfileMenuButton = () => {
     }, 500);
   };
 
-  // if (getCookie("token")) {
   return (
     <div className="border border-slate-300 rounded-full flex p-1 items-center justify-between pl-2 gap-3 ">
       <DropdownMenu>
@@ -57,7 +56,7 @@ const ProfileMenuButton = () => {
           <div className="flex items-center gap-3">
             <Menu height={20} width={20}></Menu>
             <Avatar>
-              {userDataQuery.isSuccess && getCookie("airbnb_uerId") ? (
+              {userDataQuery.isSuccess && getCookie("airbnb_userId") ? (
                 <AvatarImage
                   src={userDataQuery.data.photo}
                   height={30}
@@ -104,7 +103,7 @@ const ProfileMenuButton = () => {
 
             {/* {settings if logged in} */}
 
-            {getCookie("token") && (
+            {getCookie("airbnb_userId") && (
               <>
                 <Separator orientation="horizontal"></Separator>
 
