@@ -32,7 +32,10 @@ const RoomDetails: FC<{
           <AvatarImage className="" src="/user_default.png"></AvatarImage>
         </Avatar>
         <div className="flex flex-col">
-          <Label className="text-lg font-semibold">Hosted by {}</Label>
+          <Label className="text-lg ">
+            Hosted by{" "}
+            <span className="font-semibold"> {roomData.host.name}</span>{" "}
+          </Label>
           <Label className="text-slate-700">
             {roomData.accommodation} · Joined in 2021
           </Label>

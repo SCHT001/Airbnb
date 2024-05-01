@@ -13,6 +13,7 @@ export type T_Room = {
   price: number;
   images: any;
   location: string;
+  host: T_user;
 };
 
 export type T_Listing = {
@@ -27,4 +28,14 @@ export type T_Listing = {
   beds: number;
   location: string;
   host_id: string;
+};
+
+export type T_user = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  countryCode: string;
+  photo: string;
 };
