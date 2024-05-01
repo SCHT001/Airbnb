@@ -111,7 +111,7 @@ const ProfileMenuButton = () => {
                   <Link href={"/"} className="flex gap-2 items-center w-full">
                     <User size={15}></User>
 
-                    <span>Profile</span>
+                    <span>Account</span>
                   </Link>
                 </DropdownMenuItem>
 
