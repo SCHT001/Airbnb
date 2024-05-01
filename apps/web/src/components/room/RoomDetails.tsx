@@ -1,7 +1,8 @@
 import { T_Room } from "@/types";
-import { Star } from "lucide-react";
+import { Bath, Bed, BedDouble, Star } from "lucide-react";
 import { FC } from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
+import { Card } from "../ui/card";
 import { Label } from "../ui/label";
 import { Separator } from "../ui/separator";
 
@@ -29,7 +30,7 @@ const RoomDetails: FC<{
       {/* Host details */}
       <div className="hostedBy flex gap-5">
         <Avatar className="border border-slate-400">
-          <AvatarImage className="" src="/user_default.png"></AvatarImage>
+          <AvatarImage className="" src={roomData.host.photo}></AvatarImage>
         </Avatar>
         <div className="flex flex-col">
           <Label className="text-lg ">
@@ -41,7 +42,34 @@ const RoomDetails: FC<{
           </Label>
         </div>
       </div>
+
       <Separator className="my-5 w-full"></Separator>
+
+      {/* Description */}
+      <div className="description">
+        <Label className="text-lg font-semibold">Description</Label> <br />
+        <Label className="text-slate-700">{roomData.description}</Label>
+      </div>
+
+      <Separator className="my-5 w-full"></Separator>
+
+      {/* Room details */}
+      <div className="room-details">
+        <Label className="text-lg font-semibold">Room details</Label>
+        <div className="flex pt-5 gap-2">
+          <Card className="border border-slate-400 px-2 py-4 justify-center items-center flex flex-col w-44">
+            <BedDouble size={40}></BedDouble> {roomData.bedrooms} bedrooms
+          </Card>
+
+          <Card className="border border-slate-400 px-2 py-4 justify-center items-center flex flex-col w-44">
+            <Bed size={40}></Bed> {roomData.beds} beds
+          </Card>
+
+          <Card className="border border-slate-400 px-2 py-4 justify-center items-center flex flex-col w-44">
+            <Bath size={40}></Bath> {roomData.bathrooms} baths
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };
