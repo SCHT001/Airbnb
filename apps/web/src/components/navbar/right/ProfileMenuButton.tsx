@@ -37,7 +37,7 @@ const ProfileMenuButton = () => {
     queryKey: ["userData"],
     queryFn: getUserData,
   });
-  userDataQuery.isSuccess && console.log(userDataQuery.data);
+  // userDataQuery.isSuccess && console.log(userDataQuery.data);
 
   const router = useRouter();
   const logOut = () => {
@@ -108,7 +108,10 @@ const ProfileMenuButton = () => {
                 <Separator orientation="horizontal"></Separator>
 
                 <DropdownMenuItem className="h-10 pl-5 ">
-                  <Link href={"/"} className="flex gap-2 items-center w-full">
+                  <Link
+                    href={`/account/${getCookie("airbnb_userId")}`}
+                    className="flex gap-2 items-center w-full"
+                  >
                     <User size={15}></User>
 
                     <span>Account</span>
