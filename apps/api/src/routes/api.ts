@@ -10,6 +10,8 @@ router.use("/auth", auth);
 
 router.use("/listings", listings);
 
+// router.use(validateRequest);
+
 router.use("/bookings", bookings);
 
 router.use("/user", user);
