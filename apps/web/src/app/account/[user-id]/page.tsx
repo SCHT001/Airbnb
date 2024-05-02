@@ -1,4 +1,6 @@
+"use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getCookie } from "cookies-next";
 import { SquareUser } from "lucide-react";
 import Link from "next/link";
 
@@ -12,7 +14,7 @@ const Page = () => {
       </div>
 
       <div className="cards pt-10">
-        <Link href={"/"}>
+        <Link href={`/account/${getCookie("airbnb_userId")}/personel-info`}>
           <Card className="w-80 shadow-lg">
             <CardHeader>
               <CardTitle>
