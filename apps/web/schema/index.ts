@@ -31,3 +31,9 @@ export const listingInputSchema = z.object({
 });
 
 export type T_ListingInput = z.infer<typeof listingInputSchema>;
+
+export const updateUserSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  phone: z.string().min(1, "Phone number is required"),
+  email: z.string().min(1, "Email is required"),
+});
