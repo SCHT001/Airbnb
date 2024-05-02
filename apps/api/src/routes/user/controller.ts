@@ -142,6 +142,8 @@ export const getUser = async (req: Request, res: Response) => {
         countryCode: user.countryCode,
         photo: user.photo,
       });
+    } else {
+      HandleError(res, 404, "User not found");
     }
   } catch (e) {
     return HandleError(res, 500, "Unable to get user");

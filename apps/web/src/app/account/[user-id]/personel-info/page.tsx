@@ -12,10 +12,27 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
+import { user } from "@/lib/axios";
+import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
+import { useEffect, useState } from "react";
 
 const Page = () => {
-  const userId = getCookie("airbnb_userId");
+  const [userId, setUserId] = useState("");
+  useEffect(() => {
+    const userId = getCookie("airbnb_userId")!;
+    setUserId(userId);
+  }, []);
+
+  const getUserData = async () => {
+    const response = await user.get(`/user/${userId}`);
+    return response.data;
+  };
+
+  const userDataQuery = useQuery({
+    queryKey: ["userData"],
+    queryFn: getUserData,
+  });
 
   return (
     <div className="px-[20%] pt-10">
