@@ -3,11 +3,11 @@ import { updateProfile } from "./controller";
 
 const router: Router = Router();
 
-router.get("/profile", (req, res) => {
+router.get("/", (req, res) => {
   res.send("Profile route");
 });
 
-router.post("/profile", (req, res) => {
+router.put("/", (req, res) => {
   updateProfile(req, res);
 });
 

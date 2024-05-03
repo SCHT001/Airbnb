@@ -20,6 +20,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { updateUserSchema } from "../../../../../schema";
 
 const Page = () => {
@@ -60,9 +61,18 @@ const Page = () => {
   }, [userDataQuery]);
 
   const updateUserData = async () => {
-    console.log("submitted");
-    // const response = await user.put(`/user/${userId}`, data);
-    // return response.data;
+    const newData = {
+      id: userDataQuery.data?.id,
+      name: userForm.getValues("name"),
+      phone: userForm.getValues("phone"),
+      email: userForm.getValues("email"),
+    };
+    const response = user.put(`/profile`, newData);
+    toast.promise(response, {
+      loading: "Updating...",
+      success: "Profile updated successfully",
+      error: "An error occurred",
+    });
     // return "a";
   };
 
