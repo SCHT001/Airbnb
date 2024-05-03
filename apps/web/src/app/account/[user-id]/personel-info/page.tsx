@@ -47,7 +47,7 @@ const Page = () => {
     defaultValues: {
       name: userDataQuery.data?.name,
       phone: userDataQuery.data?.phone,
-      email: userDataQuery.data?.email,
+      email: userDataQuery.data?.email || " ",
     },
     resolver: zodResolver(updateUserSchema),
   });
@@ -56,7 +56,7 @@ const Page = () => {
     userDataQuery.refetch();
     userForm.setValue("name", userDataQuery.data?.name);
     userForm.setValue("phone", userDataQuery.data?.phone);
-    userForm.setValue("email", userDataQuery.data?.email || "");
+    userForm.setValue("email", userDataQuery.data?.email || " ");
   }, [userDataQuery]);
 
   const updateUserData = async () => {
