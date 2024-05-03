@@ -11,7 +11,7 @@ export const updateProfile = async (req: Request, res: Response) => {
       email?: string;
     } = req.body;
 
-    await prisma.user.update({
+    const newUserData = await prisma.user.update({
       where: {
         id: userData.id,
       },
@@ -23,6 +23,9 @@ export const updateProfile = async (req: Request, res: Response) => {
     });
 
     res.status(200).json({
+      status: "success",
+      data: newUserData,
+      error: [],
       message: "Profile updated successfully",
     });
   } catch (error) {
