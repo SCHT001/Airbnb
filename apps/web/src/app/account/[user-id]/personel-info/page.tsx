@@ -15,12 +15,10 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { user } from "@/lib/axios";
 import { T_responseUserData } from "@/types";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { updateUserSchema } from "../../../../../schema";
 
 const Page = () => {
   const [userId, setUserId] = useState("");
@@ -46,13 +44,27 @@ const Page = () => {
       phone: userDataQuery.data?.phone,
       email: userDataQuery.data?.email,
     },
-    resolver: zodResolver(updateUserSchema),
+    // resolver: zodResolver(updateUserSchema),
   });
 
   useEffect(() => {
     userForm.setValue("name", userDataQuery.data?.name);
     userForm.setValue("phone", userDataQuery.data?.phone);
     userForm.setValue("email", userDataQuery.data?.email || "");
+  }, [userDataQuery.data]);
+
+  const updateUserData = async (data: any) => {
+    console.log("submitted");
+    // const response = await user.put(`/user/${userId}`, data);
+    // return response.data;
+    // return "a";
+  };
+
+  const updateMutation = useMutation({
+    mutationFn: updateUserData,
+    onSuccess: () => {
+      console.log("success");
+    },
   });
 
   return (
@@ -70,119 +82,121 @@ const Page = () => {
       </Breadcrumb>
 
       {/*  */}
+      {userDataQuery.isLoading && <div>Loading...</div>}
+      {userDataQuery.isError && <div>Error</div>}
+      {userDataQuery.isSuccess && (
+        <div className="mt-10">
+          <h1 className="text-2xl font-bold pb-10">Personel info</h1>
 
-      <div className="mt-10">
-        <h1 className="text-2xl font-bold pb-10">Personel info</h1>
+          <div className="userDetails">
+            {/* pass dialog as children */}
 
-        <div className="userDetails">
-          {/* pass dialog as children */}
+            <Form {...userForm}>
+              <form onSubmit={userForm.handleSubmit(updateUserData)}>
+                <InfoCard
+                  description={`${userDataQuery.data?.name || "Not available"} `}
+                  title="Legal name"
+                  linkText="Edit"
+                >
+                  <Dialog>
+                    <DialogTrigger>
+                      <div className="action-button ">Edit</div>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <div className="font-medium text-2xl">Legal name</div>
+                      <span className="text-slate-500">
+                        Make sure this matches the name on your government ID.
+                      </span>
+                      <FormField
+                        name="name"
+                        control={userForm.control}
+                        render={({ field }) => {
+                          return (
+                            <>
+                              <Label>Full name</Label>
+                              <Input {...field}></Input>
+                            </>
+                          );
+                        }}
+                      ></FormField>
 
-          <Form {...userForm}>
-            <form>
-              <InfoCard
-                description="sachet subedi"
-                title="Legal name"
-                linkText="Edit"
-              >
-                <Dialog>
-                  <DialogTrigger>
-                    <div className="action-button ">Edit</div>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <div className="font-medium text-2xl">Legal name</div>
-                    <span className="text-slate-500">
-                      Make sure this matches the name on your government ID.
-                    </span>
-                    <FormField
-                      name="name"
-                      control={userForm.control}
-                      render={({ field }) => {
-                        return (
-                          <>
-                            <Label>Full name</Label>
-                            <Input {...field}></Input>
-                          </>
-                        );
-                      }}
-                    ></FormField>
+                      <Button type="submit">Submit</Button>
+                    </DialogContent>
+                  </Dialog>
+                </InfoCard>
 
-                    <Button>Submit</Button>
-                  </DialogContent>
-                </Dialog>
-              </InfoCard>
+                <Separator className="my-5"></Separator>
 
-              <Separator className="my-5"></Separator>
+                <InfoCard
+                  description={userDataQuery.data?.email || "Not provided"}
+                  title="Email"
+                  linkText="Edit"
+                >
+                  <Dialog>
+                    <DialogTrigger>
+                      <div className="action-button ">Edit</div>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <div className="font-medium text-2xl">Email</div>
+                      <span className="text-slate-500">
+                        Use an address you will always have acces to.
+                      </span>
+                      <FormField
+                        name="email"
+                        render={({ field }) => {
+                          return (
+                            <>
+                              <Label>Email</Label>
+                              <Input {...field}></Input>
+                            </>
+                          );
+                        }}
+                      ></FormField>
+                      <Button type="submit">Submit</Button>
+                    </DialogContent>
+                  </Dialog>
+                </InfoCard>
 
-              <InfoCard
-                description="sachetsubedi001@gmail.com"
-                title="Email"
-                linkText="Edit"
-              >
-                <Dialog>
-                  <DialogTrigger>
-                    <div className="action-button ">Edit</div>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <div className="font-medium text-2xl">Email</div>
-                    <span className="text-slate-500">
-                      Use an address you will always have acces to.
-                    </span>
+                <Separator className="my-5"></Separator>
 
-                    <FormField
-                      name="email"
-                      render={({ field }) => {
-                        return (
-                          <>
-                            <Label>Email</Label>
-                            <Input {...field}></Input>
-                          </>
-                        );
-                      }}
-                    ></FormField>
-                    <Button>Submit</Button>
-                  </DialogContent>
-                </Dialog>
-              </InfoCard>
+                <InfoCard
+                  title="Phone number"
+                  description={userDataQuery.data?.phone || "Not available"}
+                  linkText="Edit"
+                >
+                  <Dialog>
+                    <DialogTrigger>
+                      <div className="action-button ">Edit</div>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <div className="font-medium text-2xl">Phone numbers</div>
+                      <span className="text-slate-500">
+                        Make sure to add a number you have access to.
+                      </span>
 
-              <Separator className="my-5"></Separator>
+                      <FormField
+                        name="phone"
+                        control={userForm.control}
+                        render={({ field }) => {
+                          return (
+                            <>
+                              <Label>Phone number</Label>
+                              <Input type="number" {...field}></Input>
+                            </>
+                          );
+                        }}
+                      ></FormField>
+                      <Button type="submit">Submit</Button>
+                    </DialogContent>
+                  </Dialog>
+                </InfoCard>
 
-              <InfoCard
-                title="Phone number"
-                description="986328085"
-                linkText="Edit"
-              >
-                <Dialog>
-                  <DialogTrigger>
-                    <div className="action-button ">Edit</div>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <div className="font-medium text-2xl">Phone numbers</div>
-                    <span className="text-slate-500">
-                      Make sure to add a number you have access to.
-                    </span>
-
-                    <FormField
-                      name="phone"
-                      control={userForm.control}
-                      render={({ field }) => {
-                        return (
-                          <>
-                            <Label>Phone number</Label>
-                            <Input type="number" {...field}></Input>
-                          </>
-                        );
-                      }}
-                    ></FormField>
-                    <Button>Submit</Button>
-                  </DialogContent>
-                </Dialog>
-              </InfoCard>
-
-              <Separator className="my-5"></Separator>
-            </form>
-          </Form>
+                <Separator className="my-5"></Separator>
+              </form>
+            </Form>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import Header from "@/components/navbar/Header";
 import { Toaster } from "@/components/ui/sonner";
+import ProgressBarProvider from "@/providers/ProgressBarProvider";
 import QueryProvider from "@/providers/QueryClientProvider";
 import { QueryClient } from "@tanstack/react-query";
 import type { Metadata } from "next";
@@ -24,6 +25,7 @@ export default function RootLayout({
       <QueryProvider>
         <body className={`${inter.className}`}>
           <Header></Header>
+          <ProgressBarProvider></ProgressBarProvider>
           {children}
           <Toaster></Toaster>
         </body>
