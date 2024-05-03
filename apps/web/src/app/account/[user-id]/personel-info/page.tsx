@@ -15,10 +15,12 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { user } from "@/lib/axios";
 import { T_responseUserData } from "@/types";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { updateUserSchema } from "../../../../../schema";
 
 const Page = () => {
   const [userId, setUserId] = useState("");
@@ -30,7 +32,6 @@ const Page = () => {
   });
 
   const getUserData = async () => {
-    console.log("User id", userId);
     const response = await user.get(`/user/${userId}`);
     const data: T_responseUserData = response.data;
     // console.log(data);
@@ -48,7 +49,7 @@ const Page = () => {
       phone: userDataQuery.data?.phone,
       email: userDataQuery.data?.email,
     },
-    // resolver: zodResolver(updateUserSchema),
+    resolver: zodResolver(updateUserSchema),
   });
 
   useEffect(() => {
@@ -56,9 +57,9 @@ const Page = () => {
     userForm.setValue("name", userDataQuery.data?.name);
     userForm.setValue("phone", userDataQuery.data?.phone);
     userForm.setValue("email", userDataQuery.data?.email || "");
-  }, []);
+  }, [userDataQuery]);
 
-  const updateUserData = async (data: any) => {
+  const updateUserData = async () => {
     console.log("submitted");
     // const response = await user.put(`/user/${userId}`, data);
     // return response.data;
@@ -98,7 +99,7 @@ const Page = () => {
             {userDataQuery.isLoading && <div>Loading...</div>}
             {userDataQuery.isSuccess && (
               <Form {...userForm}>
-                <form onSubmit={userForm.handleSubmit(updateUserData)}>
+                <form>
                   <InfoCard
                     description={`${userDataQuery.data?.name || "Not available"} `}
                     title="Legal name"
@@ -126,7 +127,14 @@ const Page = () => {
                           }}
                         ></FormField>
 
-                        <Button type="submit">Submit</Button>
+                        <Button
+                          type="submit"
+                          onClick={userForm.handleSubmit(() => {
+                            updateUserData();
+                          })}
+                        >
+                          Submit
+                        </Button>
                       </DialogContent>
                     </Dialog>
                   </InfoCard>
@@ -158,7 +166,14 @@ const Page = () => {
                             );
                           }}
                         ></FormField>
-                        <Button type="submit">Submit</Button>
+                        <Button
+                          type="submit"
+                          onClick={userForm.handleSubmit(() => {
+                            updateUserData();
+                          })}
+                        >
+                          Submit
+                        </Button>
                       </DialogContent>
                     </Dialog>
                   </InfoCard>
@@ -194,7 +209,14 @@ const Page = () => {
                             );
                           }}
                         ></FormField>
-                        <Button type="submit">Submit</Button>
+                        <Button
+                          type="submit"
+                          onClick={userForm.handleSubmit(() => {
+                            updateUserData();
+                          })}
+                        >
+                          Submit
+                        </Button>
                       </DialogContent>
                     </Dialog>
                   </InfoCard>
