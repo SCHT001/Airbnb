@@ -7,7 +7,6 @@ export const useMiddleware = (app: Application) => {
   app.use(
     cors({
       origin: "*",
-      credentials: true,
     })
   );
   app.use(express.json());
