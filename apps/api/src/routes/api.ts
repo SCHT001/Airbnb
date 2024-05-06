@@ -9,11 +9,11 @@ const router: Router = Router();
 
 router.use("/auth", auth);
 
-router.use("/listings", validateRequest, listings);
+router.use("/listings", listings);
 
 router.use("/bookings", bookings);
 
-router.use("/user", user);
+router.use("/user", validateRequest, user);
 
 router.use("/profile", validateRequest, profile);
 
