@@ -1,5 +1,6 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { user } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
@@ -17,7 +18,6 @@ const Page = () => {
       return response.data;
     },
   });
-
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
@@ -25,12 +25,21 @@ const Page = () => {
     setUserId(userId);
   }, []);
 
-  console.log(userId);
+  if (userDataQuery.isLoading) {
+    return (
+      <div className="flex flex-col px-[25%] pt-20">
+        <Skeleton className="h-[50px]"></Skeleton>
+        <Skeleton className="h-[50px]"></Skeleton>
+        <Skeleton className="h-[50px]"></Skeleton>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col px-[25%] pt-20">
       <div className="header text-3xl font-medium">Account</div>
       <div>
-        <span className="font-medium">Name</span>, email
+        <span className="font-medium">{userDataQuery.data.name}</span>{" "}
+        {userDataQuery.data.email}
       </div>
 
       <div className="cards pt-10">

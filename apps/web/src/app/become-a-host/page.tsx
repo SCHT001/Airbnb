@@ -148,6 +148,10 @@ const page = () => {
     ),
   });
 
+  const photoSchema = z.object({
+    photo: z.string().min(1, "Please upload a photo"),
+  });
+
   const photoUploadForm = useForm({
     defaultValues: {
       photos: {},
@@ -230,6 +234,13 @@ const page = () => {
                 return <PlaceType field={field}></PlaceType>;
               }}
             ></FormField>
+            {placeTypeForm.formState.errors.placeType &&
+              toast.error(placeTypeForm.formState.errors.placeType.message, {
+                action: {
+                  label: "X",
+                  onClick: () => {},
+                },
+              })}
             <Footer step={step} setStep={setStep}></Footer>
           </form>
         </Form>
@@ -257,6 +268,13 @@ const page = () => {
                 );
               }}
             ></FormField>
+            {basicAvailabilityForm.formState.errors.availabilities &&
+              toast.error("Each availability is required", {
+                action: {
+                  label: "X",
+                  onClick: () => {},
+                },
+              })}
             <Footer step={step} setStep={setStep}></Footer>
           </form>
         </Form>
@@ -281,6 +299,8 @@ const page = () => {
                 );
               }}
             ></FormField>
+            {photoUploadForm.formState.errors.photos &&
+              toast(photoUploadForm.formState.errors.photos.message)}
             <Footer step={step} setStep={setStep}></Footer>
           </form>
         </Form>
@@ -338,6 +358,10 @@ const page = () => {
                     ></Input>
                   </div>
                 </CardContent>
+                {placeDescriptionForm.formState.errors.title &&
+                  toast.error(
+                    placeDescriptionForm.formState.errors.title.message
+                  )}
                 <Footer step={step} setStep={setStep}></Footer>
               </Card>
             </div>

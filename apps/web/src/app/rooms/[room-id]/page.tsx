@@ -3,6 +3,7 @@ import Booking from "@/components/room/Booking";
 import PhotoGrid from "@/components/room/PhotoGrid";
 import RoomDetails from "@/components/room/RoomDetails";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { listings } from "@/lib/axios";
 import { T_Room } from "@/types";
 import { useQuery } from "@tanstack/react-query";
@@ -58,7 +59,11 @@ const Room = () => {
       </div>
     );
   } else {
-    return <div>Loading...</div>;
+    return (
+      <div className="px-96 pt-5 flex justify-between flex-col">
+        <Skeleton className="h-[200px] "></Skeleton>
+      </div>
+    );
   }
 };
 

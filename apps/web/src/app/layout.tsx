@@ -27,7 +27,7 @@ export default function RootLayout({
           <Header></Header>
           <ProgressBarProvider></ProgressBarProvider>
           {children}
-          <Toaster position="top-center"></Toaster>
+          <Toaster position="top-center" richColors></Toaster>
         </body>
       </QueryProvider>
     </html>
