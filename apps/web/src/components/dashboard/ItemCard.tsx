@@ -3,74 +3,82 @@ import { Star } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Card } from "../ui/card";
+import { Skeleton } from "../ui/skeleton";
 import CardCarousel from "./CardCarousel";
 const ItemCard = () => {
-	const [listings, setListings] = useState<
-		{
-			id: number;
-			title: string;
-			rating: number;
-			price: number;
-			distance: number;
-			images: any[];
-		}[]
-	>([]);
+  const [listings, setListings] = useState<
+    {
+      id: number;
+      title: string;
+      rating: number;
+      price: number;
+      distance: number;
+      images: any[];
+    }[]
+  >([]);
 
-	const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		(async () => {
-			try {
-				const { data } = await host.get("/listings");
-				setListings(data.data);
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await host.get("/listings");
+        setListings(data.data);
 
-				setLoading(false);
-			} catch (error) {
-				console.error("Error fetching listings:", error);
-				return setLoading(false);
-			}
-		})();
-	}, []);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching listings:", error);
+        return setLoading(false);
+      }
+    })();
+  }, []);
 
-	if (!loading) {
-		return (
-			<Card className="px-32 pt-10 border-none shadow-none grid grid-cols-6 gap-10">
-				{listings.map((item, index) => {
-					return (
-						<div
-							key={index}
-							className="text-sm  rounded-2xl  shadow-sm z-10 cursor-pointer "
-						>
-							{/* Images carousel for each item */}
-							<CardCarousel images={item.images} />
+  if (!loading) {
+    return (
+      <Card className="px-32 pt-10 border-none shadow-none grid grid-cols-6 gap-10">
+        {listings.map((item, index) => {
+          return (
+            <div
+              key={index}
+              className="text-sm  rounded-2xl  shadow-sm z-10 cursor-pointer "
+            >
+              {/* Images carousel for each item */}
+              <CardCarousel images={item.images} />
 
-							{/* Name and rating */}
-							<Link href={`/rooms/${item.id}`}>
-								<div className="font-semibold  pt-5 flex justify-between">
-									<div>{item.title}</div>
-									<div className="rating flex items-center">
-										<Star size={15}></Star> {item.rating}
-									</div>
-								</div>
+              {/* Name and rating */}
+              <Link href={`/rooms/${item.id}`}>
+                <div className="font-semibold  pt-5 flex justify-between">
+                  <div>{item.title}</div>
+                  <div className="rating flex items-center">
+                    <Star size={15}></Star> {item.rating}
+                  </div>
+                </div>
 
-								{/* Distance */}
-								<div className="text-slate-500">
-									{/* {item.distance} kilometers away */}
-								</div>
+                {/* Distance */}
+                <div className="text-slate-500">
+                  {/* {item.distance} kilometers away */}
+                </div>
 
-								{/* Cost */}
-								<div className="text-slate-500 flex gap-2">
-									<span className="text-slate-600 font-semibold">
-										{item.price}$
-									</span>
-									per night
-								</div>
-							</Link>
-						</div>
-					);
-				})}
-			</Card>
-		);
-	} else return <div>Loading</div>;
+                {/* Cost */}
+                <div className="text-slate-500 flex gap-2">
+                  <span className="text-slate-600 font-semibold">
+                    {item.price}$
+                  </span>
+                  per night
+                </div>
+              </Link>
+            </div>
+          );
+        })}
+      </Card>
+    );
+  } else
+    return (
+      <Card className="px-32 pt-10 border-none shadow-none grid grid-cols-6 gap-10">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((_, index) => {
+          return <Skeleton className="h-[300px] w-[250px]"></Skeleton>;
+        })}
+      </Card>
+    );
 };
 export default ItemCard;
