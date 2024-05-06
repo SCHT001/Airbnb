@@ -6,7 +6,8 @@ import morgan from "morgan";
 export const useMiddleware = (app: Application) => {
   app.use(
     cors({
-      origin: "*",
+      origin: true,
+      credentials: true,
     })
   );
   app.use(express.json());
