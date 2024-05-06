@@ -47,6 +47,7 @@ const Booking: FC<{
   }, [range]);
 
   const bookPlace = async () => {
+    toast.loading("Checking availability, please wait...");
     try {
       const response: AxiosResponse = await A_booking.post("/add", {
         listing_id: roomData.id,
