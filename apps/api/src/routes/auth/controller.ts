@@ -132,3 +132,29 @@ export const signInWithPhone = async (req: Request, res: Response) => {
     return HandleError(res, 500, e);
   }
 };
+
+// Sign out user
+export const signOut = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    await prisma.token.delete({
+      where: {
+        userId: userId,
+      },
+    });
+
+    res.cookie("token", "", {
+      httpOnly: true,
+    });
+
+    return res.status(200).send({
+      status: "success",
+      data: {},
+      error: [],
+      message: "User signed out successfully",
+    });
+  } catch (e) {
+    console.log(e);
+    return HandleError(res, 500, e);
+  }
+};
