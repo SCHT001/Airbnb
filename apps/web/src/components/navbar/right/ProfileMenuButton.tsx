@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import { user } from "@/lib/axios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getCookie, setCookie } from "cookies-next";
 import {
   Gift,
@@ -37,17 +37,42 @@ const ProfileMenuButton = () => {
     queryKey: ["userData"],
     queryFn: getUserData,
   });
+
   // userDataQuery.isSuccess && console.log(userDataQuery.data);
 
   const router = useRouter();
-  const logOut = () => {
-    // setCookie("token", "");
-    setCookie("airbnb_userId", "");
-    toast.success("Logged out");
-    setTimeout(() => {
-      location.reload();
-    }, 500);
+
+  const logOut = async () => {
+    toast.loading("Logging out...");
+    const response = await user.delete(
+      `/auth/signOut/${getCookie("airbnb_userId")}`
+    );
+    if (response.data) {
+      toast.success("Logged out");
+      setCookie("airbnb_userId", "");
+      setTimeout(() => {
+        location.reload();
+      }, 500);
+      router.push("/");
+    }
+    return response.data;
   };
+
+  // logout mutation
+  const logOutMutation = useMutation({
+    mutationFn: logOut,
+    onSuccess: () => {
+      toast.success("Logged out");
+      setTimeout(() => {
+        location.reload();
+      }, 500);
+      router.push("/");
+    },
+    onError: (error) => {
+      toast.error("Failed to log out");
+      console.error(error);
+    },
+  });
 
   return (
     <div className="border border-slate-300 rounded-full flex p-1 items-center justify-between pl-2 gap-3 ">
@@ -127,8 +152,10 @@ const ProfileMenuButton = () => {
 
                 <DropdownMenuItem className="h-10 pl-5 ">
                   <Link
-                    href={"/"}
-                    onClick={logOut}
+                    href={"#"}
+                    onClick={() => {
+                      logOut();
+                    }}
                     className="flex gap-2 items-center w-full"
                   >
                     <LogOut size={15}></LogOut> <span>Log out</span>
