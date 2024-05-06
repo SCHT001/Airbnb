@@ -1,5 +1,7 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { user } from "@/lib/axios";
+import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
 import { SquareUser } from "lucide-react";
 import Link from "next/link";
@@ -7,6 +9,15 @@ import { useEffect, useState } from "react";
 
 const Page = () => {
   // const userId = getCookie("airbnb_userId");
+
+  const userDataQuery = useQuery({
+    queryKey: ["user"],
+    queryFn: async () => {
+      const response = await user.get(`/user/${userId}`);
+      return response.data;
+    },
+  });
+
   const [userId, setUserId] = useState("");
 
   useEffect(() => {
@@ -19,8 +30,7 @@ const Page = () => {
     <div className="flex flex-col px-[25%] pt-20">
       <div className="header text-3xl font-medium">Account</div>
       <div>
-        <span className="font-medium">Sachet Subedi</span>,
-        sachetsubedi001@gmail.com
+        <span className="font-medium">Name</span>, email
       </div>
 
       <div className="cards pt-10">
