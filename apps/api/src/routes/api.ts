@@ -13,7 +13,7 @@ router.use("/listings", listings);
 
 router.use("/bookings", bookings);
 
-router.use("/user", validateRequest, user);
+router.use("/user", user);
 
 router.use("/profile", validateRequest, profile);
 
