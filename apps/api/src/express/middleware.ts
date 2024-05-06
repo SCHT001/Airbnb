@@ -6,10 +6,7 @@ import morgan from "morgan";
 export const useMiddleware = (app: Application) => {
   app.use(
     cors({
-      origin: [
-        "http://localhost:3000",
-        "https://airbnb-psfveul3d-sachet-subedis-projects.vercel.app/",
-      ],
+      origin: "*",
       credentials: true,
     })
   );
