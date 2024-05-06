@@ -9,18 +9,6 @@ import {
 import Link from "next/link";
 import { FC } from "react";
 
-const sampleImages = [
-  {
-    src: "https://picsum.photos/500",
-  },
-  {
-    src: "https://picsum.photos/501",
-  },
-  {
-    src: "https://picsum.photos/502",
-  },
-];
-
 const CardCarousel: FC<{
   roomId: number;
   images?: {
@@ -38,7 +26,7 @@ const CardCarousel: FC<{
             return (
               <CarouselItem className="rounded-xl" key={index}>
                 <img
-                  className="rounded-2xl h-52 object-cover"
+                  className="rounded-2xl h-52 w-full object-cover"
                   src={image.url}
                   // width={300}
                   // height={300}

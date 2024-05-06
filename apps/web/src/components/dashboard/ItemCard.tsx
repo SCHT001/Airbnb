@@ -46,7 +46,7 @@ const ItemCard = () => {
 
               {/* Name and rating */}
               <CardCarousel images={item.images} roomId={item.id} />
-              <Link href={`/rooms/${item.id}`}>
+              <Link href={`/rooms/${item.id}`} className="px-2 pb-2 ">
                 <div className="font-semibold  pt-5 flex justify-between">
                   <div>{item.title}</div>
                   <div className="rating flex items-center">
