@@ -40,12 +40,12 @@ const ItemCard = () => {
           return (
             <div
               key={index}
-              className="text-sm  rounded-2xl  shadow-sm z-10 cursor-pointer "
+              className="text-sm  rounded-2xl border flex flex-col   shadow-sm z-10 cursor-pointer "
             >
               {/* Images carousel for each item */}
-              <CardCarousel images={item.images} />
 
               {/* Name and rating */}
+              <CardCarousel images={item.images} roomId={item.id} />
               <Link href={`/rooms/${item.id}`}>
                 <div className="font-semibold  pt-5 flex justify-between">
                   <div>{item.title}</div>
@@ -76,7 +76,9 @@ const ItemCard = () => {
     return (
       <Card className="px-32 pt-10 border-none shadow-none grid grid-cols-6 gap-10">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((_, index) => {
-          return <Skeleton className="h-[300px] w-[250px]"></Skeleton>;
+          return (
+            <Skeleton className="h-[300px] w-[250px]" key={index}></Skeleton>
+          );
         })}
       </Card>
     );
