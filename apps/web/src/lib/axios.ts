@@ -1,13 +1,16 @@
 import axios from "axios";
+// const ENDPOINT = "https://airbnb-s9n4.onrender.com/api";
+const ENDPOINT = "http://localhost:5606/api";
 export const host = axios.create({
-  baseURL: "https://airbnb-s9n4.onrender.com/api",
+  baseURL: `${ENDPOINT}`,
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export const user = axios.create({
-  baseURL: "https://airbnb-s9n4.onrender.com/api",
+  baseURL: `${ENDPOINT}`,
   headers: {
     "Content-Type": "application/json",
   },
@@ -15,21 +18,24 @@ export const user = axios.create({
 });
 
 export const hostImage = axios.create({
-  baseURL: "https://airbnb-s9n4.onrender.com/api",
+  baseURL: `${ENDPOINT}`,
   headers: {
     "Content-Type": "multipart/form-data",
   },
+  withCredentials: true,
 });
 
 export const listings = axios.create({
-  baseURL: "https://airbnb-s9n4.onrender.com/api/listings",
+  baseURL: `${ENDPOINT}/listings`,
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 export const A_booking = axios.create({
-  baseURL: "https://airbnb-s9n4.onrender.com/api/bookings",
+  baseURL: `${ENDPOINT}/bookings`,
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });

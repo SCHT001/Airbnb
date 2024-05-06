@@ -1,8 +1,8 @@
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Application } from "express";
 import fileUpload from "express-fileupload";
 import morgan from "morgan";
-
 export const useMiddleware = (app: Application) => {
   app.use(
     cors({
@@ -10,6 +10,7 @@ export const useMiddleware = (app: Application) => {
       credentials: true,
     })
   );
+  app.use(cookieParser());
   app.use(express.json());
   app.use(morgan("dev"));
   app.use(

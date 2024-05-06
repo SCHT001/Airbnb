@@ -2,13 +2,18 @@ import { NextFunction, Request, Response } from "express";
 import { HandleError } from "../errors/errorHandler";
 import { prisma } from "../services/prisma.service";
 
-const validateRequest = (req: Request, res: Response, next: NextFunction) => {
+const validateRequest = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
-    const requestCookie = req.cookies("token");
+    const requestCookie = req.cookies["token"];
+    console.log(requestCookie);
     if (!requestCookie) {
       return HandleError(res, 401, "Unauthorized");
     }
-    const token = prisma.token.findFirst({
+    const token = await prisma.token.findFirst({
       where: {
         token: requestCookie,
       },
@@ -18,7 +23,9 @@ const validateRequest = (req: Request, res: Response, next: NextFunction) => {
     }
     next();
   } catch (e) {
+    console.error("Error validating request:", e);
     return HandleError(res, 401, "Unauthorized");
   }
 };
+
 export default validateRequest;
