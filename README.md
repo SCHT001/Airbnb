@@ -4,7 +4,7 @@ This is a clone of the popular vacation rental platform Airbnb. It allows users 
 
 ## Demo
 
-Check out the live demo of the Airbnb clone at [airbnb.sachetsubedi001.com.np](https://airbnb.sachetsubedi001.com.np).
+Check out the live demo  [here](https://air.sachetsubedi001.com.np).
 
 ## Technologies Used
 
