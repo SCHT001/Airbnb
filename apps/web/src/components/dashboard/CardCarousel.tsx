@@ -10,7 +10,7 @@ import Link from "next/link";
 import { FC } from "react";
 
 const CardCarousel: FC<{
-  roomId: number;
+  roomId: string;
   images?: {
     id: string;
     listing_id: string;

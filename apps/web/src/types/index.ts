@@ -38,3 +38,33 @@ export type T_responseUserData = {
   countryCode: string;
   photo: string;
 };
+
+export type T_responseFavourites = {
+  status: string;
+  message: string;
+  data: {
+    id: string;
+    user_id: string;
+    listing_id: string;
+    listing: {
+      id: string;
+      accommodation: string;
+      title: string;
+      description: string;
+      host_id: string;
+      place_type: string;
+      capacity: number;
+      bedrooms: number;
+      beds: number;
+      bathrooms: number;
+      rating: number;
+      price: number;
+      location: string;
+      images: {
+        id: string;
+        listing_id: string;
+        url: string;
+      }[];
+    };
+  }[];
+};
