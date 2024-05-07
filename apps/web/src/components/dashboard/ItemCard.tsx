@@ -8,7 +8,7 @@ import CardCarousel from "./CardCarousel";
 const ItemCard = () => {
   const [listings, setListings] = useState<
     {
-      id: number;
+      id: string;
       title: string;
       rating: number;
       price: number;
