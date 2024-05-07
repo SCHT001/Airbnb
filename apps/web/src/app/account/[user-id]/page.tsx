@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { user } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
-import { SquareUser } from "lucide-react";
+import { SquareUser, Star } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -42,7 +42,7 @@ const Page = () => {
         {userDataQuery.data.email}
       </div>
 
-      <div className="cards pt-10">
+      <div className="cards pt-10 grid grid-cols-3 gap-5">
         <Link href={`/account/${userId}/personel-info`}>
           <Card className="w-80 shadow-lg">
             <CardHeader>
@@ -54,6 +54,24 @@ const Page = () => {
               <span className="font-medium">Personel info</span> <br />
               <span className="text-slate-500">
                 Provide personel details and how we can reach you
+              </span>
+            </CardContent>
+          </Card>
+        </Link>
+
+        {/* favourites */}
+
+        <Link href={`/account/${userId}/favourites`}>
+          <Card className="w-80 shadow-lg">
+            <CardHeader>
+              <CardTitle>
+                <Star></Star>{" "}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <span className="font-medium">Favourites</span> <br />
+              <span className="text-slate-500">
+                Places you have saved in your favourites
               </span>
             </CardContent>
           </Card>
