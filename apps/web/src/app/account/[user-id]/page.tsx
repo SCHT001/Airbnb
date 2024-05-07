@@ -4,7 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { user } from "@/lib/axios";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
-import { SquareUser, Star } from "lucide-react";
+import { BookCheck, SquareUser, Star } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -73,6 +73,22 @@ const Page = () => {
               <span className="text-slate-500">
                 Places you have saved in your favourites
               </span>
+            </CardContent>
+          </Card>
+        </Link>
+
+        {/* Bookings */}
+
+        <Link href={`/account/${userId}/bookings`}>
+          <Card className="w-80 shadow-lg h-full">
+            <CardHeader>
+              <CardTitle>
+                <BookCheck></BookCheck>{" "}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <span className="font-medium">Bookings</span> <br />
+              <span className="text-slate-500">See places you have booked</span>
             </CardContent>
           </Card>
         </Link>
