@@ -14,7 +14,6 @@ import { useParams } from "next/navigation";
 const Room = () => {
   const params = useParams();
   const roomId = params["room-id"];
-  const userId = getCookie("airbnb_userId");
 
   // Fetch room data
   const { data, isSuccess } = useQuery({
@@ -24,16 +23,24 @@ const Room = () => {
       return response.data;
     },
   });
-  isSuccess && console.log(data);
+  // isSuccess && console.log(data);
+
+  const addToFavourite = async () => {
+    console.log("====================================");
+    const response = await A_favorite.post(`/`, {
+      listing_id: roomId,
+      user_id: getCookie("airbnb_userId"),
+    });
+    return response.data;
+  };
 
   const favMutation = useMutation({
-    mutationFn: async () => {
-      console.log("Here");
-      const response = await A_favorite.post(`/favourite`, {
-        userId: userId,
-        listingId: data.id,
-      });
-      return response.data;
+    mutationFn: addToFavourite,
+    onSuccess: (data) => {
+      console.log("success");
+    },
+    onError: () => {
+      console.log("Error");
     },
   });
 
@@ -41,7 +48,7 @@ const Room = () => {
   if (isSuccess) {
     const roomData: T_Room = data.data;
     return (
-      <div className="lg:px-96 md:px-64 px-10 pt-5 flex  justify-between flex-col">
+      <div className="lg:px-96 md:px-64 px-10 pt-5 flex justify-between flex-col">
         {/* Room title */}
         <div className="flex justify-between">
           <h1 className="text-2xl font-semibold"> {roomData.title}</h1>
@@ -56,7 +63,7 @@ const Room = () => {
               <Heart size={15}></Heart>
               <span
                 onClick={() => {
-                  favMutation.mutate();
+                  addToFavourite();
                 }}
                 className="underline"
               >

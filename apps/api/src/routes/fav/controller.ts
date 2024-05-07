@@ -4,6 +4,9 @@ import { prisma } from "../../services/prisma.service";
 
 export const FavouriteController = {
   addFavourite: async (req: Request, res: Response) => {
+    console.log("====================================");
+    console.log(req.body);
+    console.log("====================================");
     try {
       await prisma.favourite.create({
         data: {
@@ -18,6 +21,7 @@ export const FavouriteController = {
         error: [],
       });
     } catch (error) {
+      console.log(error);
       return HandleError(res, 500, error);
     }
   },
