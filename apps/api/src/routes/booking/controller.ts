@@ -99,6 +99,9 @@ export const getUserBookings = async (req: Request, res: Response) => {
       where: {
         user_id: userId,
       },
+      include: {
+        listing: true,
+      },
     });
     return res.status(200).send({
       status: "success",
