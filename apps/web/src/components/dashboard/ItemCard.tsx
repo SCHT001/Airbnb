@@ -35,12 +35,12 @@ const ItemCard = () => {
 
   if (!loading) {
     return (
-      <Card className="px-32 pt-10 border-none shadow-none grid grid-cols-6 gap-10">
+      <Card className="px-5 md:px-24 lg:px-32 pt-10 border-none shadow-none grid grid-cols-2  lg:grid-cols-4 xl:grid-cols-6 gap-10 w-full">
         {listings.map((item, index) => {
           return (
             <div
               key={index}
-              className="text-sm  rounded-2xl border flex flex-col   shadow-sm z-10 cursor-pointer "
+              className="text-sm w-full  rounded-2xl border flex flex-col   shadow-sm z-10 cursor-pointer "
             >
               {/* Images carousel for each item */}
 

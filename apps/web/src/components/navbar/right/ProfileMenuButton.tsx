@@ -28,17 +28,15 @@ import { toast } from "sonner";
 const ProfileMenuButton = () => {
   // query user data
   const getUserData = async () => {
-    if (getCookie("airbnb_userId")) {
-      const userId = getCookie("airbnb_userId");
-      const response = await user.get(`/user/${userId}`);
-      return response.data;
-    }
-    return null;
+    const userId = getCookie("airbnb_userId");
+    const response = await user.get(`/user/${userId}`);
+    return response.data;
   };
 
   const userDataQuery = useQuery({
-    queryKey: ["userData"],
+    queryKey: ["userData", getCookie("airbnb_userId")],
     queryFn: getUserData,
+    enabled: !!getCookie("airbnb_userId"),
   });
 
   // userDataQuery.isSuccess && console.log(userDataQuery.data);

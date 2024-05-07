@@ -39,3 +39,11 @@ export const A_booking = axios.create({
   },
   withCredentials: true,
 });
+
+export const A_favorite = axios.create({
+  baseURL: `${ENDPOINT}/favourite`,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+});
