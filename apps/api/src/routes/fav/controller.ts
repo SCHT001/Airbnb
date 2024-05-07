@@ -36,16 +36,22 @@ export const FavouriteController = {
   },
   getFavourite: async (req: Request, res: Response) => {
     try {
-      await prisma.favourite.create({
-        data: {
-          user_id: req.body.user_id,
-          listing_id: req.body.listing_id,
+      const favourites = await prisma.favourite.findMany({
+        where: {
+          user_id: req.params.userId,
+        },
+        include: {
+          listing: {
+            include: {
+              images: true,
+            },
+          },
         },
       });
       return res.status(200).send({
         status: "success",
-        message: "Favourite added successfully",
-        data: [],
+        message: "Favourite retrived successfully",
+        data: favourites,
         error: [],
       });
     } catch (error) {
