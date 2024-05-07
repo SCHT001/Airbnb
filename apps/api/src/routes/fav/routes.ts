@@ -1,17 +1,14 @@
-import { Router } from "express";
-import { addFavourite, getFavourites } from "./controller";
+import { Request, Response, Router } from "express";
+import { FavouriteController } from "./controller";
 
 const router: Router = Router();
 
-router.get("/", (req, res) => {
+router.get("/", (req: Request, res: Response) => {
   res.send("Favourite route");
 });
-router.post("/", (req, res) => {
-  addFavourite(req, res);
-});
 
-router.get("/:userId", (req, res) => {
-  getFavourites(req, res);
-});
+router.post("/", FavouriteController.addFavourite);
+
+router.get("/:userId", FavouriteController.getFavourite);
 
 export default router;
