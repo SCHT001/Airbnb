@@ -91,3 +91,22 @@ export const getBookings = async (req: Request, res: Response) => {
     return HandleError(res, 500, "Error while fetching bookings");
   }
 };
+
+export const getUserBookings = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const bookings = await prisma.bookings.findMany({
+      where: {
+        user_id: userId,
+      },
+    });
+    return res.status(200).send({
+      status: "success",
+      data: bookings,
+      message: "Bookings fetched successfully",
+      error: [],
+    });
+  } catch (e) {
+    return HandleError(res, 500, "Error while fetching bookings");
+  }
+};
