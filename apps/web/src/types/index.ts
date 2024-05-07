@@ -68,3 +68,33 @@ export type T_responseFavourites = {
     };
   }[];
 };
+
+export type T_responseUserBookings = {
+  status: string;
+  message: string;
+  error: any;
+  data: {
+    id: string;
+    user_id: string;
+    listing_id: string;
+    check_in_date: Date;
+    check_out_date: Date;
+    total_price: number;
+    status: string;
+    listing: {
+      id: string;
+      accommodation: string;
+      title: string;
+      description: string;
+      host_id: string;
+      place_type: string;
+      capacity: number;
+      bedrooms: number;
+      beds: number;
+      bathrooms: number;
+      rating: number;
+      price: number;
+      location: string;
+    };
+  }[];
+};
