@@ -10,6 +10,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
 import { Heart, Share } from "lucide-react";
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 const Room = () => {
   const params = useParams();
@@ -35,11 +36,11 @@ const Room = () => {
 
   const favMutation = useMutation({
     mutationFn: addToFavourite,
-    onSuccess: (data) => {
-      console.log("success");
+    onSuccess: () => {
+      toast.success("Added to favourites!");
     },
     onError: () => {
-      console.log("Error");
+      toast.error("Favourite already exists!");
     },
   });
 
@@ -58,16 +59,15 @@ const Room = () => {
               <Share size={15}></Share>
               <span className="underline">Share</span>
             </Button>
-            <Button variant={"secondary"} className="flex gap-2 bg-transparent">
+            <Button
+              onClick={() => {
+                favMutation.mutate();
+              }}
+              variant={"secondary"}
+              className="flex gap-2 bg-transparent"
+            >
               <Heart size={15}></Heart>
-              <span
-                onClick={() => {
-                  addToFavourite();
-                }}
-                className="underline"
-              >
-                Save
-              </span>
+              <span className="underline">Save</span>
             </Button>
           </div>
         </div>

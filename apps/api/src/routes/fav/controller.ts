@@ -5,6 +5,18 @@ import { prisma } from "../../services/prisma.service";
 export const FavouriteController = {
   addFavourite: async (req: Request, res: Response) => {
     try {
+      // Check if favourite already exists
+      if (
+        await prisma.favourite.findFirst({
+          where: {
+            user_id: req.body.user_id,
+            listing_id: req.body.listing_id,
+          },
+        })
+      ) {
+        return HandleError(res, 400, "Favourite already exists");
+      }
+      // Add favourite if it doesn't exist
       await prisma.favourite.create({
         data: {
           user_id: req.body.user_id,
