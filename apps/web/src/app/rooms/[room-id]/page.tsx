@@ -26,7 +26,6 @@ const Room = () => {
   // isSuccess && console.log(data);
 
   const addToFavourite = async () => {
-    console.log("====================================");
     const response = await A_favorite.post(`/`, {
       listing_id: roomId,
       user_id: getCookie("airbnb_userId"),
