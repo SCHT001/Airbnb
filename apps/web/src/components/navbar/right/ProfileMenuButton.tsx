@@ -28,9 +28,12 @@ import { toast } from "sonner";
 const ProfileMenuButton = () => {
   // query user data
   const getUserData = async () => {
-    const userId = getCookie("airbnb_userId");
-    const response = await user.get(`/user/${userId}`);
-    return response.data;
+    if (getCookie("airbnb_userId")) {
+      const userId = getCookie("airbnb_userId");
+      const response = await user.get(`/user/${userId}`);
+      return response.data;
+    }
+    return null;
   };
 
   const userDataQuery = useQuery({
