@@ -98,3 +98,18 @@ export type T_responseUserBookings = {
     };
   }[];
 };
+
+export type T_ReviewData = {
+  id: string;
+  user_id: string;
+  listing_id: string;
+  rating: number;
+  comment: string;
+  user: T_responseUserData;
+};
+export type T_responseReviews = {
+  status: string;
+  message: string;
+  error: any;
+  data: T_ReviewData[];
+};

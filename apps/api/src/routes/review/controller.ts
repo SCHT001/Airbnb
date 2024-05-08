@@ -11,6 +11,9 @@ export const ReviewController = {
         where: {
           listing_id: listingId,
         },
+        include: {
+          user: true,
+        },
       });
 
       res.status(200).json({
@@ -53,6 +56,7 @@ export const ReviewController = {
 
       return res.status(201).json(review);
     } catch (e) {
+      console.log(e);
       return HandleError(res, 500, e);
     }
   },

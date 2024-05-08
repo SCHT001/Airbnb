@@ -85,7 +85,7 @@ const Room = () => {
 
         {/* Ratings and revies */}
 
-        <Review></Review>
+        <Review listingId={roomId}></Review>
       </div>
     );
   } else {

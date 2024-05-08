@@ -1,34 +1,61 @@
 "use client";
 import { A_review } from "@/lib/axios";
-import { useMutation } from "@tanstack/react-query";
+import { T_ReviewData, T_responseReviews } from "@/types";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getCookie } from "cookies-next";
 import { Star } from "lucide-react";
-import { useEffect } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
 import { FormField } from "../ui/form";
 import { Label } from "../ui/label";
+import { Skeleton } from "../ui/skeleton";
 import { Slider } from "../ui/slider";
 import { Textarea } from "../ui/textarea";
 
-const Review = () => {
+const Review: FC<{
+  listingId: string | string[];
+}> = ({ listingId }) => {
+  const userId = getCookie("airbnb_userId");
+  // add review mutation
   const reviewMutation = useMutation({
     mutationFn: async () => {
-      const response = await A_review.post(`/`, {});
+      const response = await A_review.post(`/`, {
+        userId: userId,
+        listingId: listingId,
+        rating: reviewForm.getValues("rating"),
+        comment: reviewForm.getValues("review"),
+      });
       return response.data;
+    },
+    onSuccess: () => {
+      toast.success("Review added successfully");
+    },
+    onError: (error) => {
+      toast.error("Review already exists");
     },
   });
 
   // review form initialization
   const reviewForm = useForm({
     defaultValues: {
-      rating: 0,
+      rating: 2,
       review: "",
     },
   });
 
-  useEffect(() => {
-    console.log(reviewForm.getValues());
-  }, [reviewForm.getValues("review")]);
+  // get revies for the listing
+
+  const reviewsQuery = useQuery({
+    queryKey: ["reviews", listingId],
+    queryFn: async () => {
+      const response = await A_review.get(`/${listingId}`);
+      const data: T_responseReviews = response.data;
+      return data;
+    },
+  });
 
   return (
     <div className="pb-10 border border-slate-300 p-5">
@@ -84,10 +111,49 @@ const Review = () => {
       ></Textarea>
 
       <div className="flex pt-2 justify-end">
-        <Button className="w-28">Submit</Button>
+        <Button
+          className="w-28"
+          onClick={() => {
+            reviewMutation.mutate();
+          }}
+        >
+          Submit
+        </Button>
       </div>
-      {/* </form> */}
-      {/* // </Form> */}
+      <div>
+        <div className="font-medium text-lg mt-5">Reviews</div>
+        {reviewsQuery.isLoading && (
+          <div className="flex flex-col gap-5 mt-5">
+            <Skeleton className="h-20"></Skeleton>
+            <Skeleton className="h-20"></Skeleton>
+            <Skeleton className="h-20"></Skeleton>
+            <Skeleton className="h-20"></Skeleton>
+          </div>
+        )}
+        {reviewsQuery.data?.data.map((review: T_ReviewData, index) => {
+          return (
+            <div
+              key={index}
+              className="border flex justify-between border-slate-300 p-2 rounded-md"
+            >
+              <Avatar>
+                <AvatarImage src={review.user.photo} alt="User"></AvatarImage>
+              </Avatar>
+
+              <div className="description flex flex-col w-full pl-2  justify-between">
+                <div className="flex w-full justify-between">
+                  <div className="name font-semibold">{review.user.name}</div>
+                  <div className="ratings flex gap-1">
+                    {review.rating}
+                    <Star size={20}></Star>
+                  </div>
+                </div>
+                <div className="comment text-slate-500">{review.comment}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
