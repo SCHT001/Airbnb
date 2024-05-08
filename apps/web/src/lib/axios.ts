@@ -48,3 +48,11 @@ export const A_favorite = axios.create({
   },
   withCredentials: true,
 });
+
+export const A_review = axios.create({
+  baseURL: `${ENDPOINT}/review`,
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+});
