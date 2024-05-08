@@ -1,6 +1,6 @@
 import axios from "axios";
-const ENDPOINT = "https://airbnb-s9n4.onrender.com/api";
-// const ENDPOINT = "http://localhost:5606/api";
+// const ENDPOINT = "https://airbnb-s9n4.onrender.com/api";
+const ENDPOINT = "http://localhost:5606/api";
 
 export const host = axios.create({
   baseURL: `${ENDPOINT}`,

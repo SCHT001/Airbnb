@@ -1,6 +1,7 @@
 "use client";
 import Booking from "@/components/room/Booking";
 import PhotoGrid from "@/components/room/PhotoGrid";
+import Review from "@/components/room/Review";
 import RoomDetails from "@/components/room/RoomDetails";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -81,6 +82,10 @@ const Room = () => {
           <RoomDetails roomData={roomData}></RoomDetails>
           <Booking roomData={roomData}></Booking>
         </div>
+
+        {/* Ratings and revies */}
+
+        <Review></Review>
       </div>
     );
   } else {
