@@ -25,6 +25,7 @@ model user {
   listings    listing[]
   bookings    bookings[]
   favourites  favourite[]
+  reviews     review[]
 }
 
 model token {
@@ -52,6 +53,7 @@ model listing {
   host          user            @relation(fields: [host_id], references: [id], onDelete: Cascade)
   bookings      bookings[]
   favourites    favourite[]
+  reviews       review[]
 }
 
 model listing_image {
@@ -85,6 +87,16 @@ model favourite {
   id         String  @id @default(cuid())
   user_id    String
   listing_id String
+  user       user    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  listing    listing @relation(fields: [listing_id], references: [id], onDelete: Cascade)
+}
+
+model review {
+  id         String  @id @default(cuid())
+  user_id    String
+  listing_id String
+  rating     Float
+  comment    String
   user       user    @relation(fields: [user_id], references: [id], onDelete: Cascade)
   listing    listing @relation(fields: [listing_id], references: [id], onDelete: Cascade)
 }
