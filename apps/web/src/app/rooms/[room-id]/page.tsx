@@ -73,21 +73,15 @@ const Room = () => {
             </Button>
           </div>
         </div>
-
         {/* Room images */}
         <PhotoGrid photos={roomData.images}></PhotoGrid>
-
         {/* details and booking */}
-
         <div className="flex flex-col lg:flex-row gap-4 justify-between pt-10">
           <RoomDetails roomData={roomData}></RoomDetails>
           <Booking roomData={roomData}></Booking>
         </div>
-
         {/* Ratings and revies */}
-
         <Review listingId={roomId}></Review>
-
         {/* Map */}
         <Map></Map>
       </div>
