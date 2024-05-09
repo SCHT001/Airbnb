@@ -324,8 +324,8 @@ const page = () => {
                 "price",
                 placeDescriptionForm.getValues("price")
               );
-              // onSubmit();
-              setStep(step + 1);
+              onSubmit();
+              // setStep(step + 1);
             })}
           >
             <div className="flex justify-center">
