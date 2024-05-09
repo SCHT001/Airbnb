@@ -2,6 +2,7 @@
 import AccommodationType from "@/components/become-a-host/Accommodation-type";
 import BasicAvailability from "@/components/become-a-host/BasicAvailability";
 import Footer from "@/components/become-a-host/Footer";
+import Location from "@/components/become-a-host/Location";
 import Navbar from "@/components/become-a-host/Navbar";
 import PhotoUpload from "@/components/become-a-host/PhotoUpload";
 import PlaceType from "@/components/become-a-host/Type-of-place";
@@ -78,7 +79,7 @@ const page = () => {
 
   const becomeHostMutation = useMutation({
     mutationFn: submitMutation,
-    onSuccess(data, variables, context) {
+    onSuccess(data) {
       photosMutation.mutate(data.data.id);
     },
   });
@@ -323,7 +324,8 @@ const page = () => {
                 "price",
                 placeDescriptionForm.getValues("price")
               );
-              onSubmit();
+              // onSubmit();
+              setStep(step + 1);
             })}
           >
             <div className="flex justify-center">
@@ -367,6 +369,12 @@ const page = () => {
             </div>
           </form>
         </Form>
+      )}
+      {step == 6 && (
+        <>
+          <Location></Location>
+          <Footer step={step} setStep={setStep}></Footer>
+        </>
       )}
     </div>
   );
