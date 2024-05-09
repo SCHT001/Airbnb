@@ -26,6 +26,7 @@ export const ReviewController = {
       HandleError(res, 500, e);
     }
   },
+
   add: async (req: Request, res: Response) => {
     try {
       const data: {
@@ -54,7 +55,28 @@ export const ReviewController = {
         },
       });
 
-      return res.status(201).json(review);
+      // update listing's rating
+      const placeRating = await prisma.listing.findFirst({
+        where: {
+          id: data.listingId,
+        },
+      });
+
+      const neWrating = await prisma.listing.update({
+        where: {
+          id: data.listingId,
+        },
+        data: {
+          rating: ((placeRating?.rating || 0) + data.rating) / 2,
+        },
+      });
+
+      return res.status(201).send({
+        status: "success",
+        data: review,
+        message: "Review added successfully",
+        error: [],
+      });
     } catch (e) {
       console.log(e);
       return HandleError(res, 500, e);
