@@ -2,6 +2,7 @@
 import AccommodationType from "@/components/become-a-host/Accommodation-type";
 import BasicAvailability from "@/components/become-a-host/BasicAvailability";
 import Footer from "@/components/become-a-host/Footer";
+import Location from "@/components/become-a-host/Location";
 import Navbar from "@/components/become-a-host/Navbar";
 import PhotoUpload from "@/components/become-a-host/PhotoUpload";
 import PlaceType from "@/components/become-a-host/Type-of-place";
@@ -23,7 +24,7 @@ import { listingInputSchema } from "../../../schema";
 
 const page = () => {
   const router = useRouter();
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(6);
 
   // initialize form
   const becomeHostForm = useForm({
@@ -40,6 +41,7 @@ const page = () => {
       title: "",
       description: "",
       price: 0,
+      location: ["51.505", "-0.09"],
     },
     resolver: zodResolver(listingInputSchema),
   });
@@ -371,7 +373,7 @@ const page = () => {
       )}
       {step == 6 && (
         <>
-          {/* <Location></Location> */}
+          <Location form={becomeHostForm}></Location>
           <Footer step={step} setStep={setStep}></Footer>
         </>
       )}

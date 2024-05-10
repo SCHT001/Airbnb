@@ -1,8 +1,12 @@
 "use client";
 import "leaflet/dist/leaflet.css";
+import { FC } from "react";
+import { UseFormReturn } from "react-hook-form";
 import { MapContainer } from "react-leaflet";
 import MapContents from "./MapContents";
-const Map = () => {
+const Map: FC<{
+  form: UseFormReturn<any>;
+}> = ({ form }) => {
   return (
     <div className="h-52 w-52 mb-[200px]">
       <MapContainer
@@ -11,7 +15,7 @@ const Map = () => {
         zoom={13}
         scrollWheelZoom={false}
       >
-        <MapContents></MapContents>
+        <MapContents form={form}></MapContents>
       </MapContainer>
     </div>
   );

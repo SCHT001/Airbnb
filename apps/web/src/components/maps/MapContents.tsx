@@ -1,11 +1,17 @@
 import { Icon, LatLngTuple } from "leaflet";
-import { useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { UseFormReturn } from "react-hook-form";
 import { Marker, TileLayer, useMap } from "react-leaflet";
 
-const MapContents = () => {
+const MapContents: FC<{
+  form: UseFormReturn<any>;
+}> = ({ form }) => {
   const [position, setPosition] = useState<LatLngTuple>([51.505, -0.09]);
 
   const map = useMap();
+  useEffect(() => {
+    form.setValue("location", position);
+  }, [position]);
 
   map.locate().on("locationfound", (e) => {
     map.flyTo(e.latlng);
