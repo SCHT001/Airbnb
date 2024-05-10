@@ -2,7 +2,6 @@
 import AccommodationType from "@/components/become-a-host/Accommodation-type";
 import BasicAvailability from "@/components/become-a-host/BasicAvailability";
 import Footer from "@/components/become-a-host/Footer";
-import Location from "@/components/become-a-host/Location";
 import Navbar from "@/components/become-a-host/Navbar";
 import PhotoUpload from "@/components/become-a-host/PhotoUpload";
 import PlaceType from "@/components/become-a-host/Type-of-place";
@@ -372,7 +371,7 @@ const page = () => {
       )}
       {step == 6 && (
         <>
-          <Location></Location>
+          {/* <Location></Location> */}
           <Footer step={step} setStep={setStep}></Footer>
         </>
       )}

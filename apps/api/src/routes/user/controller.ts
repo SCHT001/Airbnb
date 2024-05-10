@@ -168,7 +168,9 @@ export const getLoggedInUser = async (req: Request, res: Response) => {
 
     return res.status(200).send({
       status: "success",
-      data: user,
+      data: {
+        user: user?.user,
+      },
       message: "loged in user retrived",
       error: [],
     });

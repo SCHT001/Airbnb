@@ -1,22 +1,35 @@
 "use client";
-import Map from "@/components/maps/Map";
 import Booking from "@/components/room/Booking";
 import PhotoGrid from "@/components/room/PhotoGrid";
 import Review from "@/components/room/Review";
 import RoomDetails from "@/components/room/RoomDetails";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { A_favorite, listings } from "@/lib/axios";
-import { T_Room } from "@/types";
+import { A_favorite, listings, user } from "@/lib/axios";
+import { T_Room, T_responseUserData } from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCookie } from "cookies-next";
 import { Heart, Share } from "lucide-react";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const Room = () => {
   const params = useParams();
   const roomId = params["room-id"];
+
+  // fetch logged in user
+  const [userId, setUserId] = useState(null);
+
+  const loggedInUserQuery = useQuery({
+    queryKey: ["user-data"],
+    queryFn: async () => {
+      const response = await user.get("/user/loggedIn");
+      setUserId(response.data.data.userId);
+      // console.log(response.data.data);
+      const data: { user: T_responseUserData } = response.data.data;
+      return data;
+    },
+  });
 
   // Fetch room data
   const { data, isSuccess } = useQuery({
@@ -31,7 +44,7 @@ const Room = () => {
   const addToFavourite = async () => {
     const response = await A_favorite.post(`/`, {
       listing_id: roomId,
-      user_id: getCookie("airbnb_userId"),
+      user_id: loggedInUserQuery.data?.user.id,
     });
     return response.data;
   };
@@ -83,7 +96,7 @@ const Room = () => {
         {/* Ratings and revies */}
         <Review listingId={roomId}></Review>
         {/* Map */}
-        <Map></Map>
+        {/* <Map></Map> */}
       </div>
     );
   } else {
