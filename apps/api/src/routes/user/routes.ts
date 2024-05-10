@@ -11,9 +11,10 @@ router.post("/photo", (req, res) => {
   return uploadPhoto(req, res);
 });
 
+router.get("/loggedIn", getLoggedInUser);
+
 router.get("/:userId", (req, res) => {
   return getUser(req, res);
 });
-router.get("/loggedIn", getLoggedInUser);
 
 export default router;

@@ -151,6 +151,7 @@ export const getUser = async (req: Request, res: Response) => {
 };
 
 export const getLoggedInUser = async (req: Request, res: Response) => {
+  console.log("here");
   try {
     if (!req.cookies["token"]) return HandleError(res, 401, "Not logged in");
 
