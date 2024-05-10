@@ -9,8 +9,10 @@ const MapContents = () => {
 
   map.locate().on("locationfound", (e) => {
     map.flyTo(e.latlng);
-    // setPosition([e.latlng.lat, e.latlng.lng]);
-    console.log(e.latlng);
+  });
+
+  map.on("click", (e) => {
+    setPosition([e.latlng.lat, e.latlng.lng]);
   });
 
   const costomIcon = new Icon({

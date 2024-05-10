@@ -1,4 +1,5 @@
 "use client";
+import Map from "@/components/maps/Map";
 import Booking from "@/components/room/Booking";
 import PhotoGrid from "@/components/room/PhotoGrid";
 import Review from "@/components/room/Review";
@@ -85,7 +86,7 @@ const Room = () => {
         {/* Ratings and revies */}
         <Review listingId={roomId}></Review>
         {/* Map */}
-        {/* <Map></Map> */}
+        <Map></Map>
       </div>
     );
   } else {
