@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getUser, uploadPhoto } from "./controller";
+import { getLoggedInUser, getUser, uploadPhoto } from "./controller";
 
 const router: Router = Router();
 
@@ -14,5 +14,6 @@ router.post("/photo", (req, res) => {
 router.get("/:userId", (req, res) => {
   return getUser(req, res);
 });
+router.get("/loggedIn", getLoggedInUser);
 
 export default router;

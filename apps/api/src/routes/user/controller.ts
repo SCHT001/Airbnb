@@ -149,3 +149,29 @@ export const getUser = async (req: Request, res: Response) => {
     return HandleError(res, 500, "Unable to get user");
   }
 };
+
+export const getLoggedInUser = async (req: Request, res: Response) => {
+  try {
+    if (!req.cookies["token"]) return HandleError(res, 401, "Not logged in");
+
+    const requestCookie = req.cookies["token"];
+
+    const user = await prisma.token.findFirst({
+      where: {
+        token: requestCookie,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    return res.status(200).send({
+      status: "success",
+      data: user,
+      message: "loged in user retrived",
+      error: [],
+    });
+  } catch (e) {
+    return HandleError(res, 500, e);
+  }
+};
