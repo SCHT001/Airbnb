@@ -5,12 +5,12 @@ import Review from "@/components/room/Review";
 import RoomDetails from "@/components/room/RoomDetails";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { A_favorite, listings, user } from "@/lib/axios";
-import { T_Room, T_responseUserData } from "@/types";
+import useGetLoggedInUser from "@/hooks/getLoggedInUser";
+import { A_favorite, listings } from "@/lib/axios";
+import { T_Room } from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Heart, Share } from "lucide-react";
 import { useParams } from "next/navigation";
-import { useState } from "react";
 import { toast } from "sonner";
 
 const Room = () => {
@@ -18,18 +18,7 @@ const Room = () => {
   const roomId = params["room-id"];
 
   // fetch logged in user
-  const [userId, setUserId] = useState(null);
-
-  const loggedInUserQuery = useQuery({
-    queryKey: ["user-data"],
-    queryFn: async () => {
-      const response = await user.get("/user/loggedIn");
-      setUserId(response.data.data.userId);
-      // console.log(response.data.data);
-      const data: { user: T_responseUserData } = response.data.data;
-      return data;
-    },
-  });
+  const loggedInUserQuery = useGetLoggedInUser();
 
   // Fetch room data
   const { data, isSuccess } = useQuery({
